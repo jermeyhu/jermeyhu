@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>排序算法--睡眠排序、面条排序、猴子排序 (非常严肃) | 四少爷的blog</title>
+    <meta name="generator" content="VuePress 1.8.0">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon-152x152.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#3eaf7c">
+    <meta name="description" content="一个没有技术只会增删改查的后端">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/icons/msapplication-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/assets/css/0.styles.d0b3e815.css" as="style"><link rel="preload" href="/assets/js/app.c6e224e5.js" as="script"><link rel="preload" href="/assets/js/2.b7cbfaf7.js" as="script"><link rel="preload" href="/assets/js/82.10e5cd44.js" as="script"><link rel="preload" href="/assets/js/4.eccf986c.js" as="script"><link rel="prefetch" href="/assets/js/10.3d173a74.js"><link rel="prefetch" href="/assets/js/100.03eb6d22.js"><link rel="prefetch" href="/assets/js/101.4af9dcd2.js"><link rel="prefetch" href="/assets/js/102.3dfee287.js"><link rel="prefetch" href="/assets/js/103.bcc3efe1.js"><link rel="prefetch" href="/assets/js/104.91e29c68.js"><link rel="prefetch" href="/assets/js/105.4be736fe.js"><link rel="prefetch" href="/assets/js/106.0f6ec838.js"><link rel="prefetch" href="/assets/js/107.4677f5b7.js"><link rel="prefetch" href="/assets/js/108.0b5939c5.js"><link rel="prefetch" href="/assets/js/109.41ec9c62.js"><link rel="prefetch" href="/assets/js/11.69c721d7.js"><link rel="prefetch" href="/assets/js/110.353c15aa.js"><link rel="prefetch" href="/assets/js/111.f0c0561d.js"><link rel="prefetch" href="/assets/js/112.48283b4f.js"><link rel="prefetch" href="/assets/js/113.67040f01.js"><link rel="prefetch" href="/assets/js/114.36f1ec6a.js"><link rel="prefetch" href="/assets/js/115.cc326211.js"><link rel="prefetch" href="/assets/js/116.0b4bc34b.js"><link rel="prefetch" href="/assets/js/117.9c173de4.js"><link rel="prefetch" href="/assets/js/118.65292126.js"><link rel="prefetch" href="/assets/js/119.8ccd47f0.js"><link rel="prefetch" href="/assets/js/12.814342e8.js"><link rel="prefetch" href="/assets/js/120.b7cfae07.js"><link rel="prefetch" href="/assets/js/121.4185569f.js"><link rel="prefetch" href="/assets/js/122.4a5129ce.js"><link rel="prefetch" href="/assets/js/123.926a11ae.js"><link rel="prefetch" href="/assets/js/124.e43b7caf.js"><link rel="prefetch" href="/assets/js/125.7f4d929e.js"><link rel="prefetch" href="/assets/js/126.cf0b4306.js"><link rel="prefetch" href="/assets/js/127.40ae6774.js"><link rel="prefetch" href="/assets/js/128.ea14976d.js"><link rel="prefetch" href="/assets/js/129.dd49d5aa.js"><link rel="prefetch" href="/assets/js/13.00ab167e.js"><link rel="prefetch" href="/assets/js/130.c573bda7.js"><link rel="prefetch" href="/assets/js/14.790b5f41.js"><link rel="prefetch" href="/assets/js/15.aa7a09f7.js"><link rel="prefetch" href="/assets/js/16.080fd85d.js"><link rel="prefetch" href="/assets/js/17.fdea3ecd.js"><link rel="prefetch" href="/assets/js/18.ff346c39.js"><link rel="prefetch" href="/assets/js/19.96e4b25c.js"><link rel="prefetch" href="/assets/js/20.4b6b3ab4.js"><link rel="prefetch" href="/assets/js/21.981eb605.js"><link rel="prefetch" href="/assets/js/22.c62af8e9.js"><link rel="prefetch" href="/assets/js/23.a46e9d40.js"><link rel="prefetch" href="/assets/js/24.0c0d901d.js"><link rel="prefetch" href="/assets/js/25.559bc3da.js"><link rel="prefetch" href="/assets/js/26.8023b8ad.js"><link rel="prefetch" href="/assets/js/27.50f745fd.js"><link rel="prefetch" href="/assets/js/28.afabb104.js"><link rel="prefetch" href="/assets/js/29.15fd423c.js"><link rel="prefetch" href="/assets/js/3.edc2e2e0.js"><link rel="prefetch" href="/assets/js/30.09df950d.js"><link rel="prefetch" href="/assets/js/31.469887f9.js"><link rel="prefetch" href="/assets/js/32.abb247fc.js"><link rel="prefetch" href="/assets/js/33.078e0e2b.js"><link rel="prefetch" href="/assets/js/34.293266fe.js"><link rel="prefetch" href="/assets/js/35.1d572fd0.js"><link rel="prefetch" href="/assets/js/36.21f5a005.js"><link rel="prefetch" href="/assets/js/37.16dbe94f.js"><link rel="prefetch" href="/assets/js/38.e8f634d0.js"><link rel="prefetch" href="/assets/js/39.cdb110b9.js"><link rel="prefetch" href="/assets/js/40.2981beaf.js"><link rel="prefetch" href="/assets/js/41.18dc9bb4.js"><link rel="prefetch" href="/assets/js/42.6308be0b.js"><link rel="prefetch" href="/assets/js/43.a073b326.js"><link rel="prefetch" href="/assets/js/44.26b9dff2.js"><link rel="prefetch" href="/assets/js/45.d0d8452b.js"><link rel="prefetch" href="/assets/js/46.6730e2ef.js"><link rel="prefetch" href="/assets/js/47.87b61895.js"><link rel="prefetch" href="/assets/js/48.03905597.js"><link rel="prefetch" href="/assets/js/49.e8de3ab2.js"><link rel="prefetch" href="/assets/js/5.01c65514.js"><link rel="prefetch" href="/assets/js/50.98818140.js"><link rel="prefetch" href="/assets/js/51.b9a00e08.js"><link rel="prefetch" href="/assets/js/52.15ab9fb1.js"><link rel="prefetch" href="/assets/js/53.1f015475.js"><link rel="prefetch" href="/assets/js/54.0b7ca475.js"><link rel="prefetch" href="/assets/js/55.56b4dbec.js"><link rel="prefetch" href="/assets/js/56.604f094f.js"><link rel="prefetch" href="/assets/js/57.360df15e.js"><link rel="prefetch" href="/assets/js/58.dd0867c1.js"><link rel="prefetch" href="/assets/js/59.b9022feb.js"><link rel="prefetch" href="/assets/js/6.a888c7b8.js"><link rel="prefetch" href="/assets/js/60.e400b75e.js"><link rel="prefetch" href="/assets/js/61.ea0e3484.js"><link rel="prefetch" href="/assets/js/62.5e8a44de.js"><link rel="prefetch" href="/assets/js/63.447c0990.js"><link rel="prefetch" href="/assets/js/64.dc72b145.js"><link rel="prefetch" href="/assets/js/65.36ba32a8.js"><link rel="prefetch" href="/assets/js/66.066da4e4.js"><link rel="prefetch" href="/assets/js/67.7d0caf65.js"><link rel="prefetch" href="/assets/js/68.04870676.js"><link rel="prefetch" href="/assets/js/69.6ca7ed64.js"><link rel="prefetch" href="/assets/js/7.39f68421.js"><link rel="prefetch" href="/assets/js/70.68f9ca81.js"><link rel="prefetch" href="/assets/js/71.c1b13530.js"><link rel="prefetch" href="/assets/js/72.44792172.js"><link rel="prefetch" href="/assets/js/73.6bf299a3.js"><link rel="prefetch" href="/assets/js/74.395612f2.js"><link rel="prefetch" href="/assets/js/75.27869084.js"><link rel="prefetch" href="/assets/js/76.70cdfc3b.js"><link rel="prefetch" href="/assets/js/77.8bf29c93.js"><link rel="prefetch" href="/assets/js/78.ca725174.js"><link rel="prefetch" href="/assets/js/79.be4cd131.js"><link rel="prefetch" href="/assets/js/8.ac316b23.js"><link rel="prefetch" href="/assets/js/80.e04461ed.js"><link rel="prefetch" href="/assets/js/81.f648f972.js"><link rel="prefetch" href="/assets/js/83.0f11db9b.js"><link rel="prefetch" href="/assets/js/84.503ec09d.js"><link rel="prefetch" href="/assets/js/85.3e0d050b.js"><link rel="prefetch" href="/assets/js/86.6011a16b.js"><link rel="prefetch" href="/assets/js/87.69a8b53e.js"><link rel="prefetch" href="/assets/js/88.377c09c4.js"><link rel="prefetch" href="/assets/js/89.ee72ebc7.js"><link rel="prefetch" href="/assets/js/9.46521a64.js"><link rel="prefetch" href="/assets/js/90.d7ead2cc.js"><link rel="prefetch" href="/assets/js/91.68a1e737.js"><link rel="prefetch" href="/assets/js/92.c0649a60.js"><link rel="prefetch" href="/assets/js/93.c77ea7a5.js"><link rel="prefetch" href="/assets/js/94.5abf6431.js"><link rel="prefetch" href="/assets/js/95.35575b8d.js"><link rel="prefetch" href="/assets/js/96.4956a3d1.js"><link rel="prefetch" href="/assets/js/97.f76d7fbe.js"><link rel="prefetch" href="/assets/js/98.3deae2b2.js"><link rel="prefetch" href="/assets/js/99.c3400551.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.d0b3e815.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">四少爷的blog</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>简介</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>容器</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>虚拟机</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>软件测试</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>大数据</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/posts/2018-09-21-1.html" class="sidebar-link">Kettle连接 SAP Hana 数据库</a></li><li><a href="/posts/2018-10-19-1.html" class="sidebar-link">Kettle入门之一 介绍、安装</a></li><li><a href="/posts/2018-11-10-1.html" aria-current="page" class="active sidebar-link">排序算法--睡眠排序、面条排序、猴子排序 (非常严肃)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/posts/2018-11-10-1.html#睡眠排序-sleep-sort" class="sidebar-link">睡眠排序（Sleep Sort）</a></li><li class="sidebar-sub-header"><a href="/posts/2018-11-10-1.html#面条排序-spaghetti-sort-意面排序" class="sidebar-link">面条排序(Spaghetti Sort, 意面排序)</a></li><li class="sidebar-sub-header"><a href="/posts/2018-11-10-1.html#猴子排序-bogo-sort" class="sidebar-link">猴子排序（Bogo Sort）</a></li></ul></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>nginx</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Python</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Java</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Linux</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>前端</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>C#</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>jekyll</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>其它</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="排序算法-睡眠排序、面条排序、猴子排序-非常严肃"><a href="#排序算法-睡眠排序、面条排序、猴子排序-非常严肃" class="header-anchor">#</a> 排序算法--睡眠排序、面条排序、猴子排序 (非常严肃)</h1> <p>输入：n个待排序的数组成的数组。
+输出：按顺序从小到大排列好的数组。</p> <h2 id="睡眠排序-sleep-sort"><a href="#睡眠排序-sleep-sort" class="header-anchor">#</a> 睡眠排序（Sleep Sort）</h2> <p>构造n个线程，它们和这n个数一一对应。
+初始化后，线程们开始睡眠，等到对应的数那么多个时间单位后各自醒来，然后输出它对应的数。
+这样最小的数对应的线程最早醒来，这个数最早被输出。
+等所有线程都醒来，排序就结束了。能脑洞大开想出此算法的，绝壁天才啊。。。</p> <p>于是我一本正经地试着实现一下这个Idea:</p> <div class="language- extra-class"><pre class="language-text"><code>public class SleepSort {
+    public static void main(String[] args){
+        int[] nums={9,7,2,6,15,8,9,9,9,9,9};
+        SleepSort.sort(nums);
+        for(int n:nums)
+            System.out.printf(&quot;%d   &quot;,n);
+    }
+     
+    public static void sort(int[] nums){
+        Sleeper.idx=0;
+        Sleeper.output=new int[nums.length];
+        for(int i=0;i&lt;nums.length;i++)        //[1]
+            new Sleeper(nums[i]).start();
+        
+        try {
+            Thread.sleep(100);                //[2]
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        for(int i=0;i&lt;nums.length;i++)
+            nums[i]=Sleeper.output[i];
+    }
+}
+
+class Sleeper extends Thread{
+    public static int[] output;
+    public static int idx;
+     
+    private int sleep_time;
+
+    public Sleeper(){
+        this.sleep_time=0;
+    }
+    public Sleeper(int sleep_time){
+        this.sleep_time=sleep_time;
+    }
+    @Override
+    public void run(){
+        try{
+            Thread.sleep(this.sleep_time);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        output[idx++]=this.sleep_time;
+    }
+}
+</code></pre></div><p>注释：</p> <p>[1] 当线程不太多的时候，基本可以认为它们是同时启动的。</p> <p>[2] 主线程睡眠足够长时间，等所有Sleeper线程都执行完毕。可以把时间设成比最大输入稍大。</p> <p>上面的代码很粗略，很多八阿哥啦。比如(1) 搞不定负数 (2)比如输入数据很相近时会有误差 (3)输入数据很多时，这些线程不能看作是同时启动等等...对于(1)，可以用一个在恒正的函数把输入映射成时间；(2)，可以乘个系数，放大数据间的差，但是依然搞不定重复的数据；(3)，试着让算法在多个物理核上真正的并行起来？</p> <h2 id="面条排序-spaghetti-sort-意面排序"><a href="#面条排序-spaghetti-sort-意面排序" class="header-anchor">#</a> 面条排序(Spaghetti Sort, 意面排序)</h2> <p>首先去买一捆面，是意面挂面还是手擀面请按个人口味决定，最好是硬的。
+找到数组中最大和最小的两个数(O(n))，让最大的数对应一根很长的面条，最小的数对应一根很短的面条。
+重新遍历数组，每遇到一个数，就取一根面条，把它切成这个数对应的长度，可以得到n根面条。
+这里的数与面条长度的对应可以用一个严格递增的函数来映射。
+接下来，一手握住这n根面条，稍微用力，别握太紧，在平放的桌面上直立着放下，让所有的面条底端接触到桌面。
+另一只手平行于桌面，从面条上方缓慢往下移动，每当这只手碰到一根面条，移走它，并把对应的数输出到结果数组中，直到移走全部面条。</p> <p>用完的面条还可以煮夜宵哦。</p> <p>面条排序的思想基本上跟睡眠排序一样样的，代码不造咋写...</p> <h2 id="猴子排序-bogo-sort"><a href="#猴子排序-bogo-sort" class="header-anchor">#</a> 猴子排序（Bogo Sort）</h2> <p>随机打乱数组，检查是否排好序，若是，则输出，否则再次打乱，再检查...最佳情况O(n)，平均O(n*n!)，最坏可执行直到世界的尽头。</p> <p>算法代码主体部分基本上就是这样的：</p> <div class="language- extra-class"><pre class="language-text"><code>while(! isOrdered(nums))
+ shuffle(nums);
+</code></pre></div><p>See also 无限猴子定理 ：一只猴子随机敲打打字机键盘，如果时间足够长，总是能打出特定的文本，比如莎士比亚全集。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/posts/2018-10-19-1.html" class="prev">
+        Kettle入门之一 介绍、安装
+      </a></span> <span class="next"><a href="/posts/2018-07-10-1.html">
+        NGINX + LUA 实现身份验证​
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.c6e224e5.js" defer></script><script src="/assets/js/2.b7cbfaf7.js" defer></script><script src="/assets/js/82.10e5cd44.js" defer></script><script src="/assets/js/4.eccf986c.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Nginx实现JWT验证-基于OpenResty实现​ | 四少爷的blog</title>
+    <meta name="generator" content="VuePress 1.8.0">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon-152x152.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#3eaf7c">
+    <meta name="description" content="一个没有技术只会增删改查的后端">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/icons/msapplication-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/assets/css/0.styles.d0b3e815.css" as="style"><link rel="preload" href="/assets/js/app.c6e224e5.js" as="script"><link rel="preload" href="/assets/js/2.b7cbfaf7.js" as="script"><link rel="preload" href="/assets/js/99.c3400551.js" as="script"><link rel="preload" href="/assets/js/4.eccf986c.js" as="script"><link rel="prefetch" href="/assets/js/10.3d173a74.js"><link rel="prefetch" href="/assets/js/100.03eb6d22.js"><link rel="prefetch" href="/assets/js/101.4af9dcd2.js"><link rel="prefetch" href="/assets/js/102.3dfee287.js"><link rel="prefetch" href="/assets/js/103.bcc3efe1.js"><link rel="prefetch" href="/assets/js/104.91e29c68.js"><link rel="prefetch" href="/assets/js/105.4be736fe.js"><link rel="prefetch" href="/assets/js/106.0f6ec838.js"><link rel="prefetch" href="/assets/js/107.4677f5b7.js"><link rel="prefetch" href="/assets/js/108.0b5939c5.js"><link rel="prefetch" href="/assets/js/109.41ec9c62.js"><link rel="prefetch" href="/assets/js/11.69c721d7.js"><link rel="prefetch" href="/assets/js/110.353c15aa.js"><link rel="prefetch" href="/assets/js/111.f0c0561d.js"><link rel="prefetch" href="/assets/js/112.48283b4f.js"><link rel="prefetch" href="/assets/js/113.67040f01.js"><link rel="prefetch" href="/assets/js/114.36f1ec6a.js"><link rel="prefetch" href="/assets/js/115.cc326211.js"><link rel="prefetch" href="/assets/js/116.0b4bc34b.js"><link rel="prefetch" href="/assets/js/117.9c173de4.js"><link rel="prefetch" href="/assets/js/118.65292126.js"><link rel="prefetch" href="/assets/js/119.8ccd47f0.js"><link rel="prefetch" href="/assets/js/12.814342e8.js"><link rel="prefetch" href="/assets/js/120.b7cfae07.js"><link rel="prefetch" href="/assets/js/121.4185569f.js"><link rel="prefetch" href="/assets/js/122.4a5129ce.js"><link rel="prefetch" href="/assets/js/123.926a11ae.js"><link rel="prefetch" href="/assets/js/124.e43b7caf.js"><link rel="prefetch" href="/assets/js/125.7f4d929e.js"><link rel="prefetch" href="/assets/js/126.cf0b4306.js"><link rel="prefetch" href="/assets/js/127.40ae6774.js"><link rel="prefetch" href="/assets/js/128.ea14976d.js"><link rel="prefetch" href="/assets/js/129.dd49d5aa.js"><link rel="prefetch" href="/assets/js/13.00ab167e.js"><link rel="prefetch" href="/assets/js/130.c573bda7.js"><link rel="prefetch" href="/assets/js/14.790b5f41.js"><link rel="prefetch" href="/assets/js/15.aa7a09f7.js"><link rel="prefetch" href="/assets/js/16.080fd85d.js"><link rel="prefetch" href="/assets/js/17.fdea3ecd.js"><link rel="prefetch" href="/assets/js/18.ff346c39.js"><link rel="prefetch" href="/assets/js/19.96e4b25c.js"><link rel="prefetch" href="/assets/js/20.4b6b3ab4.js"><link rel="prefetch" href="/assets/js/21.981eb605.js"><link rel="prefetch" href="/assets/js/22.c62af8e9.js"><link rel="prefetch" href="/assets/js/23.a46e9d40.js"><link rel="prefetch" href="/assets/js/24.0c0d901d.js"><link rel="prefetch" href="/assets/js/25.559bc3da.js"><link rel="prefetch" href="/assets/js/26.8023b8ad.js"><link rel="prefetch" href="/assets/js/27.50f745fd.js"><link rel="prefetch" href="/assets/js/28.afabb104.js"><link rel="prefetch" href="/assets/js/29.15fd423c.js"><link rel="prefetch" href="/assets/js/3.edc2e2e0.js"><link rel="prefetch" href="/assets/js/30.09df950d.js"><link rel="prefetch" href="/assets/js/31.469887f9.js"><link rel="prefetch" href="/assets/js/32.abb247fc.js"><link rel="prefetch" href="/assets/js/33.078e0e2b.js"><link rel="prefetch" href="/assets/js/34.293266fe.js"><link rel="prefetch" href="/assets/js/35.1d572fd0.js"><link rel="prefetch" href="/assets/js/36.21f5a005.js"><link rel="prefetch" href="/assets/js/37.16dbe94f.js"><link rel="prefetch" href="/assets/js/38.e8f634d0.js"><link rel="prefetch" href="/assets/js/39.cdb110b9.js"><link rel="prefetch" href="/assets/js/40.2981beaf.js"><link rel="prefetch" href="/assets/js/41.18dc9bb4.js"><link rel="prefetch" href="/assets/js/42.6308be0b.js"><link rel="prefetch" href="/assets/js/43.a073b326.js"><link rel="prefetch" href="/assets/js/44.26b9dff2.js"><link rel="prefetch" href="/assets/js/45.d0d8452b.js"><link rel="prefetch" href="/assets/js/46.6730e2ef.js"><link rel="prefetch" href="/assets/js/47.87b61895.js"><link rel="prefetch" href="/assets/js/48.03905597.js"><link rel="prefetch" href="/assets/js/49.e8de3ab2.js"><link rel="prefetch" href="/assets/js/5.01c65514.js"><link rel="prefetch" href="/assets/js/50.98818140.js"><link rel="prefetch" href="/assets/js/51.b9a00e08.js"><link rel="prefetch" href="/assets/js/52.15ab9fb1.js"><link rel="prefetch" href="/assets/js/53.1f015475.js"><link rel="prefetch" href="/assets/js/54.0b7ca475.js"><link rel="prefetch" href="/assets/js/55.56b4dbec.js"><link rel="prefetch" href="/assets/js/56.604f094f.js"><link rel="prefetch" href="/assets/js/57.360df15e.js"><link rel="prefetch" href="/assets/js/58.dd0867c1.js"><link rel="prefetch" href="/assets/js/59.b9022feb.js"><link rel="prefetch" href="/assets/js/6.a888c7b8.js"><link rel="prefetch" href="/assets/js/60.e400b75e.js"><link rel="prefetch" href="/assets/js/61.ea0e3484.js"><link rel="prefetch" href="/assets/js/62.5e8a44de.js"><link rel="prefetch" href="/assets/js/63.447c0990.js"><link rel="prefetch" href="/assets/js/64.dc72b145.js"><link rel="prefetch" href="/assets/js/65.36ba32a8.js"><link rel="prefetch" href="/assets/js/66.066da4e4.js"><link rel="prefetch" href="/assets/js/67.7d0caf65.js"><link rel="prefetch" href="/assets/js/68.04870676.js"><link rel="prefetch" href="/assets/js/69.6ca7ed64.js"><link rel="prefetch" href="/assets/js/7.39f68421.js"><link rel="prefetch" href="/assets/js/70.68f9ca81.js"><link rel="prefetch" href="/assets/js/71.c1b13530.js"><link rel="prefetch" href="/assets/js/72.44792172.js"><link rel="prefetch" href="/assets/js/73.6bf299a3.js"><link rel="prefetch" href="/assets/js/74.395612f2.js"><link rel="prefetch" href="/assets/js/75.27869084.js"><link rel="prefetch" href="/assets/js/76.70cdfc3b.js"><link rel="prefetch" href="/assets/js/77.8bf29c93.js"><link rel="prefetch" href="/assets/js/78.ca725174.js"><link rel="prefetch" href="/assets/js/79.be4cd131.js"><link rel="prefetch" href="/assets/js/8.ac316b23.js"><link rel="prefetch" href="/assets/js/80.e04461ed.js"><link rel="prefetch" href="/assets/js/81.f648f972.js"><link rel="prefetch" href="/assets/js/82.10e5cd44.js"><link rel="prefetch" href="/assets/js/83.0f11db9b.js"><link rel="prefetch" href="/assets/js/84.503ec09d.js"><link rel="prefetch" href="/assets/js/85.3e0d050b.js"><link rel="prefetch" href="/assets/js/86.6011a16b.js"><link rel="prefetch" href="/assets/js/87.69a8b53e.js"><link rel="prefetch" href="/assets/js/88.377c09c4.js"><link rel="prefetch" href="/assets/js/89.ee72ebc7.js"><link rel="prefetch" href="/assets/js/9.46521a64.js"><link rel="prefetch" href="/assets/js/90.d7ead2cc.js"><link rel="prefetch" href="/assets/js/91.68a1e737.js"><link rel="prefetch" href="/assets/js/92.c0649a60.js"><link rel="prefetch" href="/assets/js/93.c77ea7a5.js"><link rel="prefetch" href="/assets/js/94.5abf6431.js"><link rel="prefetch" href="/assets/js/95.35575b8d.js"><link rel="prefetch" href="/assets/js/96.4956a3d1.js"><link rel="prefetch" href="/assets/js/97.f76d7fbe.js"><link rel="prefetch" href="/assets/js/98.3deae2b2.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.d0b3e815.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">四少爷的blog</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>简介</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>容器</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>虚拟机</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>软件测试</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>大数据</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>nginx</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/posts/2018-07-10-1.html" class="sidebar-link">NGINX + LUA 实现身份验证​</a></li><li><a href="/posts/2019-01-24-1.html" class="sidebar-link">nginx之proxy_pass指令完全拆解</a></li><li><a href="/posts/2019-02-21-1.html" class="sidebar-link">nginx反向代理webSocket配置</a></li><li><a href="/posts/2019-10-10-1.html" aria-current="page" class="active sidebar-link">Nginx实现JWT验证-基于OpenResty实现​</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/posts/2019-10-10-1.html#介绍" class="sidebar-link">介绍</a></li><li class="sidebar-sub-header"><a href="/posts/2019-10-10-1.html#实现" class="sidebar-link">实现</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/posts/2019-10-10-1.html#环境" class="sidebar-link">环境</a></li><li class="sidebar-sub-header"><a href="/posts/2019-10-10-1.html#安装openresty" class="sidebar-link">安装OpenResty</a></li><li class="sidebar-sub-header"><a href="/posts/2019-10-10-1.html#安装jwt模块" class="sidebar-link">安装JWT模块</a></li><li class="sidebar-sub-header"><a href="/posts/2019-10-10-1.html#自定义验证逻辑" class="sidebar-link">自定义验证逻辑</a></li><li class="sidebar-sub-header"><a href="/posts/2019-10-10-1.html#jwt-token生成java示例" class="sidebar-link">jwt token生成java示例</a></li></ul></li><li class="sidebar-sub-header"><a href="/posts/2019-10-10-1.html#写在最后" class="sidebar-link">写在最后</a></li></ul></li><li><a href="/posts/2020-03-11-2.html" class="sidebar-link">nginx配置文件分开配置</a></li><li><a href="/posts/2020-04-30-1.html" class="sidebar-link">基于路由openwrt固件搭建KMS服务器激活WINDOWS</a></li><li><a href="/posts/2020-09-05-1.html" class="sidebar-link">Lua操作cookie</a></li><li><a href="/posts/2020-12-01-1.html" class="sidebar-link">nginx location在配置中的优先级</a></li><li><a href="/posts/2021-01-14-1.html" class="sidebar-link">CORS解决跨域问题（Nginx跨域配置）</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Python</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Java</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Linux</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>前端</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>C#</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>jekyll</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>其它</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="nginx实现jwt验证-基于openresty实现​"><a href="#nginx实现jwt验证-基于openresty实现​" class="header-anchor">#</a> Nginx实现JWT验证-基于OpenResty实现​</h1> <h2 id="介绍"><a href="#介绍" class="header-anchor">#</a> 介绍</h2> <p>权限认证是接口开发中不可避免的问题,权限认证包括两个方面</p> <div class="language- extra-class"><pre><code>1. 接口需要知道调用的用户是谁
+2. 接口需要知道该用户是否有权限调用
+</code></pre></div><p>第1个问题偏向于架构，第2个问题更偏向于业务，因此考虑在架构层解决第1个问题，以达到以下目的</p> <div class="language- extra-class"><pre><code>1. 所有请求被保护的接口保证是合法的(已经认证过的用户)
+2. 接口可以从请求头中获取当前用户信息
+3. 每个请求都有uuid用于标识
+</code></pre></div><p>JWT(JSON Web Token)目前是应用最广的接口权限方案，具有无状态,跨系统,多语言多平台支持等特点，如果能在网关层实现JWT验证不仅可以避免代码入侵还能为整个后台提供统一的解决方案,目前客户网关使用Nginx,但社区版Nginx中没有JWT模块,自己实现不现实,因此选择OpenResty作为网关层, 据官网介绍,OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超高并发、扩展性极高的动态 Web 应用、Web 服务和动态网关。本质上就是一个Nginx+Lua的集成软件.</p> <p>整体架构如图：</p> <p><img src="/image/2019-10-10-1-1.png" alt=""></p> <h2 id="实现"><a href="#实现" class="header-anchor">#</a> 实现</h2> <h3 id="环境"><a href="#环境" class="header-anchor">#</a> 环境</h3> <div class="language- extra-class"><pre class="language-text"><code>[root@docker ~]# cat /etc/redhat-release
+CentOS Linux release 7.4.1708 (Core)
+[root@docker ~]# more /proc/version
+Linux version 3.10.0-693.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.5 20150623 (Red Hat 4.
+8.5-16) (GCC) ) #1 SMP Tue Aug 22 21:09:27 UTC 2017
+</code></pre></div><h3 id="安装openresty"><a href="#安装openresty" class="header-anchor">#</a> 安装OpenResty</h3> <p>OpenRestry安装很简单,可以在这里找到不同版本操作系统安装文档,本次使用的环境是CentOS Linux release 7.4</p> <div class="language- extra-class"><pre class="language-text"><code>[root@docker ~]# yum install yum-utils
+[root@docker ~]# yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
+[root@docker ~]# yum install openresty
+[root@docker ~]# yum install openresty-resty
+</code></pre></div><p>系统默认安装在<code>/usr/local/openresty/</code>目录下,版本如下</p> <div class="language- extra-class"><pre class="language-text"><code>[root@docker openresty]# cd /usr/local/openresty/bin/
+[root@docker bin]# ./openresty -v
+nginx version: openresty/1.13.6.2
+</code></pre></div><p>可以将OpenResty目录加到<code>PATH</code>里，方便使用.</p> <p>修改<code>nginx.conf</code>文件测试是否安装成功</p> <div class="language- extra-class"><pre class="language-text"><code>tee /usr/local/openresty/nginx/conf/nginx.conf &lt;&lt;-'EOF'
+worker_processes  1;
+error_log logs/error.log;
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen 8080;
+        location / {
+            default_type text/html;
+            content_by_lua '
+                ngx.say(&quot;&lt;p&gt;hello, world&lt;/p&gt;&quot;)
+            ';
+        }
+    }
+}
+EOF
+[root@docker conf]# openresty -s reload
+[root@docker conf]# curl localhost:8080
+&lt;p&gt;hello, world&lt;/p&gt;
+</code></pre></div><h3 id="安装jwt模块"><a href="#安装jwt模块" class="header-anchor">#</a> 安装JWT模块</h3> <p>这里使用JWT官方推荐Lua实现库,项目地址为https://github.com/SkyLothar/...,有趣的是,这个项目的介绍是这么写的<code>JWT For The Great Openresty</code>,看来是为OpenResty量身定做.github上有安装教程,但一方面有些第三方库的安装文档没有提及,另一方面有些内容没有用到安装的时候可以跳过,这里将完整安装步骤重新整理了下.</p> <div class="language- extra-class"><pre><code>1. 在release页面https://github.com/SkyLothar/...下载项目源码,截止到目前最新版为`v0.1.11`
+2. 下载`hmac`源码,截止到目前项目还未release,只能下载项目里的源文件https://github.com/jkeys089/l...
+3. 在服务器创建目录`/usr/local/openresty/nginx/jwt-lua/resty`,将第1步压缩包中目录`lua-resty-jwt-0.1.11/lib/resty/`下的所有lua文件和第2步中的`hmac.lua`文件拷贝到该目录下,文件列表如下.
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>[root@docker resty]# pwd
+/usr/local/openresty/nginx/jwt-lua/resty
+[root@docker resty]# ll
+total 60
+-rwxr-xr-x. 1 root root 11592 Jul 18 10:40 evp.lua
+-rw-r--r--. 1 root root  3796 Jul 18 10:40 hmac.lua
+-rwxr-xr-x. 1 root root 27222 Jul 18 10:40 jwt.lua
+-rwxr-xr-x. 1 root root 15257 Jul 18 10:40 jwt-validators.lua
+</code></pre></div><p>修改<code>nginx.conf</code>验证是否生效</p> <div class="language- extra-class"><pre class="language-text"><code>tee /usr/local/openresty/nginx/conf/nginx.conf &lt;&lt;-'EOF'
+worker_processes  1;
+error_log logs/error.log info;
+events {
+    worker_connections 1024;
+}
+http {
+    lua_package_path &quot;/usr/local/openresty/nginx/jwt-lua/?.lua;;&quot;;
+    server {
+        listen 8080;
+        default_type text/plain;
+        location = / {
+            content_by_lua '
+                local cjson = require &quot;cjson&quot;
+                local jwt = require &quot;resty.jwt&quot;
+
+                local jwt_token = &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9&quot; ..
+                    &quot;.eyJmb28iOiJiYXIifQ&quot; ..
+                    &quot;.VAoRL1IU0nOguxURF2ZcKR0SGKE1gCbqwyh8u2MLAyY&quot;
+                local jwt_obj = jwt:verify(&quot;lua-resty-jwt&quot;, jwt_token)
+                ngx.say(cjson.encode(jwt_obj))
+            ';
+        }
+        location = /sign {
+            content_by_lua '
+                local cjson = require &quot;cjson&quot;
+                local jwt = require &quot;resty.jwt&quot;
+
+                local jwt_token = jwt:sign(
+                    &quot;lua-resty-jwt&quot;,
+                    {
+                        header={typ=&quot;JWT&quot;, alg=&quot;HS256&quot;},
+                        payload={foo=&quot;bar&quot;}
+                    }
+                )
+                ngx.say(jwt_token)
+            ';
+        }
+    }
+}
+EOF
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>[root@docker resty]# curl localhost:8080
+{&quot;signature&quot;:&quot;VAoRL1IU0nOguxURF2ZcKR0SGKE1gCbqwyh8u2MLAyY&quot;,&quot;reason&quot;:&quot;everything is awesome~ :p&quot;,&quot;valid&quot;:true,&quot;raw_header&quot;:&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9&quot;,&quot;payload&quot;:{&quot;foo&quot;:&quot;bar&quot;},&quot;header&quot;:{&quot;alg&quot;:&quot;HS256&quot;,&quot;typ&quot;:&quot;JWT&quot;},&quot;verified&quot;:true,&quot;raw_payload&quot;:&quot;eyJmb28iOiJiYXIifQ&quot;}
+</code></pre></div><p>验证通过,jwt模块安装完毕</p> <h3 id="自定义验证逻辑"><a href="#自定义验证逻辑" class="header-anchor">#</a> 自定义验证逻辑</h3> <p>上面jwt模块还无法用于生产环境,有几个问题没解决</p> <div class="language- extra-class"><pre><code>1. jwt token目前是写死在配置文件里,生产需要从header Authorization中获取
+2. 验证失败目前返回是200生产需要返回401
+3. 需要配置反向代理并且将用户信息放在代理header上
+</code></pre></div><p>创建文件<code>/usr/local/openresty/nginx/jwt-lua/resty/nginx-jwt.lua</code></p> <div class="language- extra-class"><pre class="language-text"><code>local jwt = require &quot;resty.jwt&quot;
+local cjson = require &quot;cjson&quot;
+--your secret
+local secret = &quot;5pil6aOO5YaN576O5Lmf5q+U5LiN5LiK5bCP6ZuF55qE56yR&quot;
+
+local M = {}
+
+function M.auth(claim_specs)
+    -- require Authorization request header
+    local auth_header = ngx.var.http_Authorization
+
+    if auth_header == nil then
+        ngx.log(ngx.WARN, &quot;No Authorization header&quot;)
+        ngx.exit(ngx.HTTP_UNAUTHORIZED)
+    end
+
+    ngx.log(ngx.INFO, &quot;Authorization: &quot; .. auth_header)
+
+    -- require Bearer token
+    local _, _, token = string.find(auth_header, &quot;Bearer%s+(.+)&quot;)
+
+    if token == nil then
+        ngx.log(ngx.WARN, &quot;Missing token&quot;)
+        ngx.exit(ngx.HTTP_UNAUTHORIZED)
+    end
+
+    ngx.log(ngx.INFO, &quot;Token: &quot; .. token)
+
+    local jwt_obj = jwt:verify(secret, token)
+    if jwt_obj.verified == false then
+        ngx.log(ngx.WARN, &quot;Invalid token: &quot;.. jwt_obj.reason)
+        ngx.exit(ngx.HTTP_UNAUTHORIZED)
+    end
+
+    ngx.log(ngx.INFO, &quot;JWT: &quot; .. cjson.encode(jwt_obj))
+
+    -- write the uid variable
+    ngx.var.uid = jwt_obj.payload.sub
+end
+
+return M
+</code></pre></div><p>修改配置文件<code>nginx.conf</code></p> <div class="language- extra-class"><pre class="language-text"><code>worker_processes  1;
+error_log logs/error.log info;
+events {
+    worker_connections 1024;
+}
+http {
+    upstream tomcat{
+     server localhost:80;
+    }
+    lua_package_path &quot;/usr/local/openresty/nginx/jwt-lua/?.lua;;&quot;;
+    server {
+        listen 8080;
+        set $uid '';
+        location / {
+            access_by_lua '
+            local jwt = require(&quot;resty.nginx-jwt&quot;)
+            jwt.auth()
+        ';
+            default_type application/json;
+            proxy_set_header uid $uid;
+            proxy_pass http://tomcat;
+        }
+    }
+}
+</code></pre></div><p>这里后台启动了一台<code>tomcat</code>并设置监听端口为<code>80</code>,tomcat上部署了一个示例的war包,代码逻辑较简单,就是输出所有的header,代码如下:</p> <div class="language- extra-class"><pre class="language-text"><code>package asan.demo;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class JWTDemoService extends HttpServlet {
+    private static final String CONTENT_TYPE = &quot;text/html; charset=UTF-8&quot;;
+
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+    }
+
+    public void service(HttpServletRequest request,
+                        HttpServletResponse response) throws ServletException,
+                                                             IOException {
+        response.setContentType(CONTENT_TYPE);
+        PrintWriter out = response.getWriter();
+        Enumeration em=request.getHeaderNames();
+        while(em.hasMoreElements()){
+            String key=(String)em.nextElement();
+            String value=(String)request.getHeaders(key).nextElement();
+            out.println(String.format(&quot;%s ==&gt; %s&quot;, key,value));
+        }
+        out.close();
+    }
+}
+</code></pre></div><p>重启OpenResty测试,如果没有指定jwt token信息返回401</p> <div class="language- extra-class"><pre class="language-text"><code>[root@docker conf]# curl http://localhost:8080/jwtdemo/service
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;401 Authorization Required&lt;/title&gt;&lt;/head&gt;
+&lt;body bgcolor=&quot;white&quot;&gt;
+&lt;center&gt;&lt;h1&gt;401 Authorization Required&lt;/h1&gt;&lt;/center&gt;
+&lt;hr&gt;&lt;center&gt;openresty/1.13.6.2&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><p>指定jwt token</p> <div class="language- extra-class"><pre class="language-text"><code>[root@docker conf]# curl -i http://localhost:8080/jwtdemo/ -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ5YXlhIiwiaWF0IjoxNTMxODkyNzE3LCJpc3MiOiJ5YXlhIiwic3ViIjoieWF5YSIsImV4cCI6MTUzMTkyODcxN30.W5UXlwKHSrpUAYbfoF-fTBTS9Enm1wsvCKNQm0yLSfQ'
+HTTP/1.1 200
+Server: openresty/1.13.6.2
+Date: Wed, 18 Jul 2018 05:52:13 GMT
+Content-Type: text/html;charset=UTF-8
+Content-Length: 298
+Connection: keep-alive
+
+uid ==&gt; yaya
+host ==&gt; tomcat
+connection ==&gt; close
+user-agent ==&gt; curl/7.29.0
+accept ==&gt; */*
+authorization ==&gt; Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ5YXlhIiwiaWF0IjoxNTMxODkyNzE3LCJpc3MiOiJ5YXlhIiwic3ViIjoieWF5YSIsImV4cCI6MTUzMTkyODcxN30.W5UXlwKHSrpUAYbfoF-fTBTS9Enm1wsvCKNQm0yLSfQ
+</code></pre></div><p>从结果上看,后台服务已经获取到<code>uid</code>这个header
+至于请求用到jwt token可以从任意平台生成只要保证<code>secret</code>一样即可,根据官网介绍,该库目前支持到jwt生成算法如图:</p> <p><img src="/image/2019-10-10-1-2.png" alt=""></p> <p>uuid生成</p> <p>为每个请求生成唯一的uuid码可以将网关层上的请求和应用层的请求关联起来,对排查问题,接口统计都非常有用.</p> <p>创建文件<code>/usr/local/openresty/nginx/jwt-lua/resty/uuid.lua</code></p> <div class="language- extra-class"><pre class="language-text"><code>local M  = {}
+local charset = {}  do -- [0-9a-zA-Z]
+    for c = 48, 57  do table.insert(charset, string.char(c)) end
+    for c = 65, 90  do table.insert(charset, string.char(c)) end
+    for c = 97, 122 do table.insert(charset, string.char(c)) end
+end
+function M.uuid(length)
+        local res = &quot;&quot;
+        for i = 1, length do
+                res = res .. charset[math.random(1, #charset)]
+        end
+        return res
+end
+return M
+</code></pre></div><p>修改配置文件<code>nginx.conf</code></p> <div class="language- extra-class"><pre class="language-text"><code>worker_processes  1;
+error_log logs/error.log info;
+events {
+    worker_connections 1024;
+}
+http {
+    upstream tomcat{
+     server localhost:80;
+    }
+    lua_package_path &quot;/usr/local/openresty/nginx/jwt-lua/?.lua;;&quot;;
+    server {
+        listen 8080;
+        set $uid '';
+        set $uuid '';
+        location / {
+            access_by_lua '
+            local jwt = require(&quot;resty.nginx-jwt&quot;)
+            jwt.auth()
+            local u = require(&quot;resty.uuid&quot;)
+            ngx.var.uuid = u.uuid(64)
+        ';
+            default_type application/json;
+            proxy_set_header uid $uid;
+            proxy_set_header uuid $uuid;
+            proxy_pass http://tomcat;
+        }
+    }
+}
+</code></pre></div><p>重启OpenResty,测试</p> <div class="language- extra-class"><pre class="language-text"><code>[root@docker conf]# openresty -s reload
+[root@docker conf]# curl -i http://localhost:8080/jwtdemo/ -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ5YXlhIiwiaWF0IjoxNTMxODk0MDA3LCJpc3MiOiJ5YXlhIiwic3ViIjoieWF5YSIsImV4cCI6MTUzMTkzMDAwN30.vQvpQpIHCmK5QBgIoRR8jhIGeYlHOMYySIr4gHvoZFE'
+HTTP/1.1 200
+Server: openresty/1.13.6.2
+Date: Wed, 18 Jul 2018 08:05:45 GMT
+Content-Type: text/html;charset=UTF-8
+Content-Length: 372
+Connection: keep-alive
+
+uid ==&gt; yaya
+uuid ==&gt; nhak5eLjQZ73yhAyHLTgZnSBeDa8pa1p3pcpBFvJ4Mv1fkY782UgVr8Islheq03l
+host ==&gt; tomcat
+connection ==&gt; close
+user-agent ==&gt; curl/7.29.0
+accept ==&gt; */*
+authorization ==&gt; Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ5YXlhIiwiaWF0IjoxNTMxODk0MDA3LCJpc3MiOiJ5YXlhIiwic3ViIjoieWF5YSIsImV4cCI6MTUzMTkzMDAwN30.vQvpQpIHCmK5QBgIoRR8jhIGeYlHOMYySIr4gHvoZFE
+</code></pre></div><p>可以看到,多了一个<code>uuid</code>的请求头</p> <h3 id="jwt-token生成java示例"><a href="#jwt-token生成java示例" class="header-anchor">#</a> jwt token生成java示例</h3> <p>这里提供一个生成jwt token的java示例</p> <div class="language- extra-class"><pre class="language-text"><code>package com.yaya;
+
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @Description:
+ * @author: jianfeng.zheng
+ * @since: 2018/7/5 下午9:56
+ * @history: 1.2018/7/5 created by jianfeng.zheng
+ */
+public class JWTDemo {
+    
+    public static final String SECRET=&quot;5pil6aOO5YaN576O5Lmf5q+U5LiN5LiK5bCP6ZuF55qE56yR&quot;;
+    
+    public static String createJWT(String uid, long ttlMillis) throws Exception {
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+        long nowMillis = System.currentTimeMillis();
+        Date now = new Date(nowMillis);
+        Key signingKey = new SecretKeySpec(SECRET.getBytes(), signatureAlgorithm.getJcaName());
+
+        Map&lt;String,Object&gt; header=new HashMap&lt;String,Object&gt;();
+        header.put(&quot;typ&quot;,&quot;JWT&quot;);
+        header.put(&quot;alg&quot;,&quot;HS256&quot;);
+        JwtBuilder builder = Jwts.builder().setId(uid)
+                .setIssuedAt(now)
+                .setIssuer(uid)
+                .setSubject(uid)
+                .setHeader(header)
+                .signWith(signatureAlgorithm, signingKey);
+        if (ttlMillis &gt;= 0) {
+            long expMillis = nowMillis + ttlMillis;
+            Date exp = new Date(expMillis);
+            builder.setExpiration(exp);
+        }
+        return builder.compact();
+    }
+
+    public static void main(String[]cmd) throws Exception {
+        String s=createJWT(&quot;yaya&quot;,36000000);
+        System.out.println(&quot;Bearer &quot;+s);
+    }
+
+}
+</code></pre></div><p>pom.xml</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;com.yaya&lt;/groupId&gt;
+    &lt;artifactId&gt;jwtdemo&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;io.jsonwebtoken&lt;/groupId&gt;
+            &lt;artifactId&gt;jjwt&lt;/artifactId&gt;
+            &lt;version&gt;0.6.0&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre></div><h2 id="写在最后"><a href="#写在最后" class="header-anchor">#</a> 写在最后</h2> <p>这里只是解决了文章开头提到的第一个问题,接口需要知道是谁调用了接口.</p> <p>(完)
+文章抄自：<a href="https://segmentfault.com/a/1190000015677681?utm_source=tag-newest" target="_blank" rel="noopener noreferrer">wls1036<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/posts/2019-02-21-1.html" class="prev">
+        nginx反向代理webSocket配置
+      </a></span> <span class="next"><a href="/posts/2020-03-11-2.html">
+        nginx配置文件分开配置
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.c6e224e5.js" defer></script><script src="/assets/js/2.b7cbfaf7.js" defer></script><script src="/assets/js/99.c3400551.js" defer></script><script src="/assets/js/4.eccf986c.js" defer></script>
+  </body>
+</html>

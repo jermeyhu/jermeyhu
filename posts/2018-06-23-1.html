@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>使用swagger 生成 Flask RESTful API | 四少爷的blog</title>
+    <meta name="generator" content="VuePress 1.8.0">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon-152x152.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#3eaf7c">
+    <meta name="description" content="一个没有技术只会增删改查的后端">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/icons/msapplication-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/assets/css/0.styles.d0b3e815.css" as="style"><link rel="preload" href="/assets/js/app.c6e224e5.js" as="script"><link rel="preload" href="/assets/js/2.b7cbfaf7.js" as="script"><link rel="preload" href="/assets/js/65.36ba32a8.js" as="script"><link rel="preload" href="/assets/js/4.eccf986c.js" as="script"><link rel="prefetch" href="/assets/js/10.3d173a74.js"><link rel="prefetch" href="/assets/js/100.03eb6d22.js"><link rel="prefetch" href="/assets/js/101.4af9dcd2.js"><link rel="prefetch" href="/assets/js/102.3dfee287.js"><link rel="prefetch" href="/assets/js/103.bcc3efe1.js"><link rel="prefetch" href="/assets/js/104.91e29c68.js"><link rel="prefetch" href="/assets/js/105.4be736fe.js"><link rel="prefetch" href="/assets/js/106.0f6ec838.js"><link rel="prefetch" href="/assets/js/107.4677f5b7.js"><link rel="prefetch" href="/assets/js/108.0b5939c5.js"><link rel="prefetch" href="/assets/js/109.41ec9c62.js"><link rel="prefetch" href="/assets/js/11.69c721d7.js"><link rel="prefetch" href="/assets/js/110.353c15aa.js"><link rel="prefetch" href="/assets/js/111.f0c0561d.js"><link rel="prefetch" href="/assets/js/112.48283b4f.js"><link rel="prefetch" href="/assets/js/113.67040f01.js"><link rel="prefetch" href="/assets/js/114.36f1ec6a.js"><link rel="prefetch" href="/assets/js/115.cc326211.js"><link rel="prefetch" href="/assets/js/116.0b4bc34b.js"><link rel="prefetch" href="/assets/js/117.9c173de4.js"><link rel="prefetch" href="/assets/js/118.65292126.js"><link rel="prefetch" href="/assets/js/119.8ccd47f0.js"><link rel="prefetch" href="/assets/js/12.814342e8.js"><link rel="prefetch" href="/assets/js/120.b7cfae07.js"><link rel="prefetch" href="/assets/js/121.4185569f.js"><link rel="prefetch" href="/assets/js/122.4a5129ce.js"><link rel="prefetch" href="/assets/js/123.926a11ae.js"><link rel="prefetch" href="/assets/js/124.e43b7caf.js"><link rel="prefetch" href="/assets/js/125.7f4d929e.js"><link rel="prefetch" href="/assets/js/126.cf0b4306.js"><link rel="prefetch" href="/assets/js/127.40ae6774.js"><link rel="prefetch" href="/assets/js/128.ea14976d.js"><link rel="prefetch" href="/assets/js/129.dd49d5aa.js"><link rel="prefetch" href="/assets/js/13.00ab167e.js"><link rel="prefetch" href="/assets/js/130.c573bda7.js"><link rel="prefetch" href="/assets/js/14.790b5f41.js"><link rel="prefetch" href="/assets/js/15.aa7a09f7.js"><link rel="prefetch" href="/assets/js/16.080fd85d.js"><link rel="prefetch" href="/assets/js/17.fdea3ecd.js"><link rel="prefetch" href="/assets/js/18.ff346c39.js"><link rel="prefetch" href="/assets/js/19.96e4b25c.js"><link rel="prefetch" href="/assets/js/20.4b6b3ab4.js"><link rel="prefetch" href="/assets/js/21.981eb605.js"><link rel="prefetch" href="/assets/js/22.c62af8e9.js"><link rel="prefetch" href="/assets/js/23.a46e9d40.js"><link rel="prefetch" href="/assets/js/24.0c0d901d.js"><link rel="prefetch" href="/assets/js/25.559bc3da.js"><link rel="prefetch" href="/assets/js/26.8023b8ad.js"><link rel="prefetch" href="/assets/js/27.50f745fd.js"><link rel="prefetch" href="/assets/js/28.afabb104.js"><link rel="prefetch" href="/assets/js/29.15fd423c.js"><link rel="prefetch" href="/assets/js/3.edc2e2e0.js"><link rel="prefetch" href="/assets/js/30.09df950d.js"><link rel="prefetch" href="/assets/js/31.469887f9.js"><link rel="prefetch" href="/assets/js/32.abb247fc.js"><link rel="prefetch" href="/assets/js/33.078e0e2b.js"><link rel="prefetch" href="/assets/js/34.293266fe.js"><link rel="prefetch" href="/assets/js/35.1d572fd0.js"><link rel="prefetch" href="/assets/js/36.21f5a005.js"><link rel="prefetch" href="/assets/js/37.16dbe94f.js"><link rel="prefetch" href="/assets/js/38.e8f634d0.js"><link rel="prefetch" href="/assets/js/39.cdb110b9.js"><link rel="prefetch" href="/assets/js/40.2981beaf.js"><link rel="prefetch" href="/assets/js/41.18dc9bb4.js"><link rel="prefetch" href="/assets/js/42.6308be0b.js"><link rel="prefetch" href="/assets/js/43.a073b326.js"><link rel="prefetch" href="/assets/js/44.26b9dff2.js"><link rel="prefetch" href="/assets/js/45.d0d8452b.js"><link rel="prefetch" href="/assets/js/46.6730e2ef.js"><link rel="prefetch" href="/assets/js/47.87b61895.js"><link rel="prefetch" href="/assets/js/48.03905597.js"><link rel="prefetch" href="/assets/js/49.e8de3ab2.js"><link rel="prefetch" href="/assets/js/5.01c65514.js"><link rel="prefetch" href="/assets/js/50.98818140.js"><link rel="prefetch" href="/assets/js/51.b9a00e08.js"><link rel="prefetch" href="/assets/js/52.15ab9fb1.js"><link rel="prefetch" href="/assets/js/53.1f015475.js"><link rel="prefetch" href="/assets/js/54.0b7ca475.js"><link rel="prefetch" href="/assets/js/55.56b4dbec.js"><link rel="prefetch" href="/assets/js/56.604f094f.js"><link rel="prefetch" href="/assets/js/57.360df15e.js"><link rel="prefetch" href="/assets/js/58.dd0867c1.js"><link rel="prefetch" href="/assets/js/59.b9022feb.js"><link rel="prefetch" href="/assets/js/6.a888c7b8.js"><link rel="prefetch" href="/assets/js/60.e400b75e.js"><link rel="prefetch" href="/assets/js/61.ea0e3484.js"><link rel="prefetch" href="/assets/js/62.5e8a44de.js"><link rel="prefetch" href="/assets/js/63.447c0990.js"><link rel="prefetch" href="/assets/js/64.dc72b145.js"><link rel="prefetch" href="/assets/js/66.066da4e4.js"><link rel="prefetch" href="/assets/js/67.7d0caf65.js"><link rel="prefetch" href="/assets/js/68.04870676.js"><link rel="prefetch" href="/assets/js/69.6ca7ed64.js"><link rel="prefetch" href="/assets/js/7.39f68421.js"><link rel="prefetch" href="/assets/js/70.68f9ca81.js"><link rel="prefetch" href="/assets/js/71.c1b13530.js"><link rel="prefetch" href="/assets/js/72.44792172.js"><link rel="prefetch" href="/assets/js/73.6bf299a3.js"><link rel="prefetch" href="/assets/js/74.395612f2.js"><link rel="prefetch" href="/assets/js/75.27869084.js"><link rel="prefetch" href="/assets/js/76.70cdfc3b.js"><link rel="prefetch" href="/assets/js/77.8bf29c93.js"><link rel="prefetch" href="/assets/js/78.ca725174.js"><link rel="prefetch" href="/assets/js/79.be4cd131.js"><link rel="prefetch" href="/assets/js/8.ac316b23.js"><link rel="prefetch" href="/assets/js/80.e04461ed.js"><link rel="prefetch" href="/assets/js/81.f648f972.js"><link rel="prefetch" href="/assets/js/82.10e5cd44.js"><link rel="prefetch" href="/assets/js/83.0f11db9b.js"><link rel="prefetch" href="/assets/js/84.503ec09d.js"><link rel="prefetch" href="/assets/js/85.3e0d050b.js"><link rel="prefetch" href="/assets/js/86.6011a16b.js"><link rel="prefetch" href="/assets/js/87.69a8b53e.js"><link rel="prefetch" href="/assets/js/88.377c09c4.js"><link rel="prefetch" href="/assets/js/89.ee72ebc7.js"><link rel="prefetch" href="/assets/js/9.46521a64.js"><link rel="prefetch" href="/assets/js/90.d7ead2cc.js"><link rel="prefetch" href="/assets/js/91.68a1e737.js"><link rel="prefetch" href="/assets/js/92.c0649a60.js"><link rel="prefetch" href="/assets/js/93.c77ea7a5.js"><link rel="prefetch" href="/assets/js/94.5abf6431.js"><link rel="prefetch" href="/assets/js/95.35575b8d.js"><link rel="prefetch" href="/assets/js/96.4956a3d1.js"><link rel="prefetch" href="/assets/js/97.f76d7fbe.js"><link rel="prefetch" href="/assets/js/98.3deae2b2.js"><link rel="prefetch" href="/assets/js/99.c3400551.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.d0b3e815.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">四少爷的blog</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>简介</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>容器</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>虚拟机</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>软件测试</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>大数据</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>nginx</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Python</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/posts/2018-01-30-1.html" class="sidebar-link">eval与exec语句</a></li><li><a href="/posts/2018-01-31-1.html" class="sidebar-link">Python3 venv 创建虚拟环境</a></li><li><a href="/posts/2018-03-12-1.html" class="sidebar-link">Windows环境Python pip 安装报错error: INCLUDE environment variable is empty</a></li><li><a href="/posts/2018-04-10-1.html" class="sidebar-link">将Flask应用程序部署在nginx,tornado的简单方法</a></li><li><a href="/posts/2018-06-23-1.html" aria-current="page" class="active sidebar-link">使用swagger 生成 Flask RESTful API</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/posts/2018-06-23-1.html#什么是rest" class="sidebar-link">什么是REST</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/posts/2018-06-23-1.html#restful-api-设计定义" class="sidebar-link">RESTful API 设计定义</a></li></ul></li><li class="sidebar-sub-header"><a href="/posts/2018-06-23-1.html#什么是swagger" class="sidebar-link">什么是swagger</a></li><li class="sidebar-sub-header"><a href="/posts/2018-06-23-1.html#总结" class="sidebar-link">总结</a></li></ul></li><li><a href="/posts/2018-06-25-1.html" class="sidebar-link">python中logging模块的一些简单用法</a></li><li><a href="/posts/2018-06-28-1.html" class="sidebar-link">PyInstaller入门</a></li><li><a href="/posts/2018-07-09-1.html" class="sidebar-link">python3监控网站状态</a></li><li><a href="/posts/2018-08-03-1.html" class="sidebar-link">基于Minio和Thumbor搭建独立图片服务</a></li><li><a href="/posts/2018-08-06-1.html" class="sidebar-link">Ubuntu安装pycurl</a></li><li><a href="/posts/2018-08-09-1.html" class="sidebar-link">Linux安装python2.7</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Java</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Linux</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>前端</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>C#</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>jekyll</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>其它</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="使用swagger-生成-flask-restful-api"><a href="#使用swagger-生成-flask-restful-api" class="header-anchor">#</a> 使用swagger 生成 Flask RESTful API</h1> <h2 id="什么是rest"><a href="#什么是rest" class="header-anchor">#</a> 什么是REST</h2> <p>REST（英文：Representational State Transfer，又称具象状态传输）是Roy Thomas Fielding博士于2000年在他的博士论文 中提出来的一种万维网软件架构风格，目的是便于不同软件/程序在网络（例如互联网）中互相传递信息。</p> <p>REST 的核心是可编辑的资源及其集合，用符合 Atom 文档标准的 Feed 和 Entry 表示。每个资源或者集合有一个惟一的 URI。系统以资源为中心，构建并提供一系列的 Web 服务。</p> <p>在 REST 中，开发人员显式地使用 HTTP 方法，对系统资源进行创建、读取、更新和删除的操作：</p> <ol><li>使用 POST 方法在服务器上创建资源</li> <li>使用 GET 方法从服务器检索某个资源或者资源集合</li> <li>使用 PUT 方法对服务器的现有资源进行更新</li> <li>使用 DELETE 方法删除服务器的某个资源</li></ol> <p>如果一个架构符合REST原则，就可以称它为RESTful架构。</p> <h3 id="restful-api-设计定义"><a href="#restful-api-设计定义" class="header-anchor">#</a> RESTful API 设计定义</h3> <p>以下是几个RESTful API的几个概念。</p> <p>资源（Resource）：系统上的所有事物都被抽象为资源（一篇文章，一张照片，一段语音）</p> <p>集合（Collection）：一组资源的合辑称为集合（几篇文章，几张照片）</p> <p>路径（Endpoint）：路径又称”终点“，表示API的具体网址（每个网址代表一种资源）</p> <p>那么一个设计良好的RESTful API应该遵循哪些原则呢？</p> <p><strong>协议</strong></p> <p>API与用户的通信协议总是使用HTTPs协议。</p> <p><strong>域名</strong></p> <p>应该尽量将API部署在专用域名，例如：</p> <p><code>https://apis.gusibi.com</code></p> <p><strong>API地址和版本</strong></p> <p>在url中指定API版本。比如：</p> <p><code>https://apis.gusibi.com/v1</code></p> <p><strong>以资源为中心设计URL</strong></p> <p>资源是RESTful API的核心元素，所有的操作都是针对特定资源进化的。而资源就是URL表示的，所以简洁、清晰、结构化的URL设计是至关重要的。 在RESTful 架构中，每个网址代表一种资源（resource），所以网址中不能有动词，只能有名词，而且所用的名词往往与数据库的表格名对应。我们来看一下 Github 的例子：</p> <div class="language- extra-class"><pre><code>/users/:username/repos
+/users/:org/repos
+/repos/:owner/:repo
+/repos/:owner/:repo/tags
+/repos/:owner/:repo/branches/:branch
+</code></pre></div><p><strong>使用正确的Method</strong></p> <p>对于资源的具体操作类型，使用HTTP method 表示。 以下是常用的HTTP方法。</p> <p>GET：从服务器取出资源</p> <p>POST：在服务器新建一个资源</p> <p>PUT：在服务器更新资源（客户端提供改变后的完整资源</p> <p>PATCH：在服务器更新资源（客户端只提供改变了属性）</p> <p>DELETE：从服务器删除资源</p> <p>还是使用 github 的例子：</p> <div class="language- extra-class"><pre><code>GET /repos/:owner/:repo/issues
+GET /repos/:owner/:repo/issues/:number
+POST /repos/:owner/:repo/issues
+PATCH /repos/:owner/:repo/issues/:number
+DELETE /repos/:owner/:repo
+</code></pre></div><p><strong>正确的过滤信息（filtering）</strong></p> <p>如果记录数量很多，服务器不能都将他们返回给用户。API应该提供参数，过滤返回结果。</p> <p>下边是一些是、常见的参数。</p> <p><code>?limit=10</code>: 指定返回记录的数量</p> <p><code>?offset=10</code>: 指定返回记录的开始位置</p> <p><code>?page=2&amp;per_page=100</code>: 指定第几页，以及每页的记录数。</p> <p><code>?sortby=name&amp;order=asc</code>: 指定返回结果按照哪个属性排序，以及排序顺序。</p> <p><code>?animal_type_id=1</code>: 指定筛选条件</p> <p><strong>选择合适的状态码</strong></p> <p>HTTP 应答中，需要带一个很重要的字段：status code。它说明了请求的大致情况，是否正常完成、需要进一步处理、出现了什么错误，对于客户端非常重要。状态码都是三位的整数，第九影院大概分成了几个区间：</p> <p>2XX：请求正常处理并返回 3XX：重定向，请求的资源位置发生变化 4XX：客户端发送的请求有错误 5XX：服务器端错误</p> <p>常见的状态码有以下几种：</p> <blockquote><p>200 OK - [GET]：服务器成功返回用户请求的数据，该操作是幂等的（Idempotent）。</p></blockquote> <blockquote><p>201 CREATED - [POST/PUT/PATCH]：用户新建或修改数据成功。</p></blockquote> <blockquote><p>204 NO CONTENT - [DELETE]：用户删除数据成功。</p></blockquote> <blockquote><p>400 INVALID REQUEST - [POST/PUT/PATCH]：用户发出的请求有错误，服务器没有进行新建或修改数据的操作，该操作是幂等的。</p></blockquote> <blockquote><p>401 Unauthorized - [*]：表示用户没有权限（令牌、用户名、密码错误）。</p></blockquote> <blockquote><p>403 Forbidden - [*] 表示用户得到授权（与401错误相对），但是访问是被禁止的。</p></blockquote> <blockquote><p>404 NOT FOUND - [*]：用户发出的请求针对的是不存在的记录，服务器没有进行操作，该操作是幂等的。</p></blockquote> <blockquote><p>406 Not Acceptable - [GET]：用户请求的格式不可得（比如用户请求JSON格式，但是只有XML格式）。</p></blockquote> <blockquote><p>410 Gone -[GET]：用户请求的资源被永久删除，且不会再得到的。</p></blockquote> <blockquote><p>422 Unprocesable entity - [POST/PUT/PATCH] 当创建一个对象时，发生一个验证错误。</p></blockquote> <blockquote><p>500 INTERNAL SERVER ERROR - [*]：服务器发生错误，神马影院用户将无法判断发出的请求是否成功。</p></blockquote> <p><strong>返回结果</strong></p> <p>针对不同操作，服务器向用户返回的结果应该符合以下规范。</p> <p>GET /collection：返回资源对象的列表（数组）</p> <p>GET /collection/resource：返回单个资源对象 POST /collection：返回新生成的资源对象 PUT /collection/resource：返回完整的资源对象 PATCH /collection/resource：www.10rz.net返回完整的资源对象 DELETE /collection/resource：返回一个空文档</p> <p><strong>错误处理（Error handling）</strong></p> <p>如果出错的话，在response body 中通过 message 给出明确的信息。如果状态码是4xx，就应该向用户返回出错信息。</p> <p><strong>良好的文档</strong></p> <p>文档应该是规范的API的重要的组成部分，没有文档的API是难以给他人使用的，也是不利于维护的。</p> <p><strong>其它</strong></p> <p>使用 OAuth2.0 鉴权</p> <p>尽量使用JSON作为返回的数据格式</p> <p>限流</p> <p>对应上述规则，我们并不能保证其它的API提供者也会遵守，特别是文档，有很大一部分API提供者给出的文档是pdf或者word文档，这是因为在API的迭代开发过程中，文档更新会比较麻烦。</p> <p>swagger帮API使用者和开发者纠正了这个问题。</p> <h2 id="什么是swagger"><a href="#什么是swagger" class="header-anchor">#</a> 什么是swagger</h2> <p>Swagger是一个简单但功能强大的API表达工具。改框架为创建JSON或YAML格式的RESTful API 文档提供了OpenAPI规范。swagger文档可由各种编程语言处理，可以在软件开发周期中嵌入源代码控制系统中，以便进行版本管理。使用Swagger生成API，我们可以得到交互式文档，自动生成代码的SDK以及API的发现特性等。</p> <p><strong>如何编写API文档</strong></p> <p>我们可以选择使用JSON或者YAML来编写API文档。文档示例如下：</p> <p>json 格式文档：</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;swagger&quot;: &quot;2.0&quot;,
+    &quot;info&quot;: {
+        &quot;version&quot;: &quot;1.0.0&quot;,
+        &quot;title&quot;: &quot;Simple API&quot;,
+        &quot;description&quot;: &quot;A simple API to learn how to write OpenAPI Specification&quot;
+    },
+    &quot;schemes&quot;: [
+        &quot;https&quot;
+    ],
+    &quot;host&quot;: &quot;simple.api&quot;,
+    &quot;basePath&quot;: &quot;/openapi101&quot;,
+    &quot;paths&quot;: {
+        &quot;/persons&quot;: {
+            &quot;get&quot;: {
+                &quot;summary&quot;: &quot;Gets some persons&quot;,
+                &quot;description&quot;: &quot;Returns a list containing all persons.&quot;,
+                &quot;responses&quot;: {
+                    &quot;200&quot;: {
+                        &quot;description&quot;: &quot;A list of Person&quot;,
+                        &quot;schema&quot;: {
+                            &quot;type&quot;: &quot;array&quot;,
+                            &quot;items&quot;: {
+                                &quot;properties&quot;: {
+                                    &quot;firstName&quot;: {
+                                        &quot;type&quot;: &quot;string&quot;
+                                    },
+                                    &quot;lastName&quot;: {
+                                        &quot;type&quot;: &quot;string&quot;
+                                    },
+                                    &quot;username&quot;: {
+                                        &quot;type&quot;: &quot;string&quot;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+</code></pre></div><p>yaml 格式文档：</p> <div class="language- extra-class"><pre class="language-text"><code>swagger: &quot;2.0&quot;
+
+info:
+  version: 1.0.0
+  title: Simple API
+  description: A simple API to learn how to write OpenAPI Specification
+
+schemes:
+  - https
+host: simple.api
+basePath: /openapi101
+
+paths:
+  /persons:
+    get:
+      summary: Gets some persons
+      description: Returns a list containing all persons.
+      responses:
+        200:
+          description: A list of Person
+          schema:
+            type: array
+            items:
+              required:
+                - username
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                username:
+                  type: string
+</code></pre></div><p>可以发现，yaml格式的文档比json格式的更清晰，可读性更高，推荐使用yaml格式书写文档。</p> <p>swagger 官网提供了 swagger editor: http://editor.swagger.io/#/，你可以在这个编辑器中创建或导入文档，并在交互式环境中浏览它。</p> <p>以下是您导入 leads.yaml 定义后的 Swagger Editor UI 外观：</p> <p><img src="/image/2018-06-23-1-1.png" alt=""></p> <p>右侧的显示窗格显示了格式化的文档，反映了在左侧窗格中的代码编辑器中执行的更改。代码编辑器会指出了所有格式错误。你可以展开和折叠每个窗格。</p> <p><strong>API文档的基本结构</strong></p> <p>我用一个例子来介绍下swagger文档的基本结构，这里我用yaml格式来编写文档：</p> <div class="language- extra-class"><pre class="language-text"><code>swagger: &quot;2.0&quot;
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+
+host: api.example.com
+basePath: /v1
+schemes:
+  - https
+
+paths:
+  /users:
+    get:
+      summary: Returns a list of users.
+      description: Optional extended description in Markdown.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+</code></pre></div><p>上述文档包括元数据（Metadata）、Base URL、API路径（paths）三部分：</p> <p><strong>Metadata</strong>
+这部分信息包括swagger 使用的版本：</p> <div class="language- extra-class"><pre class="language-text"><code>swagger: &quot;2.0&quot;
+</code></pre></div><p>API相关的描述信息（比如API介绍、版本等）：</p> <div class="language- extra-class"><pre class="language-text"><code>info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+</code></pre></div><p><strong>Base URL</strong>
+作为web API，一个很重要的信息就是用来给用户使用的 根URL，可用协议（http/https）、host地址：</p> <div class="language- extra-class"><pre class="language-text"><code>host: api.example.com
+basePath: /v1
+schemes:
+  - https
+</code></pre></div><p>所有的API都是base URL 的相对路径 例如 /users 的API地址是 <code>https://api.example.com/v1/users</code>。</p> <p><strong>路径（Paths）</strong></p> <p>paths 部分定义API的路径（endpoint）、支持的HTTP 请求方法</p> <div class="language- extra-class"><pre class="language-text"><code>paths:  # 声明路径
+  /users:  # 定义API路径
+    get:   # 定义请求方式
+      summary: Returns a list of users.  # 简介
+      description: Optional extended description in Markdown.  # 描述
+      produces:
+        - application/json    # 定义 服务端response MIME types 
+      responses:
+        200:    # response 状态码
+          description: OK
+</code></pre></div><p>当然这只是个最简单的例子，swagger可定义的内容要比我提到的多的多。 具体详细信息可以看下 swagger 文档：https://swagger.io/docs/specification/what-is-swagger/。</p> <p>当然，写完文档并不代表我们的代码就可以直接使用这份文档以及文档中的约束，swagger 还提供了 swagger-codegen：https://github.com/swagger-api/swagger-codegen。</p> <p><strong>swagger_codegen</strong></p> <p>swagger-codegen 是一个开源的代码生成工具，它包含一个模板驱动引擎，可以直接从我们定义的 swagger 文档中生成可视化的文档查看界面和API客户端。</p> <p>这是一个开源的项目，地址是swagger-codegens： https://github.com/swagger-api/swagger-codegen。可以自己安装使用一下。</p> <p>因为我最常用的语言是Python，所以给大家介绍一个第三方的 python 的代码生成器swagger-py-codegen：https://github.com/guokr/swagger-py-codegen</p> <p><strong>swagger_py_codegen</strong></p> <p>swagger-py-codegen的亮点是它是一个Python web framework 代码生成器，可以根据swagger 文档自动生成相应web framework 的代码，现在支持 Flask, Tornado，falcon，最新版将支持sanic。</p> <p>安装
+可以使用 pip 安装：</p> <div class="language- extra-class"><pre class="language-text"><code>pip install swagger-py-codegen
+</code></pre></div><p>使用
+安装后使用命令如下：</p> <div class="language- extra-class"><pre class="language-text"><code>swagger_py_codegen --swagger-doc api.yml example-app
+</code></pre></div><p>可选参数有：</p> <div class="language- extra-class"><pre class="language-text"><code>-s, --swagger, --swagger-doc    Swagger doc file.  [required]
+-f, --force                     Force overwrite.
+-p, --package                   Package name / application name.
+-t, --template-dir              Path of your custom templates directory.
+--spec, --specification         Generate online specification json response.
+--ui                            Generate swagger ui.
+-j, --jobs INTEGER              Parallel jobs for processing.
+-tlp, --templates               gen flask/tornado/falcon templates, default flask.
+--version                       Show current version.
+--help                          Show this message and exit.
+</code></pre></div><p>如果不指定 <code>-tlp</code> 参数，默认使用 flask 作为模板。 如果指定 <code>--ui --spec</code> 参数则会在由<code>-p</code> 参数指定的目录下生成swagger UI 目录 static。</p> <p>举个例子
+我们这里使用 swagger-py-codegen 提供的测试文档 执行：</p> <p><code>swagger_py_codegen --swagger-doc api.yml example-app --ui --spec</code></p> <p>生成的代码目录结构如下</p> <div class="language- extra-class"><pre class="language-text"><code>$tree
+.
+|__ api.yml
+
+$ swagger_py_codegen -s api.yml example-app -p demo
+$ tree (flask-demo)
+.
+|__ api.yml
+|__ example-app
+   |__ demo
+   |  |__ __init__.py
+   |  |__ v1
+   |     |__ api
+   |     |  |__ __init__.py
+   |     |  |__ oauth_auth_approach_approach.py
+   |     |  |__ oauth_auth_approach.py
+   |     |  |__ users_token.py
+   |     |  |__ users_current.py
+   |     |  |__ users.py
+   |     |__ __init__.py
+   |     |__ routes.py
+   |     |__ schemas.py
+   |     |__ validators.py
+   |__ requirements.txt
+</code></pre></div><p>可以看到，这时一个简单的app框架已经生成了，其中 routes.py 是自动生成的路由，validators.py 是response和request的校验代码，schemas.py 是由文档生成的校验规则，api 目录下的各个文件是你定义的endpoint。</p> <p>这时运行demo 目录下的 <strong>init</strong>.py 文件:</p> <p>python <strong>init</strong>.py
+会发现 server 已经启动：</p> <p><img src="/image/2018-06-23-1-2.png" alt=""></p> <p>如果生成命令带上 --ui --spec，生成代码的同时也会生成swagger UI：</p> <p><code>swagger_py_codegen --swagger-doc api.yml example-app --ui --spec</code></p> <p>启动server后在浏览器输入地址 http://127.0.0.1:8000/static/swagger-ui/index.html#!/default/get_users_uid</p> <p>可以看到直接使用的 swagger UI。</p> <p><img src="/image/2018-06-23-1-3.png" alt=""></p> <blockquote><p>swagger-py-codegen 认证默认使用 OAuth2 认证方式，认证部分代码需要自己实现。</p></blockquote> <p>现在代码结构已经生成，可以安心的写逻辑代码了。</p> <h2 id="总结"><a href="#总结" class="header-anchor">#</a> 总结</h2> <p>这一篇主要介绍了RESTful API以及如何使用swagger编写规范的RESTful API。 最后介绍了如何使用 swagger-py-codegen 生成 web framework 的结构代码。 参考链接中的文章都非常值得一看，建议都看一下。</p> <p>(完)</p> <p>文章抄自:<a href="https://www.cnblogs.com/tianshifu/p/7156563.html" target="_blank" rel="noopener noreferrer">天师符<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/posts/2018-04-10-1.html" class="prev">
+        将Flask应用程序部署在nginx,tornado的简单方法
+      </a></span> <span class="next"><a href="/posts/2018-06-25-1.html">
+        python中logging模块的一些简单用法
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.c6e224e5.js" defer></script><script src="/assets/js/2.b7cbfaf7.js" defer></script><script src="/assets/js/65.36ba32a8.js" defer></script><script src="/assets/js/4.eccf986c.js" defer></script>
+  </body>
+</html>

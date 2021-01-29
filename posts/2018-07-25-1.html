@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Web 通信 之 长连接、长轮询（long polling） | 四少爷的blog</title>
+    <meta name="generator" content="VuePress 1.8.0">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon-152x152.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#3eaf7c">
+    <meta name="description" content="一个没有技术只会增删改查的后端">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/icons/msapplication-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/assets/css/0.styles.d0b3e815.css" as="style"><link rel="preload" href="/assets/js/app.c6e224e5.js" as="script"><link rel="preload" href="/assets/js/2.b7cbfaf7.js" as="script"><link rel="preload" href="/assets/js/72.44792172.js" as="script"><link rel="preload" href="/assets/js/4.eccf986c.js" as="script"><link rel="prefetch" href="/assets/js/10.3d173a74.js"><link rel="prefetch" href="/assets/js/100.03eb6d22.js"><link rel="prefetch" href="/assets/js/101.4af9dcd2.js"><link rel="prefetch" href="/assets/js/102.3dfee287.js"><link rel="prefetch" href="/assets/js/103.bcc3efe1.js"><link rel="prefetch" href="/assets/js/104.91e29c68.js"><link rel="prefetch" href="/assets/js/105.4be736fe.js"><link rel="prefetch" href="/assets/js/106.0f6ec838.js"><link rel="prefetch" href="/assets/js/107.4677f5b7.js"><link rel="prefetch" href="/assets/js/108.0b5939c5.js"><link rel="prefetch" href="/assets/js/109.41ec9c62.js"><link rel="prefetch" href="/assets/js/11.69c721d7.js"><link rel="prefetch" href="/assets/js/110.353c15aa.js"><link rel="prefetch" href="/assets/js/111.f0c0561d.js"><link rel="prefetch" href="/assets/js/112.48283b4f.js"><link rel="prefetch" href="/assets/js/113.67040f01.js"><link rel="prefetch" href="/assets/js/114.36f1ec6a.js"><link rel="prefetch" href="/assets/js/115.cc326211.js"><link rel="prefetch" href="/assets/js/116.0b4bc34b.js"><link rel="prefetch" href="/assets/js/117.9c173de4.js"><link rel="prefetch" href="/assets/js/118.65292126.js"><link rel="prefetch" href="/assets/js/119.8ccd47f0.js"><link rel="prefetch" href="/assets/js/12.814342e8.js"><link rel="prefetch" href="/assets/js/120.b7cfae07.js"><link rel="prefetch" href="/assets/js/121.4185569f.js"><link rel="prefetch" href="/assets/js/122.4a5129ce.js"><link rel="prefetch" href="/assets/js/123.926a11ae.js"><link rel="prefetch" href="/assets/js/124.e43b7caf.js"><link rel="prefetch" href="/assets/js/125.7f4d929e.js"><link rel="prefetch" href="/assets/js/126.cf0b4306.js"><link rel="prefetch" href="/assets/js/127.40ae6774.js"><link rel="prefetch" href="/assets/js/128.ea14976d.js"><link rel="prefetch" href="/assets/js/129.dd49d5aa.js"><link rel="prefetch" href="/assets/js/13.00ab167e.js"><link rel="prefetch" href="/assets/js/130.c573bda7.js"><link rel="prefetch" href="/assets/js/14.790b5f41.js"><link rel="prefetch" href="/assets/js/15.aa7a09f7.js"><link rel="prefetch" href="/assets/js/16.080fd85d.js"><link rel="prefetch" href="/assets/js/17.fdea3ecd.js"><link rel="prefetch" href="/assets/js/18.ff346c39.js"><link rel="prefetch" href="/assets/js/19.96e4b25c.js"><link rel="prefetch" href="/assets/js/20.4b6b3ab4.js"><link rel="prefetch" href="/assets/js/21.981eb605.js"><link rel="prefetch" href="/assets/js/22.c62af8e9.js"><link rel="prefetch" href="/assets/js/23.a46e9d40.js"><link rel="prefetch" href="/assets/js/24.0c0d901d.js"><link rel="prefetch" href="/assets/js/25.559bc3da.js"><link rel="prefetch" href="/assets/js/26.8023b8ad.js"><link rel="prefetch" href="/assets/js/27.50f745fd.js"><link rel="prefetch" href="/assets/js/28.afabb104.js"><link rel="prefetch" href="/assets/js/29.15fd423c.js"><link rel="prefetch" href="/assets/js/3.edc2e2e0.js"><link rel="prefetch" href="/assets/js/30.09df950d.js"><link rel="prefetch" href="/assets/js/31.469887f9.js"><link rel="prefetch" href="/assets/js/32.abb247fc.js"><link rel="prefetch" href="/assets/js/33.078e0e2b.js"><link rel="prefetch" href="/assets/js/34.293266fe.js"><link rel="prefetch" href="/assets/js/35.1d572fd0.js"><link rel="prefetch" href="/assets/js/36.21f5a005.js"><link rel="prefetch" href="/assets/js/37.16dbe94f.js"><link rel="prefetch" href="/assets/js/38.e8f634d0.js"><link rel="prefetch" href="/assets/js/39.cdb110b9.js"><link rel="prefetch" href="/assets/js/40.2981beaf.js"><link rel="prefetch" href="/assets/js/41.18dc9bb4.js"><link rel="prefetch" href="/assets/js/42.6308be0b.js"><link rel="prefetch" href="/assets/js/43.a073b326.js"><link rel="prefetch" href="/assets/js/44.26b9dff2.js"><link rel="prefetch" href="/assets/js/45.d0d8452b.js"><link rel="prefetch" href="/assets/js/46.6730e2ef.js"><link rel="prefetch" href="/assets/js/47.87b61895.js"><link rel="prefetch" href="/assets/js/48.03905597.js"><link rel="prefetch" href="/assets/js/49.e8de3ab2.js"><link rel="prefetch" href="/assets/js/5.01c65514.js"><link rel="prefetch" href="/assets/js/50.98818140.js"><link rel="prefetch" href="/assets/js/51.b9a00e08.js"><link rel="prefetch" href="/assets/js/52.15ab9fb1.js"><link rel="prefetch" href="/assets/js/53.1f015475.js"><link rel="prefetch" href="/assets/js/54.0b7ca475.js"><link rel="prefetch" href="/assets/js/55.56b4dbec.js"><link rel="prefetch" href="/assets/js/56.604f094f.js"><link rel="prefetch" href="/assets/js/57.360df15e.js"><link rel="prefetch" href="/assets/js/58.dd0867c1.js"><link rel="prefetch" href="/assets/js/59.b9022feb.js"><link rel="prefetch" href="/assets/js/6.a888c7b8.js"><link rel="prefetch" href="/assets/js/60.e400b75e.js"><link rel="prefetch" href="/assets/js/61.ea0e3484.js"><link rel="prefetch" href="/assets/js/62.5e8a44de.js"><link rel="prefetch" href="/assets/js/63.447c0990.js"><link rel="prefetch" href="/assets/js/64.dc72b145.js"><link rel="prefetch" href="/assets/js/65.36ba32a8.js"><link rel="prefetch" href="/assets/js/66.066da4e4.js"><link rel="prefetch" href="/assets/js/67.7d0caf65.js"><link rel="prefetch" href="/assets/js/68.04870676.js"><link rel="prefetch" href="/assets/js/69.6ca7ed64.js"><link rel="prefetch" href="/assets/js/7.39f68421.js"><link rel="prefetch" href="/assets/js/70.68f9ca81.js"><link rel="prefetch" href="/assets/js/71.c1b13530.js"><link rel="prefetch" href="/assets/js/73.6bf299a3.js"><link rel="prefetch" href="/assets/js/74.395612f2.js"><link rel="prefetch" href="/assets/js/75.27869084.js"><link rel="prefetch" href="/assets/js/76.70cdfc3b.js"><link rel="prefetch" href="/assets/js/77.8bf29c93.js"><link rel="prefetch" href="/assets/js/78.ca725174.js"><link rel="prefetch" href="/assets/js/79.be4cd131.js"><link rel="prefetch" href="/assets/js/8.ac316b23.js"><link rel="prefetch" href="/assets/js/80.e04461ed.js"><link rel="prefetch" href="/assets/js/81.f648f972.js"><link rel="prefetch" href="/assets/js/82.10e5cd44.js"><link rel="prefetch" href="/assets/js/83.0f11db9b.js"><link rel="prefetch" href="/assets/js/84.503ec09d.js"><link rel="prefetch" href="/assets/js/85.3e0d050b.js"><link rel="prefetch" href="/assets/js/86.6011a16b.js"><link rel="prefetch" href="/assets/js/87.69a8b53e.js"><link rel="prefetch" href="/assets/js/88.377c09c4.js"><link rel="prefetch" href="/assets/js/89.ee72ebc7.js"><link rel="prefetch" href="/assets/js/9.46521a64.js"><link rel="prefetch" href="/assets/js/90.d7ead2cc.js"><link rel="prefetch" href="/assets/js/91.68a1e737.js"><link rel="prefetch" href="/assets/js/92.c0649a60.js"><link rel="prefetch" href="/assets/js/93.c77ea7a5.js"><link rel="prefetch" href="/assets/js/94.5abf6431.js"><link rel="prefetch" href="/assets/js/95.35575b8d.js"><link rel="prefetch" href="/assets/js/96.4956a3d1.js"><link rel="prefetch" href="/assets/js/97.f76d7fbe.js"><link rel="prefetch" href="/assets/js/98.3deae2b2.js"><link rel="prefetch" href="/assets/js/99.c3400551.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.d0b3e815.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">四少爷的blog</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>简介</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>容器</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>虚拟机</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>软件测试</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>大数据</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>nginx</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Python</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Java</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Linux</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>前端</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/posts/2017-01-23-1.html" class="sidebar-link">DIV居中之div水平垂直居中</a></li><li><a href="/posts/2017-02-03-1.html" class="sidebar-link">UA模拟QQ和微信客户端</a></li><li><a href="/posts/2017-02-17-1.html" class="sidebar-link">$.getJSON()跨域请求</a></li><li><a href="/posts/2017-02-21-1.html" class="sidebar-link">JS禁止浏览器打开调试面板</a></li><li><a href="/posts/2017-05-31-1.html" class="sidebar-link">切邮件界面须知 table布局万岁 京东邮件举例&quot;</a></li><li><a href="/posts/2017-06-03-1.html" class="sidebar-link">Postman发送json格式的post请求</a></li><li><a href="/posts/2018-02-07-1.html" class="sidebar-link">使用渐进式JPEG来提升用户体验</a></li><li><a href="/posts/2018-02-22-1.html" class="sidebar-link">如何使用电脑上的谷歌浏览器来调试安卓手机上的移动端页面</a></li><li><a href="/posts/2018-03-19-1.html" class="sidebar-link">微信小程序前端坑整理</a></li><li><a href="/posts/2018-04-02-1.html" class="sidebar-link">微信小程序设计也要注意图片下面的空白区</a></li><li><a href="/posts/2018-07-25-1.html" aria-current="page" class="active sidebar-link">Web 通信 之 长连接、长轮询（long polling）</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/posts/2018-07-25-1.html#什么是长连接、长轮询" class="sidebar-link">什么是长连接、长轮询？</a></li><li class="sidebar-sub-header"><a href="/posts/2018-07-25-1.html#长连接、长轮询的应用场景" class="sidebar-link">长连接、长轮询的应用场景</a></li><li class="sidebar-sub-header"><a href="/posts/2018-07-25-1.html#优缺点" class="sidebar-link">优缺点</a></li><li class="sidebar-sub-header"><a href="/posts/2018-07-25-1.html#实现原理" class="sidebar-link">实现原理</a></li><li class="sidebar-sub-header"><a href="/posts/2018-07-25-1.html#程序设计" class="sidebar-link">程序设计</a></li><li class="sidebar-sub-header"><a href="/posts/2018-07-25-1.html#总结" class="sidebar-link">总结</a></li></ul></li><li><a href="/posts/2018-11-20-1.html" class="sidebar-link">chrome的APP模式与全屏模式 --app --kiosk</a></li><li><a href="/posts/2019-01-03-1.html" class="sidebar-link">PWA介绍及快速上手搭建一个PWA应用</a></li><li><a href="/posts/2019-11-08-1.html" class="sidebar-link">vue-cli 3.x配置跨域代理</a></li><li><a href="/posts/2019-11-12-1.html" class="sidebar-link">vue-router query和params传参(接收参数)$router $route的区别</a></li><li><a href="/posts/2020-01-02-1.html" class="sidebar-link">Vue项目阻止浏览器返回事件</a></li><li><a href="/posts/2020-01-17-1.html" class="sidebar-link">chrome浏览器不支持audio和video标签的autoplay自动播放解决方案</a></li><li><a href="/posts/2020-03-11-1.html" class="sidebar-link">关于vue-cli3打包时遇到Cannot assign to read only property 'exports' of object '#Object'问题的解决方法</a></li><li><a href="/posts/2020-07-21-1.html" class="sidebar-link">表格nth-child设置行列样式</a></li><li><a href="/posts/2020-12-17-1.html" class="sidebar-link">Vue 使用Scss，深度修改局部样式</a></li><li><a href="/posts/2020-12-26-1.html" class="sidebar-link">vue中使用js-xlsx导出带样式的excel文件</a></li><li><a href="/posts/2021-01-05-1.html" class="sidebar-link">如何在VUE单页面引入CSS、JS（CDN链接）</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>C#</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>jekyll</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>其它</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="web-通信-之-长连接、长轮询-long-polling"><a href="#web-通信-之-长连接、长轮询-long-polling" class="header-anchor">#</a> Web 通信 之 长连接、长轮询（long polling）</h1> <p>基于HTTP的长连接,是一种通过长轮询方式实现&quot;服务器推&quot;的技术,它弥补了HTTP简单的请求应答模式的不足,极大地增强了程序的实时性和交互性。</p> <h2 id="什么是长连接、长轮询"><a href="#什么是长连接、长轮询" class="header-anchor">#</a> 什么是长连接、长轮询？</h2> <p>用通俗易懂的话来说，就是客户端不停的向服务器发送请求以获取最新的数据信息。这里的“不停”其实是有停止的，只是我们人眼无法分辨是否停止，它只是一种快速的停下然后又立即开始连接而已。</p> <h2 id="长连接、长轮询的应用场景"><a href="#长连接、长轮询的应用场景" class="header-anchor">#</a> 长连接、长轮询的应用场景</h2> <p>长连接、长轮询一般应用与WebIM、ChatRoom和一些需要及时交互的网站应用中。其真实案例有：WebQQ、Hi网页版、Facebook IM等。</p> <p>如果你对服务器端的反向Ajax感兴趣，可以参考这篇文章 DWR 反向Ajax 服务器端推的方式：http://www.cnblogs.com/hoojo/category/276235.html</p> <h2 id="优缺点"><a href="#优缺点" class="header-anchor">#</a> 优缺点</h2> <p><strong>轮询</strong>：客户端定时向服务器发送Ajax请求，服务器接到请求后马上返回响应信息并关闭连接。</p> <p>优点：后端程序编写比较容易。</p> <p>缺点：请求中有大半是无用，浪费带宽和服务器资源。</p> <p>实例：适于小型应用。</p> <p><strong>长轮询</strong>：客户端向服务器发送Ajax请求，服务器接到请求后hold住连接，直到有新消息才返回响应信息并关闭连接，客户端处理完响应信息后再向服务器发送新的请求。</p> <p>优点：在无消息的情况下不会频繁的请求，耗费资源小。</p> <p>缺点：服务器hold连接会消耗资源，返回数据顺序无保证，难于管理维护。</p> <p>实例：WebQQ、Hi网页版、Facebook IM。</p> <p><strong>长连接</strong>：在页面里嵌入一个隐蔵iframe，将这个隐蔵iframe的src属性设为对一个长连接的请求或是采用xhr请求，服务器端就能源源不断地往客户端输入数据。</p> <p>优点：消息即时到达，不发无用请求；管理起来也相对方便。</p> <p>缺点：服务器维护一个长连接会增加开销。</p> <p>实例：Gmail聊天</p> <p><strong>Flash Socket</strong>：在页面中内嵌入一个使用了Socket类的 Flash 程序JavaScript通过调用此Flash程序提供的Socket接口与服务器端的Socket接口进行通信，JavaScript在收到服务器端传送的信息后控制页面的显示。</p> <p>优点：实现真正的即时通信，而不是伪即时。</p> <p>缺点：客户端必须安装Flash插件；非HTTP协议，无法自动穿越防火墙。</p> <p>实例：网络互动游戏。</p> <h2 id="实现原理"><a href="#实现原理" class="header-anchor">#</a> 实现原理</h2> <p>所谓长连接，就是要在客户端与服务器之间创建和保持稳定可靠的连接。其实它是一种很早就存在的技术，但是由于浏览器技术的发展比较缓慢，没有为这种机制的实现提供很好的支持。所以要达到这种效果，需要客户端和服务器的程序共同配合来完成。通常的做法是，在服务器的程序中加入一个死循环，在循环中监测数据的变动。当发现新数据时，立即将其输出给浏览器并断开连接，浏览器在收到数据后，再次发起请求以进入下一个周期，这就是常说的长轮询（long-polling）方式。如下图所示，它通常包含以下几个关键过程：</p> <p><img src="/image/2018-07-25-1-1.png" alt=""></p> <ol><li>轮询的建立</li></ol> <p>建立轮询的过程很简单，浏览器发起请求后进入循环等待状态，此时由于服务器还未做出应答，所以HTTP也一直处于连接状态中。</p> <ol start="2"><li>数据的推送</li></ol> <p>在循环过程中，服务器程序对数据变动进行监控，如发现更新，将该信息输出给浏览器，随即断开连接，完成应答过程，实现“服务器推”。</p> <ol start="3"><li>轮询的终止</li></ol> <p>轮询可能在以下3种情况时终止：</p> <p>3.1. 有新数据推送</p> <p>当循环过程中服务器向浏览器推送信息后，应该主动结束程序运行从而让连接断开，这样浏览器才能及时收到数据。</p> <p>3.2. 没有新数据推送</p> <p>循环不能一直持续下去，应该设定一个最长时限，避免WEB服务器超时（Timeout），若一直没有新信息，服务器应主动向浏览器发送本次轮询无新信息的正常响应，并断开连接，这也被称为“心跳”信息。</p> <p>3.3. 网络故障或异常</p> <p>由于网络故障等因素造成的请求超时或出错也可能导致轮询的意外中断，此时浏览器将收到错误信息。</p> <ol start="4"><li>轮询的重建</li></ol> <p>浏览器收到回复并进行相应处理后，应马上重新发起请求，开始一个新的轮询周期。</p> <h2 id="程序设计"><a href="#程序设计" class="header-anchor">#</a> 程序设计</h2> <ol><li>普通轮询 Ajax方式</li></ol> <p>客户端代码片段</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;%@ page language=&quot;java&quot; import=&quot;java.util.*&quot; pageEncoding=&quot;UTF-8&quot; isELIgnored=&quot;false&quot; %&gt;
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv=&quot;pragma&quot; content=&quot;no-cache&quot;&gt;
+        &lt;meta http-equiv=&quot;cache-control&quot; content=&quot;no-cache&quot;&gt;
+        &lt;meta http-equiv=&quot;author&quot; content=&quot;hoojo &amp; http://hoojo.cnblogs.com&quot;&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+        &lt;%@ include file=&quot;/tags/jquery-lib.jsp&quot;%&gt;
+        
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            $(function () {
+            
+                window.setInterval(function () {
+                
+                    $.get(&quot;${pageContext.request.contextPath}/communication/user/ajax.mvc&quot;, 
+                        {&quot;timed&quot;: new Date().getTime()}, 
+                        function (data) {
+                            $(&quot;#logs&quot;).append(&quot;[data: &quot; + data + &quot; ]&lt;br/&gt;&quot;);
+                    });
+                }, 3000);
+                
+            });
+        &lt;/script&gt;
+    &lt;/head&gt;
+    
+    &lt;body&gt;
+        &lt;div id=&quot;logs&quot;&gt;&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><p>客户端实现的就是用一种普通轮询的结果，比较简单。利用setInterval不间断的刷新来获取服务器的资源，这种方式的优点就是简单、及时。缺点是链接多数是无效重复的；响应的结果没有顺序（因为是异步请求，当发送的请求没有返回结果的时候，后面的请求又被发送。而此时如果后面的请求比前面的请求要先返回结果，那么当前面的请求返回结果数据时已经是过时无效的数据了）；请求多，难于维护、浪费服务器和网络资源。</p> <p>服务器端代码</p> <div class="language- extra-class"><pre class="language-text"><code>@RequestMapping(&quot;/ajax&quot;)
+public void ajax(long timed, HttpServletResponse response) throws Exception {
+     PrintWriter writer = response.getWriter();
+     
+     Random rand = new Random();
+     // 死循环 查询有无数据变化
+     while (true) {
+         Thread.sleep(300); // 休眠300毫秒，模拟处理业务等
+         int i = rand.nextInt(100); // 产生一个0-100之间的随机数
+         if (i &gt; 20 &amp;&amp; i &lt; 56) { // 如果随机数在20-56之间就视为有效数据，模拟数据发生变化
+             long responseTime = System.currentTimeMillis();
+             // 返回数据信息，请求时间、返回数据时间、耗时
+             writer.print(&quot;result: &quot; + i + &quot;, response time: &quot; + responseTime + &quot;, request time: &quot; + timed + &quot;, use time: &quot; + (responseTime - timed));
+             break; // 跳出循环，返回数据
+         } else { // 模拟没有数据变化，将休眠 hold住连接
+             Thread.sleep(1300);
+         }
+     }
+     
+}
+</code></pre></div><p>服务器端实现，这里就模拟下程序监控数据的变化。上面代码属于SpringMVC 中controller中的一个方法，相当于Servlet中的一个doPost/doGet方法。如果没有程序环境适应servlet即可，将方法体中的代码copy到servlet的doGet/doPost中即可。</p> <p><strong>服务器端在进行长连接的程序设计时，要注意以下几点：</strong></p> <ol><li>服务器程序对轮询的可控性</li></ol> <p>由于轮询是用死循环的方式实现的，所以在算法上要保证程序对何时退出循环有完全的控制能力，避免进入死循环而耗尽服务器资源。</p> <ol start="2"><li>合理选择“心跳”频率</li></ol> <p>从图1可以看出，长连接必须由客户端不停地进行请求来维持，所以在客户端和服务器间保持正常的“心跳”至为关键，参数POLLING_LIFE应小于WEB服务器的超时时间，一般建议在10～20秒左右。</p> <ol start="3"><li>网络因素的影响</li></ol> <p>在实际应用时，从服务器做出应答，到下一次循环的建立，是有时间延迟的，延迟时间的长短受网络传输等多种因素影响，在这段时间内，长连接处于暂时断开的空档，如果恰好有数据在这段时间内发生变动，服务器是无法立即进行推送的，所以，在算法设计上要注意解决由于延迟可能造成的数据丢失问题。</p> <ol start="4"><li>服务器的性能</li></ol> <p>在长连接应用中，服务器与每个客户端实例都保持一个持久的连接，这将消耗大量服务器资源，特别是在一些大型应用系统中更是如此，大量并发的长连接有可能导致新的请求被阻塞甚至系统崩溃，所以，在进行程序设计时应特别注意算法的优化和改进，必要时还需要考虑服务器的负载均衡和集群技术。</p> <p><img src="/image/2018-07-25-1-2.png" alt=""></p> <p>上图是返回的结果，可以看到先发出请求，不一定会最先返回结果。这样就不能保证顺序，造成脏数据或无用的连接请求。可见对服务器或网络的资源浪费。</p> <ol start="2"><li>普通轮询 iframe方式</li></ol> <p>客户端代码片段</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;%@ page language=&quot;java&quot; import=&quot;java.util.*&quot; pageEncoding=&quot;UTF-8&quot; isELIgnored=&quot;false&quot; %&gt;
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv=&quot;pragma&quot; content=&quot;no-cache&quot;&gt;
+        &lt;meta http-equiv=&quot;cache-control&quot; content=&quot;no-cache&quot;&gt;
+        &lt;meta http-equiv=&quot;expires&quot; content=&quot;0&quot;&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+        &lt;%@ include file=&quot;/tags/jquery-lib.jsp&quot;%&gt;
+        
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            $(function () {
+            
+                window.setInterval(function () {
+                    $(&quot;#logs&quot;).append(&quot;[data: &quot; + $($(&quot;#frame&quot;).get(0).contentDocument).find(&quot;body&quot;).text() + &quot; ]&lt;br/&gt;&quot;);
+                    $(&quot;#frame&quot;).attr(&quot;src&quot;, &quot;${pageContext.request.contextPath}/communication/user/ajax.mvc?timed=&quot; + new Date().getTime());
+                    // 延迟1秒再重新请求
+                    window.setTimeout(function () {
+                        window.frames[&quot;polling&quot;].location.reload();
+                    }, 1000);
+                }, 5000);
+                
+            });
+        &lt;/script&gt;
+    &lt;/head&gt;
+    
+    &lt;body&gt;
+        &lt;iframe id=&quot;frame&quot; name=&quot;polling&quot; style=&quot;display: none;&quot;&gt;&lt;/iframe&gt;
+        &lt;div id=&quot;logs&quot;&gt;&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><p>这里的客户端程序是利用隐藏的iframe向服务器端不停的拉取数据，将iframe获取后的数据填充到页面中即可。同ajax实现的基本原理一样，唯一不同的是当一个请求没有响应返回数据的情况下，下一个请求也将开始，这时候前面的请求将被停止。如果要使程序和上面的ajax请求一样也可以办到，那就是给每个请求分配一个独立的iframe即可。下面是返回的结果：</p> <p><img src="/image/2018-07-25-1-3.png" alt=""></p> <p>其中红色是没有成功返回请求就被停止（后面请求开始）掉的请求，黑色是成功返回数据的请求。</p> <ol start="3"><li>长连接iframe方式</li></ol> <p>客户端代码片段</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;%@ page language=&quot;java&quot; import=&quot;java.util.*&quot; pageEncoding=&quot;UTF-8&quot; isELIgnored=&quot;false&quot; %&gt;
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv=&quot;pragma&quot; content=&quot;no-cache&quot;&gt;
+        &lt;meta http-equiv=&quot;cache-control&quot; content=&quot;no-cache&quot;&gt;
+        &lt;meta http-equiv=&quot;author&quot; content=&quot;hoojo &amp; http://hoojo.cnblogs.com&quot;&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+        &lt;%@ include file=&quot;/tags/jquery-lib.jsp&quot;%&gt;
+        
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            $(function () {
+            
+                window.setInterval(function () {
+                    var url = &quot;${pageContext.request.contextPath}/communication/user/ajax.mvc?timed=&quot; + new Date().getTime();
+                    var $iframe = $('&lt;iframe id=&quot;frame&quot; name=&quot;polling&quot; style=&quot;display: none;&quot; src=&quot;' + url + '&quot;&gt;&lt;/iframe&gt;');
+                    $(&quot;body&quot;).append($iframe);
+                
+                    $iframe.load(function () {
+                        $(&quot;#logs&quot;).append(&quot;[data: &quot; + $($iframe.get(0).contentDocument).find(&quot;body&quot;).text() + &quot; ]&lt;br/&gt;&quot;);
+                        $iframe.remove();
+                    });
+                }, 5000);
+                
+            });
+        &lt;/script&gt;
+    &lt;/head&gt;
+    
+    &lt;body&gt;
+        
+        &lt;div id=&quot;logs&quot;&gt;&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div><p>这个轮询方式就是把刚才上面的稍微改下，每个请求都有自己独立的一个iframe，当这个iframe得到响应的数据后就把数据push到当前页面上。使用此方法已经类似于ajax的异步交互了，这种方法也是不能保证顺序的、比较耗费资源、而且总是有一个加载的条在地址栏或状态栏附件（当然要解决可以利用htmlfile，Google的攻城师们已经做到了，网上也有封装好的lib库），但客户端实现起来比较简单。</p> <p><img src="/image/2018-07-25-1-4.png" alt=""></p> <p>如果要保证有序，可以不使用setInterval，将创建iframe的方法放在load事件中即可，即使用递归方式。调整后的代码片段如下：</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    $(function () {
+        (function iframePolling() {
+            var url = &quot;${pageContext.request.contextPath}/communication/user/ajax.mvc?timed=&quot; + new Date().getTime();
+            var $iframe = $('&lt;iframe id=&quot;frame&quot; name=&quot;polling&quot; style=&quot;display: none;&quot; src=&quot;' + url + '&quot;&gt;&lt;/iframe&gt;');
+            $(&quot;body&quot;).append($iframe);
+        
+            $iframe.load(function () {
+                $(&quot;#logs&quot;).append(&quot;[data: &quot; + $($iframe.get(0).contentDocument).find(&quot;body&quot;).text() + &quot; ]&lt;br/&gt;&quot;);
+                $iframe.remove();
+                
+                // 递归
+                iframePolling();
+            });
+        })();    
+    });
+&lt;/script&gt;
+</code></pre></div><p>这种方式虽然保证了请求的顺序，但是它不会处理请求延时的错误或是说很长时间没有返回结果的请求，它会一直等到返回请求后才能创建下一个iframe请求，总会和服务器保持一个连接。和以上轮询比较，缺点就是消息不及时，但保证了请求的顺序。</p> <ol start="4"><li>ajax实现长连接</li></ol> <p>客户端代码片段</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;%@ page language=&quot;java&quot; import=&quot;java.util.*&quot; pageEncoding=&quot;UTF-8&quot; isELIgnored=&quot;false&quot; %&gt;
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv=&quot;pragma&quot; content=&quot;no-cache&quot;&gt;
+        &lt;meta http-equiv=&quot;cache-control&quot; content=&quot;no-cache&quot;&gt;
+        &lt;meta http-equiv=&quot;expires&quot; content=&quot;0&quot;&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+        &lt;%@ include file=&quot;/tags/jquery-lib.jsp&quot;%&gt;
+        
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            $(function () {
+            
+                (function longPolling() {
+                
+                    $.ajax({
+                        url: &quot;${pageContext.request.contextPath}/communication/user/ajax.mvc&quot;,
+                        data: {&quot;timed&quot;: new Date().getTime()},
+                        dataType: &quot;text&quot;,
+                        timeout: 5000,
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            $(&quot;#state&quot;).append(&quot;[state: &quot; + textStatus + &quot;, error: &quot; + errorThrown + &quot; ]&lt;br/&gt;&quot;);
+                            if (textStatus == &quot;timeout&quot;) { // 请求超时
+                                    longPolling(); // 递归调用
+                                
+                                // 其他错误，如网络错误等
+                                } else { 
+                                    longPolling();
+                                }
+                            },
+                        success: function (data, textStatus) {
+                            $(&quot;#state&quot;).append(&quot;[state: &quot; + textStatus + &quot;, data: { &quot; + data + &quot;} ]&lt;br/&gt;&quot;);
+                            
+                            if (textStatus == &quot;success&quot;) { // 请求成功
+                                longPolling();
+                            }
+                        }
+                    });
+                })();
+                
+            });
+        &lt;/script&gt;
+    &lt;/head&gt;
+    
+    &lt;body&gt;
+&lt;/heml&gt;
+</code></pre></div><p>上面这段代码就是才有Ajax的方式完成长连接，主要优点就是和服务器始终保持一个连接。如果当前连接请求成功后，将更新数据并且继续创建一个新的连接和服务器保持联系。如果连接超时或发生异常，这个时候程序也会创建一个新连接继续请求。这样就大大节省了服务器和网络资源，提高了程序的性能，从而也保证了程序的顺序。</p> <p><img src="/image/2018-07-25-1-5.png" alt=""></p> <h2 id="总结"><a href="#总结" class="header-anchor">#</a> 总结</h2> <p>现代的浏览器都支持跨域资源共享（Cross-Origin Resource Share，CORS）规范，该规范允许XHR执行跨域请求，因此基于脚本的和基于iframe的技术已成为了一种过时的需要。</p> <p>把Comet做为反向Ajax的实现和使用的最好方式是通过XMLHttpRequest对象，该做法提供了一个真正的连接句柄和错误处理。当然你选择经由HTTP长轮询使用XMLHttpRequest对象（在服务器端挂起的一个简单的Ajax请求）的Comet模式，所有支持Ajax的浏览器也都支持该种做法。</p> <p>基于HTTP的长连接技术，是目前在纯浏览器环境下进行即时交互类应用开发的理想选择，随着浏览器的快速发展，html5将为其提供更好的支持和更广泛的应用。在html5中有一个websocket 可以很友好的完成长连接这一技术，网上也有相关方面的资料，这里也就不再做过多介绍。</p> <p>(完)</p> <p>文章抄自:<a href="https://www.cnblogs.com/hoojo/p/longPolling_comet_jquery_iframe_ajax.html" target="_blank" rel="noopener noreferrer">hoojo<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/posts/2018-04-02-1.html" class="prev">
+        微信小程序设计也要注意图片下面的空白区
+      </a></span> <span class="next"><a href="/posts/2018-11-20-1.html">
+        chrome的APP模式与全屏模式 --app --kiosk
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.c6e224e5.js" defer></script><script src="/assets/js/2.b7cbfaf7.js" defer></script><script src="/assets/js/72.44792172.js" defer></script><script src="/assets/js/4.eccf986c.js" defer></script>
+  </body>
+</html>
