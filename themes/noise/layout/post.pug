@@ -1,0 +1,31 @@
+extends base.pug
+
+block title
+  title= page.title + " | " + config.title
+
+block main
+
+  article.wrapper
+    .post-main
+      .nav
+        nav.container
+          each nav, name in theme.menu
+            +a_with_current(nav, __(name))
+        .container.post-meta
+          if (page.tags && page.tags.length)
+            .post-tags
+              != list_tags(page.tags, {show_count: false, class: 'post-tag', style:'none', separator:''})
+          .post-time= page.date.format(config.date_format)
+
+      .container.post-header
+        h1: = page.title
+
+      if (theme.show_toc_by_default && typeof page.toc === 'undefined' && toc(page.content)!='') || page.toc
+        .container.post-toc
+          details.toc
+            summary.toc-accordion
+              = theme.toc_words
+            != toc(page.content)
+
+      .container.post-content
+        != page.content

@@ -1,0 +1,24 @@
+# Header
+menu:
+  ## If your site is put in a subdirectory, set Home as '/child/'
+  首页: /
+  归档: archives
+
+social:
+  email: sex@jermey.cn
+  twitter:
+  weibo:
+  github: jermeyhu
+  googleplus:
+  rss: /atom.xml
+
+# Content
+toc_words: "目录" # the line shown in toc
+show_toc_by_default: true # to show toc if `toc:` is not specified in post
+compact_index: false # to use compact version of index page
+
+less:
+  paths:
+    - source/css
+  compress:
+    true

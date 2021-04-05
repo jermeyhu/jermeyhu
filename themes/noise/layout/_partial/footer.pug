@@ -1,0 +1,18 @@
+footer.footer.wrapper
+  .social
+    +social_icon('email', "mailto:", "fa-envelope-o")
+    +social_icon('twitter', 'https://twitter.com/', 'fa-twitter')
+    +social_icon('weibo', 'https://weibo.com/', 'fa-weibo')
+    +social_icon('github', 'https://github.com/', 'fa-github')
+    +social_icon('googleplus', 'https://plus.google.com/', 'fa-google-plus')
+    +social_icon('rss', "", "fa-rss")
+
+  .footer-content
+    - var year = date(new Date(), 'YYYY');
+    = '© ' + year + ' '
+    a(href='/', rel='nofollow')= config.title
+    = '. Powered by '
+    a(rel='nofollow', target='_blank', href='https://hexo.io') Hexo
+    = '. Theme '
+    a(target='_blank', href='https://github.com/lotabout/hexo-theme-noise') noise
+    |.
