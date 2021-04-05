@@ -1,0 +1,25 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;h1 id=&quot;MySQL事务autocommit自动提交&quot;&gt;&lt;a href=&quot;#MySQL事务autocommit自动提交&quot; class=&quot;headerlink&quot; title=&quot;MySQL事务autocommit自动提交&quot;&gt;&lt;/a&gt;MySQL事务autocommit自动提交&lt;/h1&gt;&lt;p&gt;MySQL默认操作模式就是autocommit自动提交模式。&lt;br&gt;这就表示除非显式地开始一个事务，否则每个查询都被当做一个单独的事务自动执行。&lt;br&gt;我们可以通过设置autocommit的值改变是否是自动提交autocommit模式。&lt;/p&gt;
+&lt;p&gt;通过以下命令可以查看当前autocommit模式&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SHOW VARIABLES LIKE &amp;#39;autocommit&amp;#39;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;从查询结果中，我们发现Value的值是ON，表示autocommit开启。我们可以通过以下SQL语句改变这个模式&lt;/p&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title> | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-time">2021-04-05</div></div></div><div class="container post-header"><h1></h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL%E4%BA%8B%E5%8A%A1autocommit%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4"><span class="toc-number">1.</span> <span class="toc-text">MySQL事务autocommit自动提交</span></a></li></ol></details></div><div class="container post-content"><h1 id="MySQL事务autocommit自动提交"><a href="#MySQL事务autocommit自动提交" class="headerlink" title="MySQL事务autocommit自动提交"></a>MySQL事务autocommit自动提交</h1><p>MySQL默认操作模式就是autocommit自动提交模式。<br>这就表示除非显式地开始一个事务，否则每个查询都被当做一个单独的事务自动执行。<br>我们可以通过设置autocommit的值改变是否是自动提交autocommit模式。</p>
+<p>通过以下命令可以查看当前autocommit模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES LIKE &#39;autocommit&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>从查询结果中，我们发现Value的值是ON，表示autocommit开启。我们可以通过以下SQL语句改变这个模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set autocommit &#x3D; 0;</span><br></pre></td></tr></table></figure>
+
+<p>值0和OFF都是一样的，当然，1也就表示ON。<br>通过以上设置autocommit=0，则用户将一直处于某个事务中，直到执行一条commit提交或rollback语句才会结束当前事务重新开始一个新的事务。</p>
+<p>举个例子：</p>
+<ol>
+<li>先查询张三的账户余额是否足够</li>
+<li>张三的账户上减去500元</li>
+<li>李四的账户上加上500元</li>
+</ol>
+<p>以上三个步骤就可以放在一个事务中执行提交，要么全部执行要么全部不执行，如果一切都OK就commit提交永久性更改数据；<br>如果出错则rollback回滚到更改前的状态。<br>利用事务处理就不会出现张三的钱少了李四的账户却没有增加500元或者张三的钱没有减去李四的账户却加了500元。</p>
+<p>MySQL默认的存储引擎是MyISAM，MyISAM存储引擎不支持事务处理，所以改变autocommit没有什么作用。<br>但不会报错，所以要使用事务处理的童鞋一定要确定你所操作的表示支持事务处理的，如InnoDB。<br>如果不知道表的存储引擎可以通过查看建表语句查看建表的时候有没有指定事务类型的存储引擎，<br>如果没有指定存储引擎默认则是MyISAM不支持事务的存储引擎。</p>
+<p>当然，事务处理是为了保障表数据原子性、一致性、隔离性、持久性。这些都是要消耗系统资源的，要谨慎选择。</p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/css/font.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+  $(".fancybox").fancybox();
+});
+</script></body></html>

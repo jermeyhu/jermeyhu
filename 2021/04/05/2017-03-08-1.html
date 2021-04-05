@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;h1 id=&quot;怎样减轻程序中-if-语句的依赖&quot;&gt;&lt;a href=&quot;#怎样减轻程序中-if-语句的依赖&quot; class=&quot;headerlink&quot; title=&quot;怎样减轻程序中 if 语句的依赖&quot;&gt;&lt;/a&gt;怎样减轻程序中 if 语句的依赖&lt;/h1&gt;&lt;p&gt;新手编写代码, 没考虑太多, 主要是 if 语句嵌套很多,如何可以让代码看起来清晰一点。&lt;/p&gt;
+&lt;p&gt;刚开始写代码的时候经常是这样的。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if (condition_1)
+&amp;#123;
+    if (condition_2)
+    &amp;#123;
+        if (condition_3)
+        &amp;#123;
+            if (condition_4)
+            &amp;#123;
+                // do something
+            &amp;#125;
+        &amp;#125;
+    &amp;#125;
+&amp;#125;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;那么可能应该写成这样&lt;/p&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title> | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-time">2021-04-05</div></div></div><div class="container post-header"><h1></h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%8E%E6%A0%B7%E5%87%8F%E8%BD%BB%E7%A8%8B%E5%BA%8F%E4%B8%AD-if-%E8%AF%AD%E5%8F%A5%E7%9A%84%E4%BE%9D%E8%B5%96"><span class="toc-number">1.</span> <span class="toc-text">怎样减轻程序中 if 语句的依赖</span></a></li></ol></details></div><div class="container post-content"><h1 id="怎样减轻程序中-if-语句的依赖"><a href="#怎样减轻程序中-if-语句的依赖" class="headerlink" title="怎样减轻程序中 if 语句的依赖"></a>怎样减轻程序中 if 语句的依赖</h1><p>新手编写代码, 没考虑太多, 主要是 if 语句嵌套很多,如何可以让代码看起来清晰一点。</p>
+<p>刚开始写代码的时候经常是这样的。</p>
+<pre><code>if (condition_1)
+&#123;
+    if (condition_2)
+    &#123;
+        if (condition_3)
+        &#123;
+            if (condition_4)
+            &#123;
+                // do something
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>那么可能应该写成这样</p>
+<pre><code>if (condition_1 &amp;&amp; condition_2)
+&#123;
+    if (condition_3 &amp;&amp; condition_4)
+    &#123;
+        // do something
+    &#125;
+&#125;
+</code></pre>
+<p>当然可能不是每一个条件都可以像上面那样子，但是往往可以写成下面那样</p>
+<pre><code>if (!condition_1)
+    return;
+
+if (!condition_2)
+    return;
+
+if (!condition_3)
+    return;
+
+if (!condition_4)
+    return;
+
+//do something
+</code></pre>
+<p>有时候还可以这样写</p>
+<pre><code>do
+&#123;
+    if (!condition_1)
+        break;
+
+    if (!condition_2)
+        break;
+
+    if (!condition_3)
+        break;
+
+    if (!condition_4)
+        break;
+
+    // do something
+    return;
+&#125;while(0);
+
+// do some clean up
+return;
+</code></pre>
+<p>文章部分内容来自：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20161410">https://www.zhihu.com/question/20161410</a></p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/css/font.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+  $(".fancybox").fancybox();
+});
+</script></body></html>

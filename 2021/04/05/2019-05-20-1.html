@@ -1,0 +1,57 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;h1 id=&quot;将java应用-springboot-jar-注册成Windows服务&quot;&gt;&lt;a href=&quot;#将java应用-springboot-jar-注册成Windows服务&quot; class=&quot;headerlink&quot; title=&quot;将java应用(springboot jar)注册成Windows服务&quot;&gt;&lt;/a&gt;将java应用(springboot jar)注册成Windows服务&lt;/h1&gt;&lt;h2 id=&quot;将springboot-打包成jar&quot;&gt;&lt;a href=&quot;#将springboot-打包成jar&quot; class=&quot;headerlink&quot; title=&quot;将springboot 打包成jar&quot;&gt;&lt;/a&gt;将springboot 打包成jar&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;修改&lt;code&gt;pom.xml&lt;/code&gt;设置&lt;code&gt;&amp;lt;packaging&amp;gt;jar&amp;lt;/packaging&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用mvn命令打包程序&lt;code&gt;mvn clean package&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在项目目录target下找到jar文件&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;下载WinSW&quot;&gt;&lt;a href=&quot;#下载WinSW&quot; class=&quot;headerlink&quot; title=&quot;下载WinSW&quot;&gt;&lt;/a&gt;下载WinSW&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kohsuke/winsw&quot;&gt;github开源地址&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kohsuke/winsw/releases&quot;&gt;下载地址&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;下载&lt;code&gt;WinSW.NET4.exe&lt;/code&gt;和&lt;code&gt;sample-minimal.xml&lt;/code&gt;文件&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title> | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-time">2021-04-05</div></div></div><div class="container post-header"><h1></h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%86java%E5%BA%94%E7%94%A8-springboot-jar-%E6%B3%A8%E5%86%8C%E6%88%90Windows%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.</span> <span class="toc-text">将java应用(springboot jar)注册成Windows服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86springboot-%E6%89%93%E5%8C%85%E6%88%90jar"><span class="toc-number">1.1.</span> <span class="toc-text">将springboot 打包成jar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDWinSW"><span class="toc-number">1.2.</span> <span class="toc-text">下载WinSW</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9WinSW%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.</span> <span class="toc-text">修改WinSW配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%90%AF%E5%8A%A8windows%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.4.</span> <span class="toc-text">安装启动windows服务</span></a></li></ol></li></ol></details></div><div class="container post-content"><h1 id="将java应用-springboot-jar-注册成Windows服务"><a href="#将java应用-springboot-jar-注册成Windows服务" class="headerlink" title="将java应用(springboot jar)注册成Windows服务"></a>将java应用(springboot jar)注册成Windows服务</h1><h2 id="将springboot-打包成jar"><a href="#将springboot-打包成jar" class="headerlink" title="将springboot 打包成jar"></a>将springboot 打包成jar</h2><ol>
+<li><p>修改<code>pom.xml</code>设置<code>&lt;packaging&gt;jar&lt;/packaging&gt;</code></p>
+</li>
+<li><p>使用mvn命令打包程序<code>mvn clean package</code></p>
+</li>
+<li><p>在项目目录target下找到jar文件</p>
+</li>
+</ol>
+<h2 id="下载WinSW"><a href="#下载WinSW" class="headerlink" title="下载WinSW"></a>下载WinSW</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/kohsuke/winsw">github开源地址</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/kohsuke/winsw/releases">下载地址</a></p>
+</li>
+<li><p>下载<code>WinSW.NET4.exe</code>和<code>sample-minimal.xml</code>文件</p>
+</li>
+</ol>
+<h2 id="修改WinSW配置文件"><a href="#修改WinSW配置文件" class="headerlink" title="修改WinSW配置文件"></a>修改WinSW配置文件</h2><ol>
+<li><p>将sample-minimal.xml和WinSW.NET4.exe文件名改为和jar文件名保持一致，方便后续操作。（jar包、.exe文件、.xml文件均在同一目录下）</p>
+</li>
+<li><p>修改xml文件</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">  &lt;!--服务ID：启动、关闭、删除服务时，都是通过ID来操作的--&gt;</span><br><span class="line">  &lt;id&gt;testservice&lt;&#x2F;id&gt;</span><br><span class="line">  &lt;!--服务名称--&gt;</span><br><span class="line">  &lt;name&gt;testservice&lt;&#x2F;name&gt;</span><br><span class="line">  &lt;!--服务描述--&gt;</span><br><span class="line">  &lt;description&gt;This service is a service for testservice&lt;&#x2F;description&gt;</span><br><span class="line">  &lt;!--当前电脑配置了java环境变量，直接写成“java”就行；你也可以写成类似这样：D:\develop\jdk1.8\jre\bin\java--&gt;</span><br><span class="line">  &lt;executable&gt;java&lt;&#x2F;executable&gt;</span><br><span class="line">  &lt;!--启动参数--&gt;</span><br><span class="line">  &lt;arguments&gt;-jar testservice.jar&lt;&#x2F;arguments&gt;</span><br><span class="line">  &lt;!--日志配置--&gt;</span><br><span class="line">  &lt;logpath&gt;logs&#x2F;service&lt;&#x2F;logpath&gt;</span><br><span class="line">  &lt;logmode&gt;rotate&lt;&#x2F;logmode&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装启动windows服务"><a href="#安装启动windows服务" class="headerlink" title="安装启动windows服务"></a>安装启动windows服务</h2><ol>
+<li><p>以管理员权限运行CMD</p>
+</li>
+<li><p>进入到三个文件的目标目录</p>
+</li>
+<li><p>执行命令<code>testservice.exe install</code>安装服务</p>
+</li>
+<li><p>执行命令<code>net start testservice</code>启动服务</p>
+</li>
+<li><p>执行命令<code>net Stop testservice</code>停止服务</p>
+</li>
+<li><p>执行命令<code>testservice.exe uninstall</code>卸载服务</p>
+</li>
+</ol>
+</div></div></article><link rel="stylesheet" type="text/css" href="/css/font.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+  $(".fancybox").fancybox();
+});
+</script></body></html>

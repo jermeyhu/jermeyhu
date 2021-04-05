@@ -1,0 +1,117 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;h1 id=&quot;C-创建Windows-Service-Windows-服务-基础教程&quot;&gt;&lt;a href=&quot;#C-创建Windows-Service-Windows-服务-基础教程&quot; class=&quot;headerlink&quot; title=&quot;C#创建Windows Service(Windows 服务)基础教程&quot;&gt;&lt;/a&gt;C#创建Windows Service(Windows 服务)基础教程&lt;/h1&gt;&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;Windows Service这一块并不复杂，但是注意事项太多了，网上资料也很凌乱，偶尔自己写也会丢三落四的。所以本文也就产生了，本文不会写复杂的东西，完全以基础应用的需求来写，所以不会对Windows Service写很深入。&lt;/p&gt;
+&lt;p&gt;本文介绍了如何用C#创建、安装、启动、监控、卸载简单的Windows Service 的内容步骤和注意事项。&lt;/p&gt;
+&lt;h2 id=&quot;一、创建一个Windows-Service&quot;&gt;&lt;a href=&quot;#一、创建一个Windows-Service&quot; class=&quot;headerlink&quot; title=&quot;一、创建一个Windows Service&quot;&gt;&lt;/a&gt;一、创建一个Windows Service&lt;/h2&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title> | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-time">2021-04-05</div></div></div><div class="container post-header"><h1></h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%88%9B%E5%BB%BAWindows-Service-Windows-%E6%9C%8D%E5%8A%A1-%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">C#创建Windows Service(Windows 服务)基础教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAWindows-Service"><span class="toc-number">1.2.</span> <span class="toc-text">一、创建一个Windows Service</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BAWindows-Service%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.2.1.</span> <span class="toc-text">1).创建Windows Service项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AF%B9Service%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-number">1.2.2.</span> <span class="toc-text">2).对Service重命名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.</span> <span class="toc-text">二、创建服务安装程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B7%BB%E5%8A%A0%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">1).添加安装程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BF%AE%E6%94%B9%E5%AE%89%E8%A3%85%E6%9C%8D%E5%8A%A1%E5%90%8D"><span class="toc-number">1.3.2.</span> <span class="toc-text">2).修改安装服务名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BF%AE%E6%94%B9%E5%AE%89%E8%A3%85%E6%9D%83%E9%99%90"><span class="toc-number">1.3.3.</span> <span class="toc-text">3).修改安装权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%86%99%E5%85%A5%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%A0%81"><span class="toc-number">1.4.</span> <span class="toc-text">三、写入服务代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%89%93%E5%BC%80ServiceTest%E4%BB%A3%E7%A0%81"><span class="toc-number">1.4.1.</span> <span class="toc-text">1).打开ServiceTest代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%86%99%E5%85%A5Service%E9%80%BB%E8%BE%91"><span class="toc-number">1.4.2.</span> <span class="toc-text">2).写入Service逻辑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%88%9B%E5%BB%BA%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC"><span class="toc-number">1.5.</span> <span class="toc-text">四、创建安装脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%ACInstall-bat"><span class="toc-number">1.5.1.</span> <span class="toc-text">1).安装脚本Install.bat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8D%B8%E8%BD%BD%E8%84%9A%E6%9C%ACUninstall-bat"><span class="toc-number">1.5.2.</span> <span class="toc-text">2).卸载脚本Uninstall.bat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC%E8%AF%B4%E6%98%8E"><span class="toc-number">1.5.3.</span> <span class="toc-text">3).安装脚本说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%84%9A%E6%9C%AC%E8%B0%83%E8%AF%95"><span class="toc-number">1.5.4.</span> <span class="toc-text">4).脚本调试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%9C%A8C-%E4%B8%AD%E5%AF%B9%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E6%8E%A7%E5%88%B6"><span class="toc-number">1.6.</span> <span class="toc-text">五、在C#中对服务进行控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">1.6.1.</span> <span class="toc-text">1).配置目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85"><span class="toc-number">1.6.2.</span> <span class="toc-text">2).安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8D%B8%E8%BD%BD"><span class="toc-number">1.6.3.</span> <span class="toc-text">3).卸载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%90%AF%E5%8A%A8"><span class="toc-number">1.6.4.</span> <span class="toc-text">4).启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%81%9C%E6%AD%A2"><span class="toc-number">1.6.5.</span> <span class="toc-text">5).停止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9A%82%E5%81%9C-%E7%BB%A7%E7%BB%AD"><span class="toc-number">1.6.6.</span> <span class="toc-text">6).暂停&#x2F;继续</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%A3%80%E6%9F%A5%E7%8A%B6%E6%80%81"><span class="toc-number">1.6.7.</span> <span class="toc-text">7).检查状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E8%B0%83%E8%AF%95Windows-Service"><span class="toc-number">1.7.</span> <span class="toc-text">六、调试Windows Service</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E5%B9%B6%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.7.1.</span> <span class="toc-text">1).安装并运行服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%99%84%E5%8A%A0%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.7.2.</span> <span class="toc-text">2).附加进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%9C%A8%E4%BB%A3%E7%A0%81%E4%B8%AD%E5%8A%A0%E5%85%A5%E6%96%AD%E7%82%B9%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95"><span class="toc-number">1.7.3.</span> <span class="toc-text">3).在代码中加入断点进行调试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">1.8.</span> <span class="toc-text">七、总结</span></a></li></ol></li></ol></details></div><div class="container post-content"><h1 id="C-创建Windows-Service-Windows-服务-基础教程"><a href="#C-创建Windows-Service-Windows-服务-基础教程" class="headerlink" title="C#创建Windows Service(Windows 服务)基础教程"></a>C#创建Windows Service(Windows 服务)基础教程</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Windows Service这一块并不复杂，但是注意事项太多了，网上资料也很凌乱，偶尔自己写也会丢三落四的。所以本文也就产生了，本文不会写复杂的东西，完全以基础应用的需求来写，所以不会对Windows Service写很深入。</p>
+<p>本文介绍了如何用C#创建、安装、启动、监控、卸载简单的Windows Service 的内容步骤和注意事项。</p>
+<h2 id="一、创建一个Windows-Service"><a href="#一、创建一个Windows-Service" class="headerlink" title="一、创建一个Windows Service"></a>一、创建一个Windows Service</h2><h3 id="1-创建Windows-Service项目"><a href="#1-创建Windows-Service项目" class="headerlink" title="1).创建Windows Service项目"></a>1).创建Windows Service项目</h3><p><img src="/image/2017-03-20-1-1.png"></p>
+<p><img src="/image/2017-03-20-1-2.png"></p>
+<h3 id="2-对Service重命名"><a href="#2-对Service重命名" class="headerlink" title="2).对Service重命名"></a>2).对Service重命名</h3><p>将Service1重命名为你服务名称，这里我们命名为<code>ServiceTest</code>。</p>
+<h2 id="二、创建服务安装程序"><a href="#二、创建服务安装程序" class="headerlink" title="二、创建服务安装程序"></a>二、创建服务安装程序</h2><h3 id="1-添加安装程序"><a href="#1-添加安装程序" class="headerlink" title="1).添加安装程序"></a>1).添加安装程序</h3><p><img src="/image/2017-03-20-1-3.png"></p>
+<p><img src="/image/2017-03-20-1-4.png"></p>
+<p>之后我们可以看到上图，自动为我们创建了ProjectInstaller.cs以及2个安装的组件。</p>
+<h3 id="2-修改安装服务名"><a href="#2-修改安装服务名" class="headerlink" title="2).修改安装服务名"></a>2).修改安装服务名</h3><p>右键serviceInsraller1，选择属性，将ServiceName的值改为<code>ServiceTest</code>。</p>
+<p><img src="/image/2017-03-20-1-5.png"></p>
+<h3 id="3-修改安装权限"><a href="#3-修改安装权限" class="headerlink" title="3).修改安装权限"></a>3).修改安装权限</h3><p>右键serviceProcessInsraller1，选择属性，将Account的值改为<code>LocalSystem</code>。</p>
+<p><img src="/image/2017-03-20-1-6.png"></p>
+<h2 id="三、写入服务代码"><a href="#三、写入服务代码" class="headerlink" title="三、写入服务代码"></a>三、写入服务代码</h2><h3 id="1-打开ServiceTest代码"><a href="#1-打开ServiceTest代码" class="headerlink" title="1).打开ServiceTest代码"></a>1).打开ServiceTest代码</h3><p>右键ServiceTest，选择查看代码。</p>
+<h3 id="2-写入Service逻辑"><a href="#2-写入Service逻辑" class="headerlink" title="2).写入Service逻辑"></a>2).写入Service逻辑</h3><p>添加如下代码：</p>
+<pre><code>using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Linq;
+using System.ServiceProcess;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WindowsService1
+&#123;
+    public partial class ServiceTest : ServiceBase
+    &#123;
+        public ServiceTest()
+        &#123;
+            InitializeComponent();
+        &#125;
+
+        protected override void OnStart(string[] args)
+        &#123;
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(&quot;C:\\log.text&quot;, true))
+            &#123;
+                sw.WriteLine(DateTime.Now.ToString(&quot;yyyy-MM-dd HH:mm:ss &quot;) + &quot;Start.&quot;);
+            &#125;
+        &#125;
+
+        protected override void OnStop()
+        &#123;
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(&quot;C:\\log.text&quot;, true))
+            &#123;
+                sw.WriteLine(DateTime.Now.ToString(&quot;yyyy-MM-dd HH:mm:ss &quot;) + &quot;Stop.&quot;);
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>这里我们的逻辑很简单，启动服务的时候写个日志，关闭的时候再写个日志。</p>
+<h2 id="四、创建安装脚本"><a href="#四、创建安装脚本" class="headerlink" title="四、创建安装脚本"></a>四、创建安装脚本</h2><p>在项目中添加2个文件如下(必须是ANSI或者UTF-8无BOM格式)：</p>
+<h3 id="1-安装脚本Install-bat"><a href="#1-安装脚本Install-bat" class="headerlink" title="1).安装脚本Install.bat"></a>1).安装脚本Install.bat</h3><pre><code>%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\installutil.exe WindowsServiceTest.exe
+Net Start ServiceTest
+sc config ServiceTest start= auto
+</code></pre>
+<h3 id="2-卸载脚本Uninstall-bat"><a href="#2-卸载脚本Uninstall-bat" class="headerlink" title="2).卸载脚本Uninstall.bat"></a>2).卸载脚本Uninstall.bat</h3><pre><code>%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\installutil.exe /u WindowsServiceTest.exe
+</code></pre>
+<h3 id="3-安装脚本说明"><a href="#3-安装脚本说明" class="headerlink" title="3).安装脚本说明"></a>3).安装脚本说明</h3><p>第二行为启动服务。</p>
+<p>第三行为设置服务为自动运行。</p>
+<p>这2行视服务形式自行选择。</p>
+<h3 id="4-脚本调试"><a href="#4-脚本调试" class="headerlink" title="4).脚本调试"></a>4).脚本调试</h3><p>如果需要查看脚本运行状况，在脚本最后一行加入pause</p>
+<h2 id="五、在C-中对服务进行控制"><a href="#五、在C-中对服务进行控制" class="headerlink" title="五、在C#中对服务进行控制"></a>五、在C#中对服务进行控制</h2><h3 id="1-配置目录结构"><a href="#1-配置目录结构" class="headerlink" title="1).配置目录结构"></a>1).配置目录结构</h3><p>建立一个新WPF项目，叫WindowsServiceTestUI，添加对System.ServiceProcess的引用。</p>
+<p>在WindowsServiceTestUI的bin\Debug目录下建立Service目录。</p>
+<p>将WindowsServiceTest的生成目录设置为上面创建的Service目录。</p>
+<p>生成后目录结构如下图</p>
+<p><img src="/image/2017-03-20-1-7.png"></p>
+<h3 id="2-安装"><a href="#2-安装" class="headerlink" title="2).安装"></a>2).安装</h3><p>安装时会产生目录问题，所以安装代码如下：</p>
+<pre><code>string CurrentDirectory = System.Environment.CurrentDirectory;
+System.Environment.CurrentDirectory = CurrentDirectory + &quot;\\Service&quot;;
+Process process = new Process();
+process.StartInfo.UseShellExecute = false;
+process.StartInfo.FileName = &quot;Install.bat&quot;;
+process.StartInfo.CreateNoWindow = true;
+process.Start();
+System.Environment.CurrentDirectory = CurrentDirectory;
+</code></pre>
+<h3 id="3-卸载"><a href="#3-卸载" class="headerlink" title="3).卸载"></a>3).卸载</h3><p>卸载时也会产生目录问题，所以卸载代码如下：</p>
+<pre><code>string CurrentDirectory = System.Environment.CurrentDirectory;
+System.Environment.CurrentDirectory = CurrentDirectory + &quot;\\Service&quot;;
+Process process = new Process();
+process.StartInfo.UseShellExecute = false;
+process.StartInfo.FileName = &quot;Uninstall.bat&quot;;
+process.StartInfo.CreateNoWindow = true;
+process.Start();
+System.Environment.CurrentDirectory = CurrentDirectory;
+</code></pre>
+<h3 id="4-启动"><a href="#4-启动" class="headerlink" title="4).启动"></a>4).启动</h3><p>代码如下：</p>
+<pre><code>using System.ServiceProcess;
+ServiceController serviceController = new ServiceController(&quot;ServiceTest&quot;);
+serviceController.Start();
+</code></pre>
+<h3 id="5-停止"><a href="#5-停止" class="headerlink" title="5).停止"></a>5).停止</h3><pre><code>ServiceController serviceController = new ServiceController(&quot;ServiceTest&quot;);
+if (serviceController.CanStop)
+    serviceController.Stop();
+</code></pre>
+<h3 id="6-暂停-继续"><a href="#6-暂停-继续" class="headerlink" title="6).暂停/继续"></a>6).暂停/继续</h3><pre><code>ServiceController serviceController = new ServiceController(&quot;ServiceTest&quot;);
+if (serviceController.CanPauseAndContinue)
+&#123;
+    if (serviceController.Status == ServiceControllerStatus.Running)
+        serviceController.Pause();
+    else if (serviceController.Status == ServiceControllerStatus.Paused)
+        serviceController.Continue();
+&#125;
+</code></pre>
+<h3 id="7-检查状态"><a href="#7-检查状态" class="headerlink" title="7).检查状态"></a>7).检查状态</h3><pre><code>ServiceController serviceController = new ServiceController(&quot;ServiceTest&quot;);
+string Status = serviceController.Status.ToString();
+</code></pre>
+<h2 id="六、调试Windows-Service"><a href="#六、调试Windows-Service" class="headerlink" title="六、调试Windows Service"></a>六、调试Windows Service</h2><h3 id="1-安装并运行服务"><a href="#1-安装并运行服务" class="headerlink" title="1).安装并运行服务"></a>1).安装并运行服务</h3><h3 id="2-附加进程"><a href="#2-附加进程" class="headerlink" title="2).附加进程"></a>2).附加进程</h3><h3 id="3-在代码中加入断点进行调试"><a href="#3-在代码中加入断点进行调试" class="headerlink" title="3).在代码中加入断点进行调试"></a>3).在代码中加入断点进行调试</h3><h2 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h2><p>本文对Windows service的上述配置都未做详细解释，但是按上述步骤就可以制作可运行的Windows Service，从而达到了工作的需求。</p>
+<p>文章转载自：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/sorex/archive/2012/05/16/2502001.html">http://www.cnblogs.com/sorex/archive/2012/05/16/2502001.html</a></p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/css/font.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+  $(".fancybox").fancybox();
+});
+</script></body></html>

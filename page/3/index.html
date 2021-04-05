@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title>四少爷的blog | 一个没有技术只会吃鸡的后端</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><header class="wrapper header"><div class="container blog-title"><a class="title" id="logo" href="/.">四少爷的blog</a><span class="subtitle">一个没有技术只会吃鸡的后端</span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div><input id="menu" type="checkbox"><div class="container nav-items"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></div></header><article class="wrapper"><div class="container entries" id="index-main"><div class="post-entry"><div class="post-desc"><div class="post-title"><a href="/2021/04/05/2019-01-23-1.html"></a></div><div class="post-content"><h1 id="录制JMeter脚本"><a href="#录制JMeter脚本" class="headerlink" title="录制JMeter脚本"></a>录制JMeter脚本</h1><p>一般自己手动的设置JMeter会比较麻烦，如果一边操作页面，提交表单，一边能够自动生成JMeter的脚本，则非常方便；</p>
+<p>BadBoy：录制JMeter脚本的软件；</p>
+<p>Donwload URL：<a target="_blank" rel="noopener" href="http://www.badboy.com.au/">http://www.badboy.com.au/</a></p>
+<p>BadBoy界面如下：</p></div><div class="post-meta"><div class="post-time">2021-04-05</div></div></div></div><div class="post-entry"><div class="post-desc"><div class="post-title"><a href="/2021/04/05/2019-01-24-1.html"></a></div><div class="post-content"><h1 id="nginx之proxy-pass指令完全拆解"><a href="#nginx之proxy-pass指令完全拆解" class="headerlink" title="nginx之proxy_pass指令完全拆解"></a>nginx之proxy_pass指令完全拆解</h1><h2 id="一、proxy-pass的nginx官方指南"><a href="#一、proxy-pass的nginx官方指南" class="headerlink" title="一、proxy_pass的nginx官方指南"></a>一、proxy_pass的nginx官方指南</h2><p>nginx中有两个模块都有proxy_pass指令。</p>
+<p>ngx_http_proxy_module的proxy_pass：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">语法: proxy_pass URL;</span><br><span class="line">场景: location, if in location, limit_except</span><br><span class="line">说明: 设置后端代理服务器的协议(protocol)和地址(address),以及location中可以匹配的一个可选的URI。协议可以是&quot;http&quot;或&quot;https&quot;。地址可以是一个域名或ip地址和端口，或者一个 unix-domain socket 路径。  </span><br><span class="line">详见官方文档: http:&#x2F;&#x2F;nginx.org&#x2F;en&#x2F;docs&#x2F;http&#x2F;ngx_http_proxy_module.html#proxy_pass</span><br><span class="line">URI的匹配，本文第四部分重点讨论。</span><br></pre></td></tr></table></figure></div><div class="post-meta"><div class="post-time">2021-04-05</div></div></div></div><div class="post-entry"><div class="post-desc"><div class="post-title"><a href="/2021/04/05/2019-02-21-1.html"></a></div><div class="post-content"><h1 id="nginx反向代理webSocket配置"><a href="#nginx反向代理webSocket配置" class="headerlink" title="nginx反向代理webSocket配置"></a>nginx反向代理webSocket配置</h1><p>最近有一个需求，就是需要使用 nginx 反向代理 websocket，经过查找一番资料，目前已经测试通过，本文只做一个记录。</p>
+<p>看官方文档说 Nginx 在 1.3.13 以后的版本才支持 websocket 反向代理，所以要想使用支持 websocket 的功能，必须升级到 1.3.13 以后的版本。</p>
+<p>配置起来也特别简单。配置参考：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  test.test.cn;</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		location  &#x2F; &#123;</span><br><span class="line">		  proxy_pass   http:&#x2F;&#x2F;test2.test.cn:8080;</span><br><span class="line">		  </span><br><span class="line">		  proxy_read_timeout 3600s;</span><br><span class="line">		  proxy_http_version 1.1;</span><br><span class="line">		  proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">		  proxy_set_header Connection &quot;upgrade&quot;;</span><br><span class="line">		  </span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div><div class="post-meta"><div class="post-time">2021-04-05</div></div></div></div><div class="post-entry"><div class="post-desc"><div class="post-title"><a href="/2021/04/05/2019-04-08-1.html"></a></div><div class="post-content"><h1 id="cmd下通过NTML代理访问Maven库"><a href="#cmd下通过NTML代理访问Maven库" class="headerlink" title="cmd下通过NTML代理访问Maven库"></a>cmd下通过NTML代理访问Maven库</h1><p>公司用web代理，NTLM验证的，这样在普通CMD下无法使用mvn命令访问网上的maven库，使用CNTLM工具解决。</p>
+<p>下载CNTLM工具，安装，修改安装路径下的cntlm.ini，改成实际的ntlm proxy地址，CNTLM会起一个proxy service监听3128端口。</p>
+<p>然后配置maven的代理，在maven目录下\conf/settings.xml。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;proxy&gt;  </span><br><span class="line">  &lt;id&gt;optional&lt;&#x2F;id&gt;  </span><br><span class="line">  &lt;active&gt;true&lt;&#x2F;active&gt;  </span><br><span class="line">  &lt;protocol&gt;http&lt;&#x2F;protocol&gt;  </span><br><span class="line">  &lt;host&gt;127.0.0.1&lt;&#x2F;host&gt;  </span><br><span class="line">  &lt;port&gt;3128&lt;&#x2F;port&gt;  </span><br><span class="line">&lt;&#x2F;proxy&gt;  </span><br></pre></td></tr></table></figure></div><div class="post-meta"><div class="post-time">2021-04-05</div></div></div></div><div class="post-entry"><div class="post-desc"><div class="post-title"><a href="/2021/04/05/2019-05-20-1.html"></a></div><div class="post-content"><h1 id="将java应用-springboot-jar-注册成Windows服务"><a href="#将java应用-springboot-jar-注册成Windows服务" class="headerlink" title="将java应用(springboot jar)注册成Windows服务"></a>将java应用(springboot jar)注册成Windows服务</h1><h2 id="将springboot-打包成jar"><a href="#将springboot-打包成jar" class="headerlink" title="将springboot 打包成jar"></a>将springboot 打包成jar</h2><ol>
+<li><p>修改<code>pom.xml</code>设置<code>&lt;packaging&gt;jar&lt;/packaging&gt;</code></p>
+</li>
+<li><p>使用mvn命令打包程序<code>mvn clean package</code></p>
+</li>
+<li><p>在项目目录target下找到jar文件</p>
+</li>
+</ol>
+<h2 id="下载WinSW"><a href="#下载WinSW" class="headerlink" title="下载WinSW"></a>下载WinSW</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/kohsuke/winsw">github开源地址</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/kohsuke/winsw/releases">下载地址</a></p>
+</li>
+<li><p>下载<code>WinSW.NET4.exe</code>和<code>sample-minimal.xml</code>文件</p>
+</li>
+</ol></div><div class="post-meta"><div class="post-time">2021-04-05</div></div></div></div><div class="post-entry"><div class="post-desc"><div class="post-title"><a href="/2021/04/05/2019-05-22-1.html"></a></div><div class="post-content"><h1 id="MySQL开启federated引擎实现数据库表映射​"><a href="#MySQL开启federated引擎实现数据库表映射​" class="headerlink" title="MySQL开启federated引擎实现数据库表映射​"></a>MySQL开启federated引擎实现数据库表映射​</h1><h2 id="开启federated引擎"><a href="#开启federated引擎" class="headerlink" title="开启federated引擎"></a>开启federated引擎</h2><p>查看启Federated引擎是否安装 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show engines; </span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/2019-05-22-1-1.PNG"></p></div><div class="post-meta"><div class="post-time">2021-04-05</div></div></div></div><div class="post-entry"><div class="post-desc"><div class="post-title"><a href="/2021/04/05/2019-07-19-1.html"></a></div><div class="post-content"><h1 id="Hyper-V-共享式网络链接-端口映射​"><a href="#Hyper-V-共享式网络链接-端口映射​" class="headerlink" title="Hyper-V 共享式网络链接 端口映射​"></a>Hyper-V 共享式网络链接 端口映射​</h1><p>远程路由访问我配置了很久都不成功，经过多方搜索，下面的命令能实现端口映射</p>
+<h2 id="一、查询端口映射情况"><a href="#一、查询端口映射情况" class="headerlink" title="一、查询端口映射情况"></a>一、查询端口映射情况</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy show v4tov4</span><br></pre></td></tr></table></figure>
+<p>查询这个IP所有的端口映射。</p></div><div class="post-meta"><div class="post-time">2021-04-05</div></div></div></div><div class="post-entry"><div class="post-desc"><div class="post-title"><a href="/2021/04/05/2019-08-12-1.html"></a></div><div class="post-content"><h1 id="docker-设置HTTP-HTTPS-代理​"><a href="#docker-设置HTTP-HTTPS-代理​" class="headerlink" title="docker - 设置HTTP/HTTPS 代理​"></a>docker - 设置HTTP/HTTPS 代理​</h1><h2 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h2><ol>
+<li>http代理</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;docker.service.d&#x2F;http-proxy.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Service]    </span><br><span class="line">Environment&#x3D;&quot;HTTP_PROXY&#x3D;http:&#x2F;&#x2F;proxy.example.com:80&#x2F;&quot; &quot;NO_PROXY&#x3D;localhost,127.0.0.1,docker-registry.example.com,.corp&quot;</span><br></pre></td></tr></table></figure></div><div class="post-meta"><div class="post-time">2021-04-05</div></div></div></div><div class="post-entry"><div class="post-desc"><div class="post-title"><a href="/2021/04/05/2019-09-04-1.html"></a></div><div class="post-content"><h1 id="使用Kubespray部署Kubernetes集群​"><a href="#使用Kubespray部署Kubernetes集群​" class="headerlink" title="使用Kubespray部署Kubernetes集群​"></a>使用Kubespray部署Kubernetes集群​</h1><h2 id="主机配置"><a href="#主机配置" class="headerlink" title="主机配置"></a>主机配置</h2><table>
+<thead>
+<tr>
+<th align="left">主机</th>
+<th align="center">系统</th>
+<th align="center">配置</th>
+<th align="right">IP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Ansible</td>
+<td align="center">CentOS 7</td>
+<td align="center">1核1G</td>
+<td align="right">192.168.137.100</td>
+</tr>
+<tr>
+<td align="left">Mater、Node</td>
+<td align="center">CentOS 7</td>
+<td align="center">2核4G</td>
+<td align="right">192.168.137.101</td>
+</tr>
+<tr>
+<td align="left">Node</td>
+<td align="center">CentOS 7</td>
+<td align="center">2核2G</td>
+<td align="right">192.168.137.102</td>
+</tr>
+</tbody></table>
+<h2 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h2><p>三台主机都需要操作</p></div><div class="post-meta"><div class="post-time">2021-04-05</div></div></div></div><div class="post-entry"><div class="post-desc"><div class="post-title"><a href="/2021/04/05/2019-09-30-1.html"></a></div><div class="post-content"><h1 id="sql语句的优化分析​"><a href="#sql语句的优化分析​" class="headerlink" title="sql语句的优化分析​"></a>sql语句的优化分析​</h1><h2 id="开门见山，问题所在"><a href="#开门见山，问题所在" class="headerlink" title="开门见山，问题所在"></a>开门见山，问题所在</h2><p>sql语句性能达不到你的要求，执行效率让你忍无可忍，一般会时下面几种情况。</p>
+<ol>
+<li>网速不给力，不稳定。</li>
+<li>服务器内存不够，或者SQL 被分配的内存不够。</li>
+<li>sql语句设计不合理</li>
+<li>没有相应的索引，索引不合理</li>
+<li>没有有效的索引视图</li>
+<li>表数据过大没有有效的分区设计</li>
+<li>数据库设计太2，存在大量的数据冗余</li>
+<li>索引列上缺少相应的统计信息，或者统计信息过期</li>
+<li>….</li>
+</ol>
+<p>那么我们如何给找出来导致性能慢的的原因呢？</p></div><div class="post-meta"><div class="post-time">2021-04-05</div></div></div></div></div></article><div class="wrapper page-navigator-wrapper"><div class="page-navigator"><a class="extend prev" rel="prev" href="/page/2/">« Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/">Next »</a></div></div><footer class="footer wrapper"><div class="social"><a href="mailto:sex@jermey.cn" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/jermeyhu" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer-content">© 2021 <a href="/" rel="nofollow">四少爷的blog</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/hexo-theme-noise">noise</a>.</div></footer><link rel="stylesheet" type="text/css" href="/css/font.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+  $(".fancybox").fancybox();
+});
+</script></body></html>

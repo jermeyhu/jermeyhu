@@ -1,0 +1,27 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;hr&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;将Sublime-Text-3配置为C-代码编辑器&quot;&gt;&lt;a href=&quot;#将Sublime-Text-3配置为C-代码编辑器&quot; class=&quot;headerlink&quot; title=&quot;将Sublime Text 3配置为C#代码编辑器&quot;&gt;&lt;/a&gt;将Sublime Text 3配置为C#代码编辑器&lt;/h1&gt;&lt;p&gt;有时候我们需要编写一些小的代码片段时，在Visual Studio中创建一个工程就显得有点杀鸡用牛刀的感觉了，所有说对于一个程序员来说一款轻巧的代码编辑器还是很有必要的。原来我用的主要的Notepad++，直到发现了Sublime Text 3之后，这是一款非常优秀的编辑器，用ST3写代码有种非常流畅的感觉，就像是原来刚使用Chrome浏览器的时候(不过现在已经越来越笨重了)，ST3是收费软件，但是可以无限试用的。同时ST3具有很强的扩展性，有很多的插件可供使用。ST3支持多种编程语言，不过对C#的支持不是太好，想要作为一款C#代码编辑器还需要自己手动改造一番。&lt;/p&gt;
+&lt;h2 id=&quot;1、-格式化代码&quot;&gt;&lt;a href=&quot;#1、-格式化代码&quot; class=&quot;headerlink&quot; title=&quot;1、 格式化代码&quot;&gt;&lt;/a&gt;1、 格式化代码&lt;/h2&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title> | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-time">2021-04-05</div></div></div><div class="container post-header"><h1></h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%86Sublime-Text-3%E9%85%8D%E7%BD%AE%E4%B8%BAC-%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">将Sublime Text 3配置为C#代码编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81-%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81"><span class="toc-number">1.1.</span> <span class="toc-text">1、 格式化代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81-%E9%85%8D%E7%BD%AEC-%E7%BC%96%E8%AF%91%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">2、 配置C#编译器</span></a></li></ol></li></ol></details></div><div class="container post-content"><hr>
+<hr>
+<h1 id="将Sublime-Text-3配置为C-代码编辑器"><a href="#将Sublime-Text-3配置为C-代码编辑器" class="headerlink" title="将Sublime Text 3配置为C#代码编辑器"></a>将Sublime Text 3配置为C#代码编辑器</h1><p>有时候我们需要编写一些小的代码片段时，在Visual Studio中创建一个工程就显得有点杀鸡用牛刀的感觉了，所有说对于一个程序员来说一款轻巧的代码编辑器还是很有必要的。原来我用的主要的Notepad++，直到发现了Sublime Text 3之后，这是一款非常优秀的编辑器，用ST3写代码有种非常流畅的感觉，就像是原来刚使用Chrome浏览器的时候(不过现在已经越来越笨重了)，ST3是收费软件，但是可以无限试用的。同时ST3具有很强的扩展性，有很多的插件可供使用。ST3支持多种编程语言，不过对C#的支持不是太好，想要作为一款C#代码编辑器还需要自己手动改造一番。</p>
+<h2 id="1、-格式化代码"><a href="#1、-格式化代码" class="headerlink" title="1、 格式化代码"></a>1、 格式化代码</h2><p>ST3其实自带了代码格式化的功能，不过没有提供相应的快捷键，选中需要格式化的区域之后，使用方式如下：</p>
+<p>在这里我们可以自己定义快捷键，在菜单栏中打开 Perferences ——&gt; Key Bindings-User，输入:</p>
+<pre><code>&#123;&quot;keys&quot;: [&quot;ctrl+shift+r&quot;], &quot;command&quot;: &quot;reindent&quot; , &quot;args&quot;: &#123;&quot;single_line&quot;: false&#125;&#125;
+</code></pre>
+<h2 id="2、-配置C-编译器"><a href="#2、-配置C-编译器" class="headerlink" title="2、 配置C#编译器"></a>2、 配置C#编译器</h2><p>ST2支持对编译器的调用，但没有对C#编译器提供内置支持，需要我们自行进行配置。</p>
+<p>注意:进行配置前，需要向先将编译器(csc.exe)所在路径添加到环境变量中。</p>
+<p>新建编译器选项</p>
+<p>　　选择菜单栏中的 Tools ——&gt; Build System ——&gt; New Build System，输入：</p>
+<pre><code>&#123;
+    &quot;cmd&quot;: [&quot;csc&quot;, &quot;$file&quot;],
+    &quot;file_regex&quot;: &quot;^(...*?):([0-9]*):?([0-9]*)&quot;,
+    &quot;selector&quot;: &quot;source.cs&quot;,
+      &quot;encoding&quot;: &quot;cp936&quot;
+&#125;
+</code></pre>
+<p>另存为ST2程序目录的Packages/User文件夹下面，文件名为：C#.sublime-build。</p>
+<p>编辑好C#代码文件后，输入Ctrl + B，编译代码。</p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/css/font.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+  $(".fancybox").fancybox();
+});
+</script></body></html>

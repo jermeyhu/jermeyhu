@@ -1,0 +1,110 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;h1 id=&quot;Linux安装python2-7&quot;&gt;&lt;a href=&quot;#Linux安装python2-7&quot; class=&quot;headerlink&quot; title=&quot;Linux安装python2.7&quot;&gt;&lt;/a&gt;Linux安装python2.7&lt;/h1&gt;&lt;h2 id=&quot;一、Python安装&quot;&gt;&lt;a href=&quot;#一、Python安装&quot; class=&quot;headerlink&quot; title=&quot;一、Python安装&quot;&gt;&lt;/a&gt;一、Python安装&lt;/h2&gt;&lt;p&gt;以Python-2.7.7为例，安装包：Python-2.7.7.tgz如无特殊说明，以下安装步骤都采用root用户执行&lt;/p&gt;
+&lt;h3 id=&quot;1-解压Python-2-7-7-tgz&quot;&gt;&lt;a href=&quot;#1-解压Python-2-7-7-tgz&quot; class=&quot;headerlink&quot; title=&quot;1. 解压Python-2.7.7.tgz&quot;&gt;&lt;/a&gt;1. 解压Python-2.7.7.tgz&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;tar -xzvf Python-2.7.7.tgz&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title> | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-time">2021-04-05</div></div></div><div class="container post-header"><h1></h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E5%AE%89%E8%A3%85python2-7"><span class="toc-number">1.</span> <span class="toc-text">Linux安装python2.7</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Python%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">一、Python安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%A7%A3%E5%8E%8BPython-2-7-7-tgz"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 解压Python-2.7.7.tgz</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%9B%E5%85%A5%E8%A7%A3%E5%8E%8B%E4%BA%A7%E7%94%9F%E7%9A%84Python%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 进入解压产生的Python目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-python%E8%A7%A3%E9%87%8A%E5%99%A8%E6%8C%87%E5%90%91python2-7"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. python解释器指向python2.7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%90%8E%E7%BB%AD%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.1.5.</span> <span class="toc-text">5. 后续工作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85message%E6%A8%A1%E5%9D%97"><span class="toc-number">1.2.</span> <span class="toc-text">二、安装message模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85setuptools"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 安装setuptools</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85message%E6%A8%A1%E5%9D%97"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 安装message模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85cx-Oracle"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. 安装cx_Oracle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%89%E8%A3%85cython"><span class="toc-number">1.2.4.</span> <span class="toc-text">4. 安装cython</span></a></li></ol></li></ol></li></ol></details></div><div class="container post-content"><h1 id="Linux安装python2-7"><a href="#Linux安装python2-7" class="headerlink" title="Linux安装python2.7"></a>Linux安装python2.7</h1><h2 id="一、Python安装"><a href="#一、Python安装" class="headerlink" title="一、Python安装"></a>一、Python安装</h2><p>以Python-2.7.7为例，安装包：Python-2.7.7.tgz如无特殊说明，以下安装步骤都采用root用户执行</p>
+<h3 id="1-解压Python-2-7-7-tgz"><a href="#1-解压Python-2-7-7-tgz" class="headerlink" title="1. 解压Python-2.7.7.tgz"></a>1. 解压Python-2.7.7.tgz</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf Python-2.7.7.tgz</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-进入解压产生的Python目录"><a href="#2-进入解压产生的Python目录" class="headerlink" title="2. 进入解压产生的Python目录"></a>2. 进入解压产生的Python目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd Python-2.7.7</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-安装"><a href="#3-安装" class="headerlink" title="3. 安装"></a>3. 安装</h3><p>此时可以先安装zlib模块，见2.安装message模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;Python2.7 --enable-shared -enable-unicode&#x3D;ucs4</span><br></pre></td></tr></table></figure>
+
+<p>configure是源码安装的第一步，主要的作用是对即将安装的软件进行配置，检查当前的环境是否满足安装软件的依赖关系。</p>
+<p>关于configure的介绍：<a target="_blank" rel="noopener" href="http://blog.csdn.net/luckywang1103/article/details/18674231">http://blog.csdn.net/luckywang1103/article/details/18674231</a></p>
+<p>关于-enable-shared的介绍：<a target="_blank" rel="noopener" href="http://blog.csdn.net/z1988316/article/details/7894734">http://blog.csdn.net/z1988316/article/details/7894734</a></p>
+<p>-enable-unicode=ucs4:为了解决RHL6.6编码采用ucs4编码的问题，RHL5.5不需要</p>
+<p>执行时出现没有编译器错误，安装g++：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++</span><br></pre></td></tr></table></figure>
+
+<p>然后重新执行configure命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>编译源代码并生成执行文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>把生成的文件拷贝到Linux系统必要的目录下，如<code>/usr/local/bin</code>，这样所有用户都可以运行程序。</p>
+<h3 id="4-python解释器指向python2-7"><a href="#4-python解释器指向python2-7" class="headerlink" title="4. python解释器指向python2.7"></a>4. python解释器指向python2.7</h3><p>执行python，发现仍然使用Linux自带的python2.6.6</p>
+<p>执行which python，找到python解释器地址，为:<code>/usr/bin/python</code></p>
+<p>将解释器指向新安装的python2.7.7，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;bin</span><br><span class="line">rm python</span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;Python2.7&#x2F;bin&#x2F;python python</span><br></pre></td></tr></table></figure>
+
+<p>再执行python，发现缺少python的lib库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python: error while loading shared libraries: libpython2.7.so.1.0: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>解决方法1：</p>
+<p>执行：<code>vi /edt/ld.so.conf</code></p>
+<p>添加<code>libpython2.7.so.1.0</code>的路径： <code>/usr/local/Python2.7/lib</code></p>
+<p>执行：<code>/sbin/ldconfig -v</code></p>
+<p>执行：<code>ldd libpython2.7.so.1.0</code>，可以找到：</p>
+<p><code>/usr/local/Python2.7/lib:libpython2.7.so.1.0 -&gt; libpython2.7.so.1.0</code></p>
+<p>解决方法2：（我的环境采用解决方法1还是不正确）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;ld.so.conf.d&#x2F;</span><br><span class="line">echo &quot;&#x2F;usr&#x2F;local&#x2F;Python2.7&#x2F;lib&quot; &gt; python2.7.conf</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure>
+
+<p>执行：python，显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Python 2.7.7 (default, Dec 15 2014, 13:30:16)</span><br><span class="line">[GCC 4.4.7 20120313 (Red Hat 4.4.7-11)] on linux2</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>表示解释器已经正确指向python2.7</p>
+<h3 id="5-后续工作"><a href="#5-后续工作" class="headerlink" title="5. 后续工作"></a>5. 后续工作</h3><p>由于yum使用了原来python2.6的一些脚本，需要将yum重新导向原来的python2.6解释器才可以使用</p>
+<p>执行：<code>which yum</code>，找到yum位置：<code>/usr/bin/yum</code></p>
+<p>编辑：<code>vi /usr/bin/yum</code>，修改路径为：<code>#!/usr/bin/python2.6</code></p>
+<p>python2.7安装完成。</p>
+<p>下面介绍一些python模块的安装：message，cx_Oracle， cython</p>
+<h2 id="二、安装message模块"><a href="#二、安装message模块" class="headerlink" title="二、安装message模块"></a>二、安装message模块</h2><p>安装包：setuptools-7.0，message-0.2.1.tar.gz</p>
+<h3 id="1-安装setuptools"><a href="#1-安装setuptools" class="headerlink" title="1. 安装setuptools"></a>1. 安装setuptools</h3><p>setuptools是 Python Enterprise Application Kit（PEAK）的一个副项目，可以让程序员更方便的创建和发布 Python 包。</p>
+<p>当需要安装第三方python包时，可能会用到easy_install命令。easy_install是由PEAK(Python Enterprise Application Kit)开发的setuptools包里带的一个命令，所以使用easy_install实际上是在调用setuptools来完成安装模块的工作。所以如果要使用easy_install的命令就需要安装setuptools。</p>
+<p>解压：<code>tar -xzvf setuptools-7.0.tar.gz</code></p>
+<p>进入目录：<code>cd setuptools-7.0</code></p>
+<p>编译：<code>python setup.py build</code></p>
+<p>安装：<code>python setup.py install</code></p>
+<p>执行安装时报错：</p>
+<p><code>RuntimeError: Compression requires the (missing) zlib module</code></p>
+<p>缺少zlib模块，zlib模块用来压缩和解压缩数据，以便保存和传输</p>
+<p>安装：<code>yum install zlib-devel</code></p>
+<p>这里报错则需要重新进行python的make和makefile，所以建议在安装python之前就安装zlib</p>
+<p>重新安装setuptools。</p>
+<h3 id="2-安装message模块"><a href="#2-安装message模块" class="headerlink" title="2. 安装message模块"></a>2. 安装message模块</h3><p>解压：<code>tar -xzvf message-0.2.2.tar.gz</code></p>
+<p>进入目录：<code>cd message-0.2.1</code></p>
+<p>编译：<code>python setup.py build</code></p>
+<p>安装：<code>python setup.py install</code></p>
+<p>message模块安装完成。</p>
+<h3 id="3-安装cx-Oracle"><a href="#3-安装cx-Oracle" class="headerlink" title="3. 安装cx_Oracle"></a>3. 安装cx_Oracle</h3><p>安装包：<code>cx_Oracle-5.1.2-11g-py27-1.x86_64.rpm</code></p>
+<p>安装cx_Oracle时我们使用rpm包，这样在RHL6.6下更方便安装，不用考虑太多兼容性问题</p>
+<p>执行：<code>rpm -ivh cx_Oracle-5.1.2-11g-py27-1.x86_64.rpm</code></p>
+<p>执行：<code>python</code>，输入：<code>import cx_Oracle</code></p>
+<p>报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import cx_Oracle</span><br><span class="line">Traceback (most recent call last):File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">ImportError: No module named cx_Oracle</span><br></pre></td></tr></table></figure>
+
+<p>发现是python2.7下没有cx_Oracle.so动态链接库，cx_Oracle.so被放在了：<code>/usr/lib/python2.7/site-packages</code></p>
+<p>采用软链接方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &#x2F;usr&#x2F;lib&#x2F;python2.7&#x2F;site-packages&#x2F;cx_Oracle.so &#x2F;usr&#x2F;local&#x2F;Python2.7&#x2F;lib&#x2F;python2.7&#x2F;site-packages&#x2F;cx_Oracle.so</span><br></pre></td></tr></table></figure>
+
+<p>再次执行：python，输入：<code>import cx_Oracle</code></p>
+<p>会出现找不到oracle_client导致的问题，此时可以在环境变量中配置oracle_client，或在已经配好的用户下执行，</p>
+<p>修改环境变量：<code>vi .bash_profile</code><br>配置信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export ORCL_HOME&#x3D;&#x2F;usr&#x2F;lib&#x2F;oracle&#x2F;11.2&#x2F;client***** </span><br><span class="line">export LD_LIBRARY_PATH&#x3D;$LD_LIBRARY_PATH:$ORCL_HOME&#x2F;lib</span><br><span class="line">export TNS_ADMIN&#x3D;$ORCL_HOME&#x2F;network&#x2F;admin </span><br><span class="line">export PATH&#x3D;$PATH:$ORCL_HOME&#x2F;bin </span><br><span class="line">ORCL_HOME的具体路径以本地安装路径配置</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source .bash_profile</span><br></pre></td></tr></table></figure>
+
+<p>成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Python 2.7.7 (default, Dec 15 2014, 13:30:16)</span><br><span class="line">[GCC 4.4.7 20120313 (Red Hat 4.4.7-11)] on linux2</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt; import cx_Oracle</span><br><span class="line">&gt;&gt;&gt; </span><br></pre></td></tr></table></figure>
+
+<p>cx_Oracle安装完成。</p>
+<h3 id="4-安装cython"><a href="#4-安装cython" class="headerlink" title="4. 安装cython"></a>4. 安装cython</h3><p>cython介绍见：<a target="_blank" rel="noopener" href="http://docs.cython.org/en/latest/">http://docs.cython.org/en/latest/</a></p>
+<p>安装包：<code>cython-master.zip</code></p>
+<p>解压：<code>unzip -o cython-master.zip</code></p>
+<p>进入目录：<code>cd cython-master</code></p>
+<p>安装：<code>python setup.py install</code></p>
+<p>可能出现错误：<code>/usr/bin/ld: cannot find -lpython2.7</code>， 这个错误的原因是库文件并没有导入的ld检索目录中，在<code>/usr/lib, /usr/local/lib</code>,或者其他自定义的lib下没有<code>libpython2.7.so</code>文件，实际在 <code>/etc/ld.so.conf</code> 我自定义的lib路径：<code>/usr/local/Python2.7/lib</code>下是有该文件的，原因未知</p>
+<p>解决办法是重新建立软链接:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;Python2.7&#x2F;lib&#x2F;libpython2.7.so.1.0 &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libpython2.7.so</span><br></pre></td></tr></table></figure>
+
+<p>重新安装<code>cython：python setup.py install</code></p>
+<p>和之前同样的道理找不到cython解释器，在<code>/usr/local/bin</code>下建立软链接：</p>
+<p><code>ln -s /usr/local/Python2.7/bin/cython /usr/local/bin/cython</code></p>
+<p>执行：cython，显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Cython (http:&#x2F;&#x2F;cython.org) is a compiler for code written in the</span><br><span class="line">Cython language.  Cython is based on Pyrex by Greg Ewing.</span><br><span class="line">Usage: cython [options] sourcefile.&#123;pyx,py&#125; ...</span><br><span class="line">Options:</span><br><span class="line">  -V, --version                  Display version number of cython compiler</span><br><span class="line">  -l, --create-listing           Write error messages to a listing file</span><br><span class="line">  -I, --include-dir &lt;directory&gt;  Search for include files in named directory</span><br><span class="line">                                 (multiple include directories are al</span><br></pre></td></tr></table></figure>
+
+<p>（以下省略）</p>
+<p>表示可以正常使用。</p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/css/font.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+  $(".fancybox").fancybox();
+});
+</script></body></html>

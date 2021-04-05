@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;h1 id=&quot;centos环境pptp服务器VPN搭建&quot;&gt;&lt;a href=&quot;#centos环境pptp服务器VPN搭建&quot; class=&quot;headerlink&quot; title=&quot;centos环境pptp服务器VPN搭建&quot;&gt;&lt;/a&gt;centos环境pptp服务器VPN搭建&lt;/h1&gt;&lt;p&gt;本文介绍使用yum安装pptpVPN服务器。&lt;/p&gt;
+&lt;p&gt;第一步先安装第三方源，官方yum源里面不包含pptpd。这里我们选用EPEl（企业版linux附加包，EPEL 的软件包通常不会与企业版 Linux 官方源中的软件包发生冲突，或者互相替换文件）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;yum install epel-release
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第二步通过yum安装VPN相关软件&lt;/p&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title> | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-time">2021-04-05</div></div></div><div class="container post-header"><h1></h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#centos%E7%8E%AF%E5%A2%83pptp%E6%9C%8D%E5%8A%A1%E5%99%A8VPN%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">centos环境pptp服务器VPN搭建</span></a></li></ol></details></div><div class="container post-content"><h1 id="centos环境pptp服务器VPN搭建"><a href="#centos环境pptp服务器VPN搭建" class="headerlink" title="centos环境pptp服务器VPN搭建"></a>centos环境pptp服务器VPN搭建</h1><p>本文介绍使用yum安装pptpVPN服务器。</p>
+<p>第一步先安装第三方源，官方yum源里面不包含pptpd。这里我们选用EPEl（企业版linux附加包，EPEL 的软件包通常不会与企业版 Linux 官方源中的软件包发生冲突，或者互相替换文件）</p>
+<pre><code>yum install epel-release
+</code></pre>
+<p>第二步通过yum安装VPN相关软件</p>
+<pre><code>yum install -y perl ppp iptables pptpd
+</code></pre>
+<p>第三步修改配置文件<br>1、配置文件<code>/etc/ppp/options.pptpd</code></p>
+<pre><code>cp /etc/ppp/options.pptpd /etc/ppp/options.pptpd.bak
+vi /etc/ppp/options.pptpd
+</code></pre>
+<p>options.pptpd内容如下：</p>
+<pre><code>idle 2592000
+ms-dns 8.8.8.8
+ms-dns 8.8.4.4
+</code></pre>
+<p>2、配置文件<code>/etc/ppp/chap-secrets</code></p>
+<pre><code>cp /etc/ppp/chap-secrets /etc/ppp/chap-secrets.bak
+vi /etc/ppp/chap-secrets
+</code></pre>
+<p>chap-secrets内容如下：</p>
+<pre><code># client server secret IP addresses
+你的账号 * &quot;你的密码&quot; *
+</code></pre>
+<p>按照上面的格式配置好你的vpn账号密码，中间用tab隔开。</p>
+<p>3、配置文件<code>/etc/pptpd.conf</code></p>
+<pre><code>cp /etc/pptpd.conf /etc/pptpd.conf.bak
+vi /etc/pptpd.conf
+</code></pre>
+<p>将</p>
+<pre><code>#localip 192.168.0.1
+#remoteip 192.168.0.234-238,192.168.0.245
+</code></pre>
+<p>修改为：</p>
+<pre><code>localip 192.168.0.1
+remoteip 192.168.0.234-238,192.168.0.245
+</code></pre>
+<p>4、配置文件<code>/etc/sysctl.conf</code></p>
+<pre><code>cp /etc/sysctl.conf /etc/sysctl.conf.bak
+vi /etc/sysctl.conf
+</code></pre>
+<p>将<code>net.ipv4.ip_forward = 0</code>改成<code>net.ipv4.ip_forward = 1</code><br>保存文件后执行</p>
+<pre><code>/sbin/sysctl -p
+</code></pre>
+<p>第四步改iptables配置</p>
+<pre><code>iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j MASQUERADE
+/etc/init.d/iptables save
+/sbin/service iptables restart
+</code></pre>
+<p>最后一步启动pptp和iptables</p>
+<pre><code>service pptpd restart
+chkconfig pptpd on //开机启动pptp vpn服务
+chkconfig iptables on //开机启动iptables&lt;/pre&gt;
+</code></pre>
+<p>搞定，收工。愉快的上网吧。</p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/css/font.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+  $(".fancybox").fancybox();
+});
+</script></body></html>
