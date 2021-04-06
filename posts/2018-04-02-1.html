@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;p&gt;微信小程序本身就是基于 HTML、CSS，所以&lt;code&gt;&amp;lt;view&amp;gt;&amp;lt;image&amp;gt;&amp;lt;/view&amp;gt;&lt;/code&gt;这种情况下，也会出现网页的情况，图片下方与 view 下边框之间有空白。&lt;/p&gt;
+&lt;p&gt;解决办法和在 HTML、CSS 中一样。&lt;/p&gt;
+&lt;p&gt;法一:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;image &amp;#123; vertical-align:middle; &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;法二:&lt;/p&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title>微信小程序设计也要注意图片下面的空白区 | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-tags"><a class="post-tag-none-link" href="/tags/wechat/" rel="tag">微信</a></div><div class="post-time">2018-04-01</div></div></div><div class="container post-header"><h1>微信小程序设计也要注意图片下面的空白区</h1></div><div class="container post-content"><p>微信小程序本身就是基于 HTML、CSS，所以<code>&lt;view&gt;&lt;image&gt;&lt;/view&gt;</code>这种情况下，也会出现网页的情况，图片下方与 view 下边框之间有空白。</p>
+<p>解决办法和在 HTML、CSS 中一样。</p>
+<p>法一:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">image &#123; vertical-align:middle; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>法二:</p>
+<p>为 view 设置 height。</p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/font-awesome-4.7.0/css/font-awesome.min.css"></body></html>

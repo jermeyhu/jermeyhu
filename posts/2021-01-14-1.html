@@ -1,0 +1,99 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;h2 id=&quot;为什么会出现跨域问题&quot;&gt;&lt;a href=&quot;#为什么会出现跨域问题&quot; class=&quot;headerlink&quot; title=&quot;为什么会出现跨域问题&quot;&gt;&lt;/a&gt;为什么会出现跨域问题&lt;/h2&gt;&lt;p&gt;出于浏览器的同源策略限制。同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。同源策略会阻止一个域的javascript脚本和另外一个域的内容进行交互。所谓同源（即指在同一个域）就是两个页面具有相同的协议（protocol），主机（host）和端口号（port）。&lt;/p&gt;
+&lt;h2 id=&quot;什么是跨域&quot;&gt;&lt;a href=&quot;#什么是跨域&quot; class=&quot;headerlink&quot; title=&quot;什么是跨域&quot;&gt;&lt;/a&gt;什么是跨域&lt;/h2&gt;&lt;p&gt;当一个请求url的协议、域名、端口三者之间任意一个与当前页面url不同即为跨域。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;当前页面url&lt;/th&gt;
+&lt;th&gt;被请求页面url&lt;/th&gt;
+&lt;th&gt;是否跨域&lt;/th&gt;
+&lt;th&gt;原因&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://www.test.com/&quot;&gt;http://www.test.com/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;http://www.test.com/index.html&quot;&gt;http://www.test.com/index.html&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;同源（协议、域名、端口号相同）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://www.test.com/&quot;&gt;http://www.test.com/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;https://www.test.com/index.html&quot;&gt;https://www.test.com/index.html&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;跨域&lt;/td&gt;
+&lt;td&gt;协议不同（http/https）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://www.test.com/&quot;&gt;http://www.test.com/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;http://www.baidu.com/&quot;&gt;http://www.baidu.com/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;跨域&lt;/td&gt;
+&lt;td&gt;主域名不同（test/baidu）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://www.test.com/&quot;&gt;http://www.test.com/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;http://blog.test.com/&quot;&gt;http://blog.test.com/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;跨域&lt;/td&gt;
+&lt;td&gt;子域名不同（www/blog）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://www.test.com:8080/&quot;&gt;http://www.test.com:8080/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;http://www.test.com:7001/&quot;&gt;http://www.test.com:7001/&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;跨域&lt;/td&gt;
+&lt;td&gt;端口号不同（8080/7001）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title>CORS解决跨域问题（Nginx跨域配置） | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-tags"><a class="post-tag-none-link" href="/tags/nginx/" rel="tag">nginx</a></div><div class="post-time">2021-01-13</div></div></div><div class="container post-header"><h1>CORS解决跨域问题（Nginx跨域配置）</h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%87%BA%E7%8E%B0%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">为什么会出现跨域问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%B7%A8%E5%9F%9F"><span class="toc-number">2.</span> <span class="toc-text">什么是跨域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E5%90%8C%E6%BA%90%E9%99%90%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">非同源限制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E6%BA%90%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB-CORS"><span class="toc-number">4.</span> <span class="toc-text">跨源资源共享 (CORS)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx%E8%B7%A8%E5%9F%9F%E9%85%8D%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">Nginx跨域配置</span></a></li></ol></details></div><div class="container post-content"><h2 id="为什么会出现跨域问题"><a href="#为什么会出现跨域问题" class="headerlink" title="为什么会出现跨域问题"></a>为什么会出现跨域问题</h2><p>出于浏览器的同源策略限制。同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。同源策略会阻止一个域的javascript脚本和另外一个域的内容进行交互。所谓同源（即指在同一个域）就是两个页面具有相同的协议（protocol），主机（host）和端口号（port）。</p>
+<h2 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h2><p>当一个请求url的协议、域名、端口三者之间任意一个与当前页面url不同即为跨域。</p>
+<table>
+<thead>
+<tr>
+<th>当前页面url</th>
+<th>被请求页面url</th>
+<th>是否跨域</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="http://www.test.com/">http://www.test.com/</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.test.com/index.html">http://www.test.com/index.html</a></td>
+<td>否</td>
+<td>同源（协议、域名、端口号相同）</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.test.com/">http://www.test.com/</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.test.com/index.html">https://www.test.com/index.html</a></td>
+<td>跨域</td>
+<td>协议不同（http/https）</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.test.com/">http://www.test.com/</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com/</a></td>
+<td>跨域</td>
+<td>主域名不同（test/baidu）</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.test.com/">http://www.test.com/</a></td>
+<td><a target="_blank" rel="noopener" href="http://blog.test.com/">http://blog.test.com/</a></td>
+<td>跨域</td>
+<td>子域名不同（www/blog）</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.test.com:8080/">http://www.test.com:8080/</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.test.com:7001/">http://www.test.com:7001/</a></td>
+<td>跨域</td>
+<td>端口号不同（8080/7001）</td>
+</tr>
+</tbody></table>
+<h2 id="非同源限制"><a href="#非同源限制" class="headerlink" title="非同源限制"></a>非同源限制</h2><p>【1】无法读取非同源网页的 Cookie、LocalStorage 和 IndexedDB</p>
+<p>【2】无法接触非同源网页的 DOM</p>
+<p>【3】无法向非同源地址发送 AJAX 请求</p>
+<h2 id="跨源资源共享-CORS"><a href="#跨源资源共享-CORS" class="headerlink" title="跨源资源共享 (CORS)"></a>跨源资源共享 (CORS)</h2><p>CORS 是跨域资源共享（Cross-Origin Resource Sharing）的缩写。它是 W3C 标准，属于跨源 AJAX 请求的根本解决方法。</p>
+<p>跨源资源共享(CORS)是一种基于HTTP 头的机制，该机制通过允许服务器标示除了它自己以外的其它origin（域，协议和端口），这样浏览器可以访问加载这些资源。跨源资源共享还通过一种机制来检查服务器是否会允许要发送的真实请求，该机制通过浏览器发起一个到服务器托管的跨源资源的”预检”请求。在预检中，浏览器发送的头中标示有HTTP方法和真实请求中会用到的头。</p>
+<p>CROS示意图：</p>
+<p><img src="/image/2021-01-14-1-1.png" alt="cros示意图"></p>
+<p>如上图所示：CROS请求时首先使用<code>OPTIONS</code>方法发起一个预检请求到服务器，以获知服务器是否允许该实际请求。</p>
+<h2 id="Nginx跨域配置"><a href="#Nginx跨域配置" class="headerlink" title="Nginx跨域配置"></a>Nginx跨域配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen  80 default_server;</span><br><span class="line">    server_name _;  </span><br><span class="line">              </span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line"></span><br><span class="line">        # 添加跨域header</span><br><span class="line">        add_header Access-Control-Allow-Origin $http_origin; # 允许跨域的域名</span><br><span class="line">        add_header Access-Control-Allow-Methods $http_access_control_request_method; # 允许跨域的方法</span><br><span class="line">        add_header Access-Control-Allow-Credentials true; # 可以使用凭据 包括 cookie、authorization headers 、 TLS 证书</span><br><span class="line">        add_header Access-Control-Allow-Headers $http_access_control_request_headers; # 允许跨域携带的header</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        # 响应跨域预检</span><br><span class="line">        if ($request_method &#x3D; &#39;OPTIONS&#39;) &#123;</span><br><span class="line"></span><br><span class="line">            # 设置跨域预检缓存</span><br><span class="line">            add_header Access-Control-Max-Age 1728000;</span><br><span class="line">            return 204;</span><br><span class="line">        &#125;         </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>千万不能同时设置Credentials=true且Origin=<em>，浏览器会报错：<br>has been blocked by CORS policy: The value of the ‘Access-Control-Allow-Origin’ header in the response must not be the wildcard ‘</em>‘ when the request’s credentials mode is ‘include’. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute</p>
+</blockquote>
+<p>(完)</p>
+<p>文章参考:<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35720307/article/details/89680726">懒的去其</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38128179/article/details/84956552">Demi</a>、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS">跨源资源共享（CORS）</a></p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/font-awesome-4.7.0/css/font-awesome.min.css"></body></html>

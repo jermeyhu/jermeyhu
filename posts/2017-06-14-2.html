@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;pre&gt;&lt;code&gt;Dictionary&amp;lt;string,DateTime&amp;gt; dictionary = new Dictionary&amp;lt;string,DateTime&amp;gt;(); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;我现在有两个线程，A线程对dictionary 执行循环添加操作，B线程对dictionary 执行删除错在。&lt;/p&gt;
+&lt;p&gt;我怎么在B线程开始删除时锁定dictionary ，使A线程不能往dictionary 里面添加数据？&lt;/p&gt;
+&lt;p&gt;多线程对共同资源的访问，往往会造成数据的混乱和不可预料的结果，因此一般需要加锁访问进行互斥访问。&lt;/p&gt;
+&lt;p&gt;所谓“互斥访问”是指，一段代码或者公共变量，在一个时刻只允许一个线程去访问，其他的线程需要等待，直到改线程处理完毕并通知下一个等待的线程去处理。&lt;/p&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title>C#多线程怎么锁定全局变量 | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-tags"><a class="post-tag-none-link" href="/tags/csharp/" rel="tag">C#</a></div><div class="post-time">2017-06-13</div></div></div><div class="container post-header"><h1>C#多线程怎么锁定全局变量</h1></div><div class="container post-content"><pre><code>Dictionary&lt;string,DateTime&gt; dictionary = new Dictionary&lt;string,DateTime&gt;(); 
+</code></pre>
+<p>我现在有两个线程，A线程对dictionary 执行循环添加操作，B线程对dictionary 执行删除错在。</p>
+<p>我怎么在B线程开始删除时锁定dictionary ，使A线程不能往dictionary 里面添加数据？</p>
+<p>多线程对共同资源的访问，往往会造成数据的混乱和不可预料的结果，因此一般需要加锁访问进行互斥访问。</p>
+<p>所谓“互斥访问”是指，一段代码或者公共变量，在一个时刻只允许一个线程去访问，其他的线程需要等待，直到改线程处理完毕并通知下一个等待的线程去处理。</p>
+<p>1、可以用“Lock”来提供代码的互斥访问：</p>
+<p>定义一个对象作为锁</p>
+<pre><code>public static object locker = new object();//添加一个对象作为锁
+</code></pre>
+<p>在有修改的时候加上lock</p>
+<p>1.</p>
+<pre><code> lock (locker)//锁
+    &#123;
+        /*添加过程*/
+        dictionary.Add(&quot;....&quot;, DateTime.Now);
+    &#125;
+</code></pre>
+<p>2.</p>
+<pre><code>lock (locker)//锁
+    &#123;
+        /*删除过程*/
+        dictionary.Remove(&quot;....&quot;);
+    &#125;
+</code></pre>
+<p>文章转载自:<a target="_blank" rel="noopener" href="http://blog.csdn.net/ybhjx/article/details/53700668">C#多线程怎么锁定全局变量</a></p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/font-awesome-4.7.0/css/font-awesome.min.css"></body></html>

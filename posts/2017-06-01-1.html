@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;p&gt;新安装的Ubuntu在使用sudo apt-get update更新源码的时候出现如下错误：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    GPG 错误：http://ppa.launchpad.net precise Release: 由于没有公钥，无法验证下列签名： NO_PUBKEY 3EE66BD3F599ACE3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;解决方法很简单，下载导入公钥就行，下载导入key的命令如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6AF0E1940624A220 #此处6AF0E1940624A220需要是错误提示的key
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;重新执行：&lt;code&gt;sudo apt-get update&lt;/code&gt;可以顺利进行更新了。&lt;/p&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title>更新linux时候提示无法“由于没有公钥，无法验证下列签名 ***”的解决方案 | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-tags"><a class="post-tag-none-link" href="/tags/linux/" rel="tag">linux</a></div><div class="post-time">2017-05-31</div></div></div><div class="container post-header"><h1>更新linux时候提示无法“由于没有公钥，无法验证下列签名 ***”的解决方案</h1></div><div class="container post-content"><p>新安装的Ubuntu在使用sudo apt-get update更新源码的时候出现如下错误：</p>
+<pre><code>    GPG 错误：http://ppa.launchpad.net precise Release: 由于没有公钥，无法验证下列签名： NO_PUBKEY 3EE66BD3F599ACE3
+</code></pre>
+<p>解决方法很简单，下载导入公钥就行，下载导入key的命令如下：</p>
+<pre><code>    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6AF0E1940624A220 #此处6AF0E1940624A220需要是错误提示的key
+</code></pre>
+<p>重新执行：<code>sudo apt-get update</code>可以顺利进行更新了。</p>
+<p>文章内容参考自：<a target="_blank" rel="noopener" href="http://blog.csdn.net/loovejava/article/details/21837935">sanbo110</a></p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/font-awesome-4.7.0/css/font-awesome.min.css"></body></html>

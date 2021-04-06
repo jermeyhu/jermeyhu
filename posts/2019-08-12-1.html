@@ -1,0 +1,48 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;h2 id=&quot;编辑配置文件&quot;&gt;&lt;a href=&quot;#编辑配置文件&quot; class=&quot;headerlink&quot; title=&quot;编辑配置文件&quot;&gt;&lt;/a&gt;编辑配置文件&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;http代理&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo vi &amp;#x2F;etc&amp;#x2F;systemd&amp;#x2F;system&amp;#x2F;docker.service.d&amp;#x2F;http-proxy.conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[Service]    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Environment&amp;#x3D;&amp;quot;HTTP_PROXY&amp;#x3D;http:&amp;#x2F;&amp;#x2F;proxy.example.com:80&amp;#x2F;&amp;quot; &amp;quot;NO_PROXY&amp;#x3D;localhost,127.0.0.1,docker-registry.example.com,.corp&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;https代理&lt;/li&gt;
+&lt;/ol&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title>docker - 设置HTTP/HTTPS 代理​ | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-tags"><a class="post-tag-none-link" href="/tags/docker/" rel="tag">docker</a></div><div class="post-time">2019-08-11</div></div></div><div class="container post-header"><h1>docker - 设置HTTP/HTTPS 代理​</h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">编辑配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E4%BF%AE%E6%94%B9%E5%90%8E%E4%BF%9D%E5%AD%98-%E5%88%B7%E6%96%B0"><span class="toc-number">2.</span> <span class="toc-text">完成修改后保存&#x2F;刷新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E5%B7%B2%E5%8A%A0%E8%BD%BD%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">验证是否已加载配置</span></a></li></ol></details></div><div class="container post-content"><h2 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h2><ol>
+<li>http代理</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;docker.service.d&#x2F;http-proxy.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Service]    </span><br><span class="line">Environment&#x3D;&quot;HTTP_PROXY&#x3D;http:&#x2F;&#x2F;proxy.example.com:80&#x2F;&quot; &quot;NO_PROXY&#x3D;localhost,127.0.0.1,docker-registry.example.com,.corp&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>https代理</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;docker.service.d&#x2F;https-proxy.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Service]    </span><br><span class="line">Environment&#x3D;&quot;HTTPS_PROXY&#x3D;https:&#x2F;&#x2F;proxy.example.com:443&#x2F;&quot; &quot;NO_PROXY&#x3D;localhost,127.0.0.1,docker-registry.example.com,.corp&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>解析</li>
+</ol>
+<p>解析：</p>
+<p>主要是两点内容：</p>
+<p>i. HTTPS_PROXY 将它的值对应到您所希望设置的代理服务地址和端口（例如: HTTPS_PROXY=<a href="https://proxy.example.com:443），我这里为了保护隐私，就用xxx代替">https://proxy.example.com:443），我这里为了保护隐私，就用xxx代替</a>.</p>
+<p>ii. NO_PROXY 意味着某些情况下我们不需要使用HTTPS代理来访问，一般这就配置私有仓库的路径（例如：NO_PROXY=localhost,127.0.0.1,mydocker-registry.com:5000）</p>
+<h2 id="完成修改后保存-刷新"><a href="#完成修改后保存-刷新" class="headerlink" title="完成修改后保存/刷新"></a>完成修改后保存/刷新</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">##Flush changes:</span><br><span class="line">#systemctl daemon-reload</span><br><span class="line"></span><br><span class="line">##Restart Docker:</span><br><span class="line">#systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h2 id="验证是否已加载配置"><a href="#验证是否已加载配置" class="headerlink" title="验证是否已加载配置"></a>验证是否已加载配置</h2><ol>
+<li>http代理</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl show --property&#x3D;Environment docker</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Environment&#x3D;HTTP_PROXY&#x3D;http:&#x2F;&#x2F;proxy.example.com:80&#x2F;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>https代理</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl show --property&#x3D;Environment docker</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Environment&#x3D;HTTPS_PROXY&#x3D;https:&#x2F;&#x2F;proxy.example.com:443&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>文章抄自：<a target="_blank" rel="noopener" href="https://docs.docker.com/config/daemon/systemd/">使用systemd控制Docker</a>、<a target="_blank" rel="noopener" href="https://www.cnblogs.com/atuotuo/p/7298673.html">docker - 设置HTTP/HTTPS 代理</a></p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/font-awesome-4.7.0/css/font-awesome.min.css"></body></html>

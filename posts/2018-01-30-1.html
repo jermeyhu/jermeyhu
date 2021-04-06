@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;p&gt;函数的作用：&lt;/p&gt;
+&lt;p&gt;计算指定表达式的值。也就是说它要执行的Python代码只能是单个运算表达式（注意eval不支持任意形式的赋值操作），而不能是复杂的代码逻辑，这一点和lambda表达式比较相似。&lt;/p&gt;
+&lt;p&gt;函数定义：&lt;/p&gt;
+&lt;p&gt;eval(expression, globals=None, locals=None)&lt;/p&gt;
+&lt;p&gt;参数说明：&lt;/p&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title>eval与exec语句 | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-tags"><a class="post-tag-none-link" href="/tags/python/" rel="tag">python</a></div><div class="post-time">2018-01-29</div></div></div><div class="container post-header"><h1>eval与exec语句</h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFExec%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.</span> <span class="toc-text">什么是Exec语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Exec%E4%B8%8EEval%E8%AF%AD%E5%8F%A5%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">Exec与Eval语句的主要区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Exec%E4%B8%8EEval%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%AE%9E%E4%BE%8B%E8%AE%B2%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">Exec与Eval语句的实例讲解</span></a></li></ol></details></div><div class="container post-content"><p>函数的作用：</p>
+<p>计算指定表达式的值。也就是说它要执行的Python代码只能是单个运算表达式（注意eval不支持任意形式的赋值操作），而不能是复杂的代码逻辑，这一点和lambda表达式比较相似。</p>
+<p>函数定义：</p>
+<p>eval(expression, globals=None, locals=None)</p>
+<p>参数说明：</p>
+<p>expression：必选参数，可以是字符串，也可以是一个任意的code对象实例（可以通过compile函数创建）。如果它是一个字符串，它会被当作一个（使用globals和locals参数作为全局和本地命名空间的）Python表达式进行分析和解释。</p>
+<p>globals：可选参数，表示全局命名空间（存放全局变量），如果被提供，则必须是一个字典对象。</p>
+<p>locals：可选参数，表示当前局部命名空间（存放局部变量），如果被提供，可以是任何映射对象。如果该参数被忽略，那么它将会取与globals相同的值。</p>
+<p>如果globals与locals都被忽略，那么它们将取eval()函数被调用环境下的全局命名空间和局部命名空间。</p>
+<p>返回值：</p>
+<p>如果expression是一个code对象，且创建该code对象时，compile函数的mode参数是’exec’，那么eval()函数的返回值是None；</p>
+<p>否则，如果expression是一个输出语句，如print()，则eval()返回结果为None；</p>
+<p>否则，expression表达式的结果就是eval()函数的返回值；</p>
+<h1 id="什么是Exec语句"><a href="#什么是Exec语句" class="headerlink" title="什么是Exec语句"></a>什么是Exec语句</h1><p>函数的作用：</p>
+<p>动态执行Python代码。也就是说exec可以执行复杂的Python代码，而不像eval函数那么样只能计算一个表达式的值。</p>
+<p>函数定义：</p>
+<p>exec(object[, globals[, locals]])</p>
+<p>参数说明：</p>
+<p>object：必选参数，表示需要被指定的Python代码。它必须是字符串或code对象。如果object是一个字符串，该字符串会先被解析为一组Python语句，然后在执行（除非发生语法错误）。如果object是一个code对象，那么它只是被简单的执行。</p>
+<p>globals：可选参数，同eval函数</p>
+<p>locals：可选参数，同eval函数</p>
+<p>返回值：</p>
+<p>exec函数的返回值永远为None.</p>
+<p>需要说明的是在Python 2中exec不是函数，而是一个内置语句(statement)，但是Python 2中有一个execfile()函数。可以理解为Python 3把exec这个statement和execfile()函数的功能够整合到一个新的exec()函数中去了：</p>
+<h1 id="Exec与Eval语句的主要区别"><a href="#Exec与Eval语句的主要区别" class="headerlink" title="Exec与Eval语句的主要区别"></a>Exec与Eval语句的主要区别</h1><p>eval()函数只能计算单个表达式的值，而exec()函数可以动态运行代码段。</p>
+<p>eval()函数可以有返回值，而exec()函数返回值永远为None。</p>
+<h1 id="Exec与Eval语句的实例讲解"><a href="#Exec与Eval语句的实例讲解" class="headerlink" title="Exec与Eval语句的实例讲解"></a>Exec与Eval语句的实例讲解</h1><pre><code>&gt;&gt;&gt; exec(&quot;def fnc1(x,y):\n    print(x+y)\nb=fnc1(2,3)\n&quot;)
+&gt;&gt;&gt; print(eval(&quot;3+4&quot;))
+</code></pre>
+<p>文章抄自:<a target="_blank" rel="noopener" href="https://cnhv.co/1j5c0">https://cnhv.co/1j5c0</a></p>
+<p>(完)</p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/font-awesome-4.7.0/css/font-awesome.min.css"></body></html>

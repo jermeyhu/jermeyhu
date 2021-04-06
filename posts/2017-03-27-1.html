@@ -1,0 +1,119 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;几乎所有的大型应用都会有自己的用于跟踪调试的API。因为一旦程序被部署以后，就不太可能再利用专门的调试工具了。然而一个管理员可能需要有一套强大的日志系统来诊断和修复配置上的问题。&lt;/p&gt;
+&lt;p&gt;经验表明，日志记录往往是软件开发周期中的重要组成部分。它具有以下几个优点：它可以提供应用程序运行时的精确环境，可供开发人员尽快找到应用程序中的Bug；一旦在程序中加入了Log 输出代码，程序运行过程中就能生成并输出日志信息而无需人工干预。另外，日志信息可以输出到不同的地方（控制台，文件等）以备以后研究之用。&lt;/p&gt;
+&lt;p&gt;Log4net就是为这样一个目的设计的，用于.NET开发环境的日志记录包。&lt;/p&gt;
+&lt;p&gt;官方网站：&lt;a href=&quot;http://logging.apache.org/log4net/&quot;&gt;http://logging.apache.org/log4net/&lt;/a&gt;&lt;/p&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title>Log4net入门使用 | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-tags"><a class="post-tag-none-link" href="/tags/csharp/" rel="tag">C#</a></div><div class="post-time">2017-03-26</div></div></div><div class="container post-header"><h1>Log4net入门使用</h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Log4net%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">一、Log4net的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Log4net%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">二、Log4net的配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%B0%83%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">三、调用</span></a></li></ol></details></div><div class="container post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>几乎所有的大型应用都会有自己的用于跟踪调试的API。因为一旦程序被部署以后，就不太可能再利用专门的调试工具了。然而一个管理员可能需要有一套强大的日志系统来诊断和修复配置上的问题。</p>
+<p>经验表明，日志记录往往是软件开发周期中的重要组成部分。它具有以下几个优点：它可以提供应用程序运行时的精确环境，可供开发人员尽快找到应用程序中的Bug；一旦在程序中加入了Log 输出代码，程序运行过程中就能生成并输出日志信息而无需人工干预。另外，日志信息可以输出到不同的地方（控制台，文件等）以备以后研究之用。</p>
+<p>Log4net就是为这样一个目的设计的，用于.NET开发环境的日志记录包。</p>
+<p>官方网站：<a target="_blank" rel="noopener" href="http://logging.apache.org/log4net/">http://logging.apache.org/log4net/</a></p>
+<h2 id="一、Log4net的安装"><a href="#一、Log4net的安装" class="headerlink" title="一、Log4net的安装"></a>一、Log4net的安装</h2><p>直接使用Nuget安装。</p>
+<h2 id="二、Log4net的配置"><a href="#二、Log4net的配置" class="headerlink" title="二、Log4net的配置"></a>二、Log4net的配置</h2><p>1、新建配置文件<code>log4net.config</code></p>
+<p>2、将log4net.config的属性“复制到输出目录”设置为“始终复制”</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+    &lt;configSections&gt;
+        &lt;section name=&quot;log4net&quot; type=&quot;log4net.Config.Log4NetConfigurationSectionHandler, log4net&quot;/&gt;
+    &lt;/configSections&gt;
+
+    &lt;log4net&gt;
+        &lt;!--日志保存到文件配置--&gt;
+        &lt;appender name=&quot;RollingLogFileAppender&quot; type=&quot;log4net.Appender.RollingFileAppender&quot; LEVEL=&quot;ERROR&quot;&gt;
+            &lt;!--日志路径--&gt;
+            &lt;param name= &quot;File&quot; value= &quot;D:\App_Log\&quot;/&gt;
+            &lt;!--是否是向文件中追加日志--&gt;
+            &lt;param name= &quot;AppendToFile&quot; value= &quot;true&quot;/&gt;
+            &lt;!--log保留天数--&gt;
+            &lt;param name= &quot;MaxSizeRollBackups&quot; value= &quot;100&quot;/&gt;
+            &lt;!--log文件大小限制--&gt;
+            &lt;maximumFileSize value=&quot;1MB&quot; /&gt;
+            &lt;!--日志文件名是否是固定不变的--&gt;
+            &lt;param name= &quot;StaticLogFileName&quot; value= &quot;false&quot;/&gt;
+            &lt;!--日志文件名格式为:2008-08-31-13.log--&gt;
+            &lt;param name= &quot;DatePattern&quot; value= &quot;yyyy-MM-dd-HH&amp;quot;.log&amp;quot;&quot;/&gt;
+            &lt;!--日志滚动方式综合--&gt;
+            &lt;param name=&quot;RollingStyle&quot; value=&quot;Composite&quot; /&gt;
+            &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+                &lt;param name=&quot;ConversionPattern&quot; value=&quot;%d [%t] %-5p %c - %m%n%n &quot; /&gt;
+            &lt;/layout&gt;
+        &lt;/appender&gt;
+
+        &lt;!--日志保存到数据库配置--&gt;
+        &lt;appender name=&quot;AdoNetAppender&quot; type=&quot;log4net.Appender.AdoNetAppender&quot;&gt;
+            &lt;bufferSize value=&quot;100&quot; /&gt;
+            &lt;connectionType value=&quot;System.Data.SqlClient.SqlConnection, System.Data, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&quot; /&gt;
+            &lt;connectionString value=&quot;data source=10.96.3.7;initial catalog=Isoft;integrated security=false;persist security info=True;User ID=sa;Password=SMES@CQ&quot; /&gt;
+            &lt;commandText value=&quot;INSERT INTO SysLog ([Date],[Thread],[Level],[Logger],[Message],[Exception]) VALUES (@log_date, @thread, @log_level, @logger, @message, @exception)&quot; /&gt;
+            &lt;parameter&gt;
+                &lt;parameterName value=&quot;@log_date&quot; /&gt;
+                &lt;dbType value=&quot;DateTime&quot; /&gt;
+                &lt;layout type=&quot;log4net.Layout.RawTimeStampLayout&quot; /&gt;
+            &lt;/parameter&gt;
+            &lt;parameter&gt;
+                &lt;parameterName value=&quot;@thread&quot; /&gt;
+                &lt;dbType value=&quot;String&quot; /&gt;
+                &lt;size value=&quot;255&quot; /&gt;
+                &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+                    &lt;conversionPattern value=&quot;%thread&quot; /&gt;
+                &lt;/layout&gt;
+            &lt;/parameter&gt;
+            &lt;parameter&gt;
+                &lt;parameterName value=&quot;@log_level&quot; /&gt;
+                &lt;dbType value=&quot;String&quot; /&gt;
+                &lt;size value=&quot;50&quot; /&gt;
+                &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+                    &lt;conversionPattern value=&quot;%level&quot; /&gt;
+                &lt;/layout&gt;
+            &lt;/parameter&gt;
+            &lt;parameter&gt;
+                &lt;parameterName value=&quot;@logger&quot; /&gt;
+                &lt;dbType value=&quot;String&quot; /&gt;
+                &lt;size value=&quot;255&quot; /&gt;
+                &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+                    &lt;conversionPattern value=&quot;%logger&quot; /&gt;
+                &lt;/layout&gt;
+            &lt;/parameter&gt;
+            &lt;parameter&gt;
+                &lt;parameterName value=&quot;@message&quot; /&gt;
+                &lt;dbType value=&quot;String&quot; /&gt;
+                &lt;size value=&quot;4000&quot; /&gt;
+                &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+                    &lt;conversionPattern value=&quot;%message&quot; /&gt;
+                &lt;/layout&gt;
+            &lt;/parameter&gt;
+            &lt;parameter&gt;
+                &lt;parameterName value=&quot;@exception&quot; /&gt;
+                &lt;dbType value=&quot;String&quot; /&gt;
+                &lt;size value=&quot;2000&quot; /&gt;
+                &lt;layout type=&quot;log4net.Layout.ExceptionLayout&quot; /&gt;
+            &lt;/parameter&gt;
+        &lt;/appender&gt;
+
+        &lt;root&gt;
+            &lt;!--(高) OFF &gt; FATAL &gt; ERROR &gt; WARN &gt; INFO &gt; DEBUG &gt; ALL (低) --&gt;
+            &lt;level value=&quot;all&quot; /&gt;
+            &lt;appender-ref ref=&quot;RollingLogFileAppender&quot;/&gt;
+            &lt;appender-ref ref=&quot;AdoNetAppender&quot;/&gt;
+        &lt;/root&gt;
+    &lt;/log4net&gt;
+&lt;/configuration&gt;
+</code></pre>
+<h2 id="三、调用"><a href="#三、调用" class="headerlink" title="三、调用"></a>三、调用</h2><pre><code>using log4net;
+using log4net.Config;
+[assembly: XmlConfigurator(ConfigFile = &quot;log4net.config&quot;, ConfigFileExtension = &quot;config&quot;, Watch = true)]
+//在namespace 前引用。也可以在AssemblyInfo.cs里引用
+namespace MyLog4net
+&#123;
+    public class MyLog4net
+    &#123;
+        public void Log4testDomo()
+        &#123;
+            ILog Ilog = LogManager.GetLogger(&quot;Ilog&quot;);
+            Ilog.Error(&quot;异常&quot;);
+            Ilog.Info(&quot;描述&quot;);
+            Ilog.Debug(&quot;调试&quot;);
+            Ilog.Fatal(&quot;错误&quot;);
+            Ilog.Warn(&quot;警告&quot;);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+</div></div></article><link rel="stylesheet" type="text/css" href="/font-awesome-4.7.0/css/font-awesome.min.css"></body></html>

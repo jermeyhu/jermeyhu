@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;前段时间做了一个项目，涉及到一个要全屏模式去访问网页的需求，因为 Google Chrome 的效率不错，而且专门为 Chrome 做网页也省事许多，所以就在网上找如何让 Chrome 在允许的时候直接全屏模式。还以为会是 fullscreen 之类的参数，没想到参数名还挺偏的。&lt;/p&gt;
+&lt;p&gt;正巧最近和同事说到这个时，同事告诉我还有一个 APP 模式，也可以用来满足一些特殊需求，今晚都尝试了一下，两者之间有各自的用途，说说我的想法吧。&lt;/p&gt;
+&lt;h2 id=&quot;全屏模式：kiosk&quot;&gt;&lt;a href=&quot;#全屏模式：kiosk&quot; class=&quot;headerlink&quot; title=&quot;全屏模式：kiosk&quot;&gt;&lt;/a&gt;全屏模式：kiosk&lt;/h2&gt;&lt;p&gt;这个单词很很特殊吧？没错，它其实是从「报刊亭」引申出的一直「自助服务亭」的意思，是否我们可以理解为，kiosk 模式就是去掉用户可操作的界面，仅仅给用户一个和服务有关的界面呢？直接猜想。&lt;/p&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title>chrome的APP模式与全屏模式 --app --kiosk | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-tags"><a class="post-tag-none-link" href="/tags/browser/" rel="tag">浏览器</a></div><div class="post-time">2018-11-19</div></div></div><div class="container post-header"><h1>chrome的APP模式与全屏模式 --app --kiosk</h1></div><div class="container post-toc"><details class="toc"><summary class="toc-accordion">目录</summary><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%8F%E6%A8%A1%E5%BC%8F%EF%BC%9Akiosk"><span class="toc-number">2.</span> <span class="toc-text">全屏模式：kiosk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E6%A8%A1%E5%BC%8F%EF%BC%9AAPP"><span class="toc-number">3.</span> <span class="toc-text">应用模式：APP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></details></div><div class="container post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前段时间做了一个项目，涉及到一个要全屏模式去访问网页的需求，因为 Google Chrome 的效率不错，而且专门为 Chrome 做网页也省事许多，所以就在网上找如何让 Chrome 在允许的时候直接全屏模式。还以为会是 fullscreen 之类的参数，没想到参数名还挺偏的。</p>
+<p>正巧最近和同事说到这个时，同事告诉我还有一个 APP 模式，也可以用来满足一些特殊需求，今晚都尝试了一下，两者之间有各自的用途，说说我的想法吧。</p>
+<h2 id="全屏模式：kiosk"><a href="#全屏模式：kiosk" class="headerlink" title="全屏模式：kiosk"></a>全屏模式：kiosk</h2><p>这个单词很很特殊吧？没错，它其实是从「报刊亭」引申出的一直「自助服务亭」的意思，是否我们可以理解为，kiosk 模式就是去掉用户可操作的界面，仅仅给用户一个和服务有关的界面呢？直接猜想。</p>
+<p>默认全屏打开一个网页呢，只需要在快捷方式中加上 –kiosk [url] 就可以了，如下图：</p>
+<p><img src="/image/2018-11-20-1-1.png" alt="全屏模式：kiosk"></p>
+<p><em>关于全屏模式，有几点需要注意：</em></p>
+<ol>
+<li>全屏模式下，广告插件（例如 adblock）是有作用的，所以目标页面的一些样式名称、url 地址，都一样要注意避免 ad 字样； </li>
+<li>全屏模式下，按 F11 是不会退出全屏的，鼠标移动到屏幕上方也不会提示退出全屏； </li>
+<li>全屏模式下，是没有关闭按钮的，除非用户懂得 ctrl+w 可以关闭，否则自己在网页上加入退出菜单； </li>
+<li>全屏模式下，是有多标签的，当你在页面中使用了 target=”_blank” 打开一个新标签页之后，用户虽然看不出来，但是，关闭了一个，会显示出原来的页面，所以应该尽量避免新窗口打开； </li>
+<li>如果当前运行着其它的 Chrome 窗口，那么全屏化打开是无效的，会直接在现有的 Chrome 以新标签的方式打开； </li>
+<li>全屏模式下，按 ctrl+shift+b 快捷键是无法调出书签栏的；</li>
+</ol>
+<p>以上是开发中可能会遇到的一些疑难杂症，当作一份总结。</p>
+<h2 id="应用模式：APP"><a href="#应用模式：APP" class="headerlink" title="应用模式：APP"></a>应用模式：APP</h2><p>APP 模式这个就比较正常了，APP 也是近年来一个很火的概念，动不动就「做个APP」，呵呵。 </p>
+<p>APP 模式的参数相对通俗易懂一些，在快捷方式后面追加 –app=[url] 即可，如下图：</p>
+<p><img src="/image/2018-11-20-1-2.png" alt="应用模式：APP"></p>
+<p><em>关于 APP 模式，有几点需要注意的：</em></p>
+<ol>
+<li>同上，在 APP 模式中，广告插件是有作用的，需要注意样式名和 url 地址中不要包含 ad 字样； </li>
+<li>APP 模式在启动之后，呈现一个竖屏的效果，宽度并不等于用户的屏幕宽度，但是是可调的，也有最大化按钮，并且在下次启动时，会延续上次的宽度；</li>
+<li>APP 模式中同样是没有地址栏、没有工具栏、没有书签栏的，快捷键也无法调出； </li>
+<li>APP 模式下，系统任务栏的图标会变成网页的 favicon 图标，而且窗口标题没有了 Google Chrome 的字样； </li>
+<li>APP 模式下，是没有多标签的，当网页中出现 target=”_blank” 需要在新窗口打开时，会调用或启动默认浏览器来打开目标网址，用户会从 APP 模式中脱离；</li>
+</ol>
+<p>这几条也是在使用时发现的一些问题，或者说是需要注意的地方，希望以后在开发的时候多注意，别走弯路。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一如既往的来几句结尾。 </p>
+<p>这两个特殊模式，都有一定的用途，比如做企业内部网站时，比如做个触摸屏应用时<br>，等等，至于在什么情况下用什么模式，当然要看需求而定，只是在使用的时候需要注意以上的问题。</p>
+<p>文章抄自:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/abel/p/3235839.html">ABEL</a></p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/font-awesome-4.7.0/css/font-awesome.min.css"></body></html>

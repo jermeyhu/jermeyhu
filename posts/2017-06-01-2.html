@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="&lt;p&gt;在ubuntu下 add-apt-repository 命令挺好用。但是debian下默认是不支持的。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Add script&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;用vi新建脚本文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vi add-apt-repository.sh.txt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;写入下面内容：&lt;/p&gt;"><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/noise.css"><title>在debian下添加ppa | 四少爷的blog</title><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><meta name="generator" content="Hexo 5.4.0"></head><body><article class="wrapper"><div class="post-main"><div class="nav"><nav class="container"><a class="sidebar-nav-item active" href="/">首页</a><a class="sidebar-nav-item" href="/archives">归档</a></nav><div class="container post-meta"><div class="post-tags"><a class="post-tag-none-link" href="/tags/debian/" rel="tag">debian</a><a class="post-tag-none-link" href="/tags/linux/" rel="tag">linux</a></div><div class="post-time">2017-05-31</div></div></div><div class="container post-header"><h1>在debian下添加ppa</h1></div><div class="container post-content"><p>在ubuntu下 add-apt-repository 命令挺好用。但是debian下默认是不支持的。</p>
+<ol>
+<li>Add script</li>
+</ol>
+<p>用vi新建脚本文件</p>
+<pre><code>vi add-apt-repository.sh.txt
+</code></pre>
+<p>写入下面内容：</p>
+<pre><code>#!/bin/bash
+if [ $# -eq 1 ]
+NM=`uname -a &amp;&amp; date`
+NAME=`echo $NM | md5sum | cut -f1 -d&quot; &quot;`
+then
+    ppa_name=`echo &quot;$1&quot; | cut -d&quot;:&quot; -f2 -s`
+    if [ -z &quot;$ppa_name&quot; ]
+    then
+        echo &quot;PPA name not found&quot;
+        echo &quot;Utility to add PPA repositories in your debian machine&quot;
+        echo &quot;$0 ppa:user/ppa-name&quot;
+    else
+        echo &quot;$ppa_name&quot;
+        echo &quot;deb http://ppa.launchpad.net/$ppa_name/ubuntu lucid main&quot; &gt;&gt; /etc/apt/sources.list
+        apt-get update &gt;&gt; /dev/null 2&gt; /tmp/$&#123;NAME&#125;_apt_add_key.txt
+        key=`cat /tmp/$&#123;NAME&#125;_apt_add_key.txt | cut -d&quot;:&quot; -f6 | cut -d&quot; &quot; -f3`
+        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $key
+        rm -rf /tmp/$&#123;NAME&#125;_apt_add_key.txt
+    fi
+else
+    echo &quot;Utility to add PPA repositories in your debian machine&quot;
+    echo &quot;$0 ppa:user/ppa-name&quot;
+fi
+</code></pre>
+<ol start="2">
+<li><p>Save this file in /usr/sbin/</p>
+<pre><code> cp add-apt-repository.sh.txt /usr/sbin/add-apt-repository
+</code></pre>
+</li>
+<li><p>Change permissions to execute</p>
+<pre><code> chmod o+x /usr/sbin/add-apt-repository
+</code></pre>
+</li>
+<li><p>Change ownership to root</p>
+<pre><code> chown root:root /usr/sbin/add-apt-repository
+</code></pre>
+</li>
+</ol>
+<p>大功告成，你可以使用add-apt-repository添加ppa源安装更多的软件。</p>
+<p>文章参考自：<a target="_blank" rel="noopener" href="https://blog.anantshri.info/howto-add-ppa-in-debian/">https://blog.anantshri.info/howto-add-ppa-in-debian/</a></p>
+</div></div></article><link rel="stylesheet" type="text/css" href="/font-awesome-4.7.0/css/font-awesome.min.css"></body></html>
