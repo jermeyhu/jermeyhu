@@ -39,7 +39,6 @@
 <p>If-Modified-Since：浏览器再次发送请求时，会通过此Header通知服务器在上次请求时所得到的资源最后修改时间。服务器会将If-Modified-Since与被请求资源的最后修改时间进行比对。若资源的最后修改时间晚于If-Modified-Since，表示资源已被改动，则响最新的资源，返回200状态码；若资源的最后修改时间早于或等于If-Modified-Since，表示浏览器端的资源已经是最新版本，响应304状态码，通知浏览器继续使用缓存中的资源。</p>
 <h2 id="2、ETag-和-If-None-Match"><a href="#2、ETag-和-If-None-Match" class="headerlink" title="2、ETag 和 If-None-Match"></a>2、ETag 和 If-None-Match</h2><p>ETag：服务器分配给资源的唯一标识符，资源被修改后，ETag也会随之发生变化。</p>
 <p>If-None-Match：浏览器再次发送请求时，会通过此Header通知服务器已缓存资源的ETag。服务器会将If-None-Match与被请求资源的最新ETag进行比对。若不相同，表示资源已被改动，则响应最新的资源，返回200状态码；若值相同，则直接响应304状态码，通知浏览器继续使用缓存中的资源。</p>
-<p> </p>
 <h2 id="3、Expires"><a href="#3、Expires" class="headerlink" title="3、Expires"></a>3、Expires</h2><p>服务器可以通过此Header向浏览器传递一个具体的时间（格林威治格式，例如：Thu, 19 Jul 2018 07:43:05 GMT） ，来明确地宣告资源的有效期。在资源过期之前，浏览器不再发送请求，而是直接从缓存中读取数据。只有当资源过期之后，浏览器才会再次向服务器请求该资源。</p>
 <h2 id="4、Cache-Control"><a href="#4、Cache-Control" class="headerlink" title="4、Cache-Control"></a>4、Cache-Control</h2><p>服务器使用此Header来向客户端建议缓存策略，它有一下几个可选值：</p>
 <ul>
