@@ -3,6 +3,7 @@ menu:
   ## If your site is put in a subdirectory, set Home as '/child/'
   首页: /
   归档: archives
+  友链: friends
 
 social:
   email: sex@jermey.cn
