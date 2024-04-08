@@ -1,0 +1,10 @@
+RewriteEngine on
+
+RewriteCond %{http_host} ^940213.xyz$ [NC]
+RewriteRule ^(.*)$ https://www.jermey.cn/$1 [R=301,L]
+
+RewriteCond %{http_host} ^www.940213.xyz$ [NC]
+RewriteRule ^(.*)$ https://www.jermey.cn/$1 [R=301,L]
+
+RewriteCond %{http_host} ^jermey.cn$ [NC]
+RewriteRule ^(.*)$ https://www.jermey.cn/$1 [R=301,L]
