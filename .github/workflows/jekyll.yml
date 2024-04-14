@@ -66,4 +66,4 @@ jobs:
 
       - name: push baidu
         # Outputs to the './_site' directory by default
-        run: head -n 3 _site/urls.txt > _site/urls2.txt && curl -H 'Content-Type:text/plain' --data-binary @_site/urls2.txt "http://data.zz.baidu.com/urls?site=https://www.jermey.cn&token=${{ secrets.BAIDU_TOKEN }}"
+        run: head -n 2 _site/urls.txt > _site/urls2.txt && curl -H 'Content-Type:text/plain' --data-binary @_site/urls2.txt "http://data.zz.baidu.com/urls?site=https://www.jermey.cn&token=${{ secrets.BAIDU_TOKEN }}"
