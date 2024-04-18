@@ -14,8 +14,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: 四少爷的blog
-email: sex@jermey.cn
 description: 一个致力于全面理解客户需求，使用面向谷歌编程思想的全栈码农。
+author: 四少爷
+email: sex@jermey.cn
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.jermey.cn" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:year/:month/:day/:title.html 
