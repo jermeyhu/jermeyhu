@@ -9,3 +9,5 @@ permalink: /friend/
 [博客大全](https://daohang.lusongsong.com)
 
 [dockerhub镜像](https://dockerhub.940213.xyz)
+
+[网盘](https://pan.jermey.cn)
