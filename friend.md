@@ -11,3 +11,7 @@ permalink: /friend/
 [dockerhub镜像](https://dockerhub.940213.xyz)
 
 [网盘](https://pan.jermey.cn)
+
+[piwigo](https://piwigo.jermey.cn)
+
+[Navidrome](https://music.jermey.cn)
